@@ -1,0 +1,50 @@
+@use "sass:math";
+
+@function toRem($size) {
+  @return math.div($size, 16) * 1rem;
+}
+
+//@mixin toRem($size) {
+//  font-size: $size;
+//  font-size: calculateRem($size);
+//}
+/* typography mixins */
+@mixin text-regular {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+@mixin text-regular-bold {
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: var(--font-weight-bold);
+}
+
+@mixin text-small {
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+@mixin abs {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+@mixin for-phone-only {
+  @media (max-width: 599px) { @content; }
+}
+@mixin for-tablet-portrait-up {
+  @media (min-width: 600px) { @content; }
+}
+@mixin for-tablet-landscape-up {
+  @media (min-width: 900px) { @content; }
+}
+@mixin for-desktop-up {
+  @media (min-width: 1200px) { @content; }
+}
+@mixin for-big-desktop-up {
+  @media (min-width: 1800px) { @content; }
+}

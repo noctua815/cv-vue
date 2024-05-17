@@ -1,0 +1,73 @@
+/* color palette from <https://github.com/vuejs/theme> */
+@import 'reset';
+@import 'mixins';
+@import 'typography';
+
+:root {
+  --c-white: #ffffff;
+  --c-black: #181818;
+  --c-linen: #faf7f2;
+
+  --c-blue: #072ac8;
+  --c-yellow: #f8d537;
+  --c-new: #a44200;
+  --c-red: #9b2915;
+  --c-velvet: #7a306c;
+  --c-pink: #8e8dbe;
+  --c-coyote: #8e7a47;
+
+  --font-primary: 'Space Mono', monospace;
+  --font-secondary: 'Spinnaker', sans-serif;
+
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+
+  --border-radius-normal: 1rem;
+}
+
+/* semantic color variables for this project */
+:root {
+  --c-background: var(--c-linen);
+  --c-text: var(--c-black);
+  --c-link: var(--c-blue);
+  //--c-link: var(--c-velvet);
+}
+
+//@media (prefers-color-scheme: dark) {
+//  :root {
+//    --color-background: var(--c-black);
+//    --color-background-soft: var(--c-black-soft);
+//    --color-background-mute: var(--c-black-mute);
+//
+//    --color-border: var(--c-divider-dark-2);
+//    --color-border-hover: var(--c-divider-dark-1);
+//
+//    --color-heading: var(--c-text-dark-1);
+//    --color-text: var(--c-text-dark-2);
+//  }
+//}
+html {
+  font-size: clamp(14px, 1.2vw, 24px);
+}
+
+body {
+  min-height: 100vh;
+  color: var(--c-text);
+  background-color: var(--c-background);
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-normal);
+  font-size: 1rem;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-moz-selection {
+  color: var(--c-white);
+  background: var(--c-blue);
+}
+
+::selection {
+  color: var(--c-white);
+  background: var(--c-blue);
+}
