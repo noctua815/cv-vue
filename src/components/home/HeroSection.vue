@@ -40,9 +40,10 @@ const contacts = reactive([
 .hero {
   position: sticky;
   top: 0;
+  z-index: 1;
   display: flex;
   min-height: 100vh;
-  background-color: #e0dfdd;
+  background-color: #B3BDA9;
   color: black;
 
   &__wr {
@@ -56,7 +57,7 @@ const contacts = reactive([
       'title'
       'photo'
       'name';
-    grid-template-rows: fit-content(20%) auto auto auto;
+    grid-template-rows: fit-content(20%) 3fr 1fr 2fr;
     grid-row-gap: 1rem;
 
     //& > div {
@@ -65,7 +66,7 @@ const contacts = reactive([
   }
 
   &__title {
-    font-size: 5rem;
+    font-size: 6rem;
     align-self: center;
     //font-weight: bold;
 
@@ -77,7 +78,7 @@ const contacts = reactive([
   &__name {
     align-self: center;
     text-align: right;
-    font-size: 5rem;
+    font-size: 6rem;
     //font-weight: bold;
 
     span {

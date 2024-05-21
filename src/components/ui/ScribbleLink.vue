@@ -17,6 +17,7 @@ defineProps<{
   width: fit-content;
   text-decoration: none;
   color: var(--c-blue);
+  font-weight: bold;
 
   &:hover {
     path {

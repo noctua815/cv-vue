@@ -2,6 +2,9 @@ import { Job, Skill } from '@/types'
 
 export const Jobs: Job[] = [
   {
+    bgColor: '#43441A',
+    // bgColor: '#8e7a47',
+    textColor: '#9C99BB',
     position: 'Senior Frontend Developer',
     employer: 'Noone',
     country: 'Cyprus, Limassol',
@@ -33,6 +36,9 @@ export const Jobs: Job[] = [
     ]
   },
   {
+    bgColor: '#1A393E',
+    // bgColor: '#7a306c',
+    textColor: '#BEA193',
     position: 'Middle Frontend Developer',
     employer: 'Fintech | NDA',
     period: '2018 - 2021',
@@ -50,6 +56,9 @@ export const Jobs: Job[] = [
     ]
   },
   {
+    bgColor: '#40364E',
+    // bgColor: '#8e8dbe',
+    textColor: '#B3BDA9',
     position: 'Middle Frontend Developer',
     employer: 'Studio of Alexander Lebedev',
     country: 'Russia, Saint-Petersburg',

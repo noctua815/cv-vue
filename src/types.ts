@@ -11,4 +11,6 @@ export interface Job {
   experience?: string[]
   skills?: Skill[]
   country?: string
+  bgColor: string
+  textColor: string
 }
