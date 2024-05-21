@@ -31,9 +31,9 @@ const computedNum = computed(() => {
 
   @include for-phone-only {
     grid-template-areas:
-    'num'
-    'title'
-    'content';
+      'num'
+      'title'
+      'content';
     grid-template-columns: 1fr;
   }
 

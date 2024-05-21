@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import {nextTick} from 'vue'
-import {gsap} from 'gsap'
+import HeroSection from '@/components/home/HeroSection.vue'
+import { nextTick } from 'vue'
+import { gsap } from 'gsap'
 import 'splitting/dist/splitting.css'
 import 'splitting/dist/splitting-cells.css'
 // import Splitting from 'splitting'
-import {ScrollTrigger} from 'gsap/ScrollTrigger'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
 function initBlockAnimation() {
   const blocks = document.querySelectorAll('.block')
 
-  console.log('?', document.querySelector('#block-1 .block__content'),)
+  console.log('?', document.querySelector('#block-1 .block__content'))
 
   // ScrollTrigger.create({
   //   trigger: '#block-1',
@@ -20,7 +21,6 @@ function initBlockAnimation() {
   //   pin: '#block-2',
   //   markers: true
   // })
-
 
   for (const [i, block] of blocks.entries()) {
     block.style.zIndex = i
@@ -39,15 +39,15 @@ function initBlockAnimation() {
     //     // pinSpacing: false,
     //   },
     // })
-    const tl = gsap.timeline();
-    tl.from(block.querySelector('.block__content'), {scale: 0.9, borderRadius: '5rem'})
-    tl.to(block.querySelector('.block__content'), {scale: 1, borderRadius: '0'})
+    const tl = gsap.timeline()
+    tl.from(block.querySelector('.block__content'), { scale: 0.9, borderRadius: '5rem' })
+    tl.to(block.querySelector('.block__content'), { scale: 1, borderRadius: '0' })
     // tl.to(block.querySelector('.block__content'), {scale: 0, borderRadius: '0'})
     // const blockAnimation = gsap.to(block.querySelector('.block__content'), {scale: 0.7, borderRadius: '5rem'})
 
     ScrollTrigger.create({
       trigger: block,
-      start: "top 25%",
+      start: 'top 25%',
       end: '+=50%',
       markers: true,
       animation: tl,
@@ -57,12 +57,12 @@ function initBlockAnimation() {
       },
       onLeaveBack: (self) => {
         console.log('onLeaveBack', self)
-      },
+      }
     })
 
     ScrollTrigger.create({
       trigger: block,
-      start: "top 100px",
+      start: 'top 100px',
       end: 'max',
       pin: true,
       pinSpacing: false
@@ -90,20 +90,7 @@ nextTick(() => {
 
 <template lang="pug">
   main
-    section.hero
-      .hero__wr
-        .hero__links
-          a(href="/") Github
-          a(href="/") LinkedIn
-          a(href="/") Github
-          a(href="/") Github
-        .hero__title
-          span FRONTEND
-          span DEVELOPER
-        .hero__photo
-        .hero__name
-          span VIKTORIIA
-          span DENISOVA
+    HeroSection
     .block-title
       h2 Experience
     section.block-experience
@@ -140,64 +127,11 @@ main {
   //overflow: auto;
 }
 
-.hero {
-  position: sticky;
-  top: 0;
-  display: flex;
-  min-height: 100vh;
-  background-color: #E0DFDD;
-  color: black;
-
-  &__wr {
-    height: 100vh;
-    width: 100%;
-    border: 1px solid black;
-    padding: 2rem;
-    display: grid;
-    grid-template-areas: "links"
-      "title"
-      "photo"
-      "name";
-    grid-template-rows: fit-content(20%) auto auto auto;
-    grid-row-gap: 1rem;
-
-    & > div {
-      border: 1px solid black;
-    }
-  }
-
-  &__title {
-    font-size: 5rem;
-    align-self: center;
-    //font-weight: bold;
-
-    span {
-      display: block;
-    }
-  }
-
-  &__name {
-    align-self: center;
-    text-align: right;
-    font-size: 5rem;
-    //font-weight: bold;
-
-    span {
-      display: block;
-    }
-  }
-
-  &__links {
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem;
-  }
-}
-
 .job {
   display: grid;
-  grid-template-areas: "year title"
-  ". info";
+  grid-template-areas:
+    'year title'
+    '. info';
   grid-template-columns: 40% 60%;
   align-items: baseline;
   gap: 3rem;
@@ -235,7 +169,6 @@ main {
   }
 
   &-1 {
-
     .block__content {
       background-color: #8e7a47;
     }

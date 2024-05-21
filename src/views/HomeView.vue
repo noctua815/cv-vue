@@ -57,12 +57,12 @@ import { Jobs, Education, Footer } from '@/content/home'
 
   @include for-phone-only {
     grid-template-areas:
-    'skills skills lang'
-    'tools tools lang'
-    'photo photo photo';
+      'skills skills lang'
+      'tools tools lang'
+      'photo photo photo';
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, auto);
-    gap: 1rem
+    gap: 1rem;
   }
 
   &__photo {
