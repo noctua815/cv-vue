@@ -1,30 +1,13 @@
 <script setup lang="ts">
 import ScribbleLink from '@/components/ui/ScribbleLink.vue'
-import {reactive, nextTick} from 'vue'
+import {nextTick } from 'vue'
 
 import 'splitting/dist/splitting.css'
 import 'splitting/dist/splitting-cells.css'
 import Splitting from 'splitting'
-import {gsap} from 'gsap'
-
-const contacts = reactive([
-  {
-    text: 'Github',
-    href: 'https://github.com/noonewallet'
-  },
-  {
-    text: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/viktoriia-denisova-743a9a260/'
-  },
-  {
-    text: 'Telegram',
-    href: 'https://t.me/vikasova'
-  },
-  {
-    text: 'Gmail',
-    href: 'mailto:vikadenisova.cy@gmail.com'
-  }
-])
+import { gsap } from 'gsap'
+import {charsAnimation} from '@/helpers/utils'
+import {Contacts} from '@/content/home'
 
 const heroAnimation = () => {
   const tl = gsap.timeline()
@@ -35,92 +18,29 @@ const heroAnimation = () => {
     title: hero.querySelector('.hero__title'),
     name: hero.querySelector('.hero__name')
   }
-  const charsTitle = new Splitting({target: DOM.title, type: 'chars'})[0]
-  const charsName = new Splitting({target: DOM.name, type: 'chars'})[0]
-  tl.set([DOM.links, ...charsTitle.chars, ...charsName.chars], {opacity: 0})
-  tl.to(DOM.wrapper, {opacity: 1}, 0.5)
-  tl.to([DOM.links], {
-    opacity: 1,
-    stagger: {
-      each: 0.25,
-    }
-  }, '<')
-  tl.eventCallback("onComplete", () => {
+  const charsTitle = new Splitting({ target: DOM.title, type: 'chars' })[0]
+  const charsName = new Splitting({ target: DOM.name, type: 'chars' })[0]
+  tl.set([DOM.links, ...charsTitle.chars, ...charsName.chars], { opacity: 0 })
+  tl.to(DOM.wrapper, { opacity: 1 }, 0.5)
+  tl.to(
+    [DOM.links],
+    {
+      opacity: 1,
+      stagger: {
+        each: 0.25
+      }
+    },
+    '<'
+  )
+  tl.eventCallback('onComplete', () => {
     charsAnimation(DOM.title)
     setTimeout(() => {
       charsAnimation(DOM.name)
-    }, 500)
+    }, 1300)
   })
 }
 
-const charsAnimation = (title) => {
-  const lettersAndSymbols = [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "o",
-    "p",
-    "q",
-    "r",
-    "s",
-    "t",
-    "u",
-    "v",
-    "w",
-    "x",
-    "y",
-    "z",
-    "!",
-    "@",
-    "#",
-    "$",
-    "%",
-    "^",
-    "&",
-    "*",
-    "-",
-    "_",
-    "+",
-    "=",
-    ";",
-    ":",
-    "<",
-    ">",
-    ","
-  ]
-  const chars = title.querySelectorAll('.char')
 
-  chars.forEach((char, position) => {
-    let innerHTML = char.innerHTML
-
-    gsap.to(char, {
-      duration: 0.015,
-      innerHTML: lettersAndSymbols[Math.floor(Math.random() * lettersAndSymbols.length)],
-      repeat: 1,
-      repeatRefresh: true,
-      opacity: 1,
-      repeatDelay: 0.02,
-      delay: (position + 1) * 0.09,
-      onComplete: (self) => {
-        gsap.set(char, {
-          innerHTML,
-          delay: 0.01
-        })
-      }
-    })
-  })
-}
 nextTick(() => {
   heroAnimation()
 })
@@ -130,11 +50,14 @@ nextTick(() => {
   section.hero#hero
     .hero__wr.hide
       .hero__links
-        ScribbleLink(v-for="(item, i) of contacts" :key="i" v-bind="item")
+        .hero__link(v-for="(item, i) of Contacts" :key="i")
+          ScribbleLink(v-bind="item")
       .hero__title
         span FRONTEND
         span DEVELOPER
-      .hero__photo
+      .hero__image
+        .image
+          //img(src="@/assets/images/gradient-1.jpeg" alt="selfie")
       .hero__name
         span VIKTORIIA
         span DENISOVA
@@ -147,32 +70,27 @@ nextTick(() => {
   z-index: 1;
   display: flex;
   min-height: 100vh;
-  background-color: #B3BDA9;
-  color: black;
+  background-color: var(--c-light-violet);
+  color: var(--c-black);
 
   &__wr {
     height: 100vh;
     width: 100%;
-    border: 1px solid black;
     padding: 2rem;
     display: grid;
     grid-template-areas:
       'links'
       'title'
-      'photo'
+      'image'
       'name';
-    grid-template-rows: fit-content(20%) 3fr 1fr 2fr;
+    grid-template-rows: 1fr 3fr 1fr 2fr;
     grid-row-gap: 1rem;
-
-    //& > div {
-    //  border: 1px solid black;
-    //}
   }
 
   &__title {
-    font-size: 6rem;
+    font-size: 7rem;
     align-self: center;
-    //font-weight: bold;
+    @extend .h1;
 
     span {
       display: block;
@@ -182,7 +100,7 @@ nextTick(() => {
   &__name {
     align-self: center;
     text-align: right;
-    font-size: 6rem;
+    @extend .h2;
     //font-weight: bold;
 
     span {
@@ -194,6 +112,26 @@ nextTick(() => {
     display: flex;
     justify-content: space-between;
     gap: 2rem;
+  }
+
+  &__image {
+  }
+
+  .image {
+    width: 48%;
+    height: 15vh;
+    //background-color: var(--c-black);
+    background: rgb(70,89,183);
+    background: linear-gradient(90deg, black 0%, #DCCAE2 43%, #DCCAE2 60%, black 100%);
+    //background: linear-gradient(90deg, rgba(70,89,183,1) 0%, rgba(220,202,226,1) 43%, rgba(135,210,212,1) 100%);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      overflow: hidden;
+      //box-
+    }
   }
 }
 

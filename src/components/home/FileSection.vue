@@ -61,7 +61,7 @@ const computedNum = computed(() => {
     align-self: baseline;
     margin-left: -0.3rem;
     margin-bottom: 1.35rem;
-    @extend .xl-text;
+    @extend .h2;
 
     @include for-phone-only {
       margin: 0;

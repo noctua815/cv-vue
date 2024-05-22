@@ -4,10 +4,6 @@
   @return math.div($size, 16) * 1rem;
 }
 
-//@mixin toRem($size) {
-//  font-size: $size;
-//  font-size: calculateRem($size);
-//}
 /* typography mixins */
 @mixin text-regular {
   font-size: 1rem;

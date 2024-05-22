@@ -20,7 +20,7 @@ function initBlockAnimation() {
     const scale = 0.8 + (length - i) * 0.05
     const tl = gsap.timeline()
     tl.set(block.querySelector('.block__content'), { scale: 0.8, borderRadius: '5rem' })
-    tl.to(block.querySelector('.block__content'), { scale:scale, borderRadius: '2rem'})
+    tl.to(block.querySelector('.block__content'), { scale: scale, borderRadius: '2rem' })
     // tl.to(wrapper, { backgroundColor: bgColor }, '<')
 
     // tl.to(block.querySelector('.block__content'), {scale: 0, borderRadius: '0'})
@@ -30,7 +30,7 @@ function initBlockAnimation() {
       trigger: block,
       start: 'top 50%',
       end: '+=50%',
-      markers: true,
+      // markers: true,
       animation: tl,
       scrub: 1,
       onScrubComplete: (self) => {
@@ -38,9 +38,9 @@ function initBlockAnimation() {
         if (self.progress === 1) {
           console.log('fix title', i)
         } else {
-          console.log('hide title' , i)
+          console.log('hide title', i)
         }
-      },
+      }
       // onSnapComplete: (self) => {
       //   console.log('onSnapComplete', self)
       // }
@@ -54,7 +54,7 @@ function initBlockAnimation() {
       end: `bottom 100%-=100px`,
       endTrigger: '#block-experience',
       pin: true,
-      pinSpacing: false,
+      pinSpacing: false
       // onLeave: (self) => {
       //   console.log('onLeave')
       // },
@@ -79,8 +79,8 @@ function initStickyTitle() {
     pin: true,
     start: 'top top',
     end: 'bottom 100%-=100px',
-    scrub: true,
-    // markers: true,
+    // scrub: true,
+    markers: true,
     pinSpacing: false
   })
 }
@@ -104,6 +104,7 @@ section.block-experience#block-experience
       )
       .block__content(:style="{backgroundColor: job.bgColor, color: job.textColor}")
         .job
+          //.job__index {{ '#0' + (i + 1) }}
           .job__year {{ job.period }}
           .job__title {{ job.position }}
           .job__skills
@@ -140,14 +141,17 @@ section.block-experience#block-experience
 .block-experience {
   position: relative;
   z-index: 2;
-  background-color: #0A122A;
-  color: white;
-  border-top-left-radius: 5rem;
-  border-top-right-radius: 5rem;
+  background-color: var(--c-green);
+  color: var(--c-black);
+  border-top-left-radius: 4rem;
+  border-top-right-radius: 4rem;
+  //border: 2px solid var(--c-black);
 }
 
 .block-title {
-  height: 8em;
+  display: flex;
+  align-items: center;
+  height: 7em;
   padding: 1rem 2rem;
 }
 
@@ -161,11 +165,13 @@ section.block-experience#block-experience
   gap: 3rem;
 
   &__year {
+    position: relative;
     grid-area: year;
     font-size: 3rem;
   }
 
   &__title {
+    font-family: var(--font-secondary);
     grid-area: title;
     font-size: 3rem;
     margin-bottom: 1rem;
@@ -177,16 +183,28 @@ section.block-experience#block-experience
   }
 
   &__skills {
+    position: relative;
     grid-area: skills;
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
   }
+
+  //&__index {
+  //  position: absolute;
+  //  top: 4.7rem;
+  //  left: 0;
+  //  font-size: 1rem;
+  //  font-family: var(--font-secondary);
+  //  color: var(--c-red);
+  //}
 }
 
 .skill {
   padding: 0.5rem;
-  background-color: #A61C3C;
+  border-radius: 0.7rem;
+  color: var(--c-black);
+  border: 1px solid var(--c-black);
 }
 
 .block {
@@ -201,30 +219,19 @@ section.block-experience#block-experience
     height: 100%;
     //border-radius: 0;
     padding: 3rem;
-  }
 
-  &-1 {
-    .block__content {
-      //background-color: #8e7a47;
-    }
+    //background-color: var(--c-green);
+    color: var(--c-black);
+    //border: 2px solid var(--c-black);
   }
+}
 
-  &-2 {
-    .block__content {
-      //background-color: #7a306c;
-    }
-  }
-
-  &-3 {
-    .block__content {
-      //background-color: #8e8dbe;
-    }
-  }
-
-  &-4 {
-    .block__content {
-      //background-color: #9b2915;
-    }
-  }
+.label {
+  position: absolute;
+  color: var(--c-white);
+  background-color: var(--c-black);
+  font-size: 1rem;
+  font-family: var(--font-secondary);
+  top: -2rem;
 }
 </style>

@@ -5,9 +5,19 @@
 
 :root {
   --c-white: #ffffff;
-  --c-black: #181818;
-  //--c-linen: #faf7f2;
+  --c-black: #1f1f1f;
 
+  //--c-darkb-brown: #43441a;
+  --c-light-violet: #DCCAE2;
+  //--c-ash-violet: #9c99bb;
+  --c-violet: #754884;
+  //--c-ash-gray: #b3bda9;
+  //--c-light-pink: #d1c6d2;
+  --c-red: #a61c3c;
+  --c-blue: #4659B7;
+  --c-tiffany-blue: #87D2D4;
+
+  --c-green: #CFFFB3;
   //--c-blue: #072ac8;
   //--c-yellow: #f8d537;
   //--c-new: #a44200;
@@ -16,8 +26,9 @@
   //--c-pink: #8e8dbe;
   //--c-coyote: #8e7a47;
 
-  --font-primary: 'Space Mono', monospace;
-  --font-secondary: 'Spinnaker', sans-serif;
+  --font-primary: 'Nunito', sans-serif;
+  --font-secondary: 'Space Mono', monospace;
+  //--font-secondary: 'Space Mono', sans-serif;
 
   --font-weight-normal: 400;
   --font-weight-bold: 700;
@@ -64,10 +75,10 @@ body {
 
 ::-moz-selection {
   color: var(--c-white);
-  background: var(--c-blue);
+  background: var(--c-green);
 }
 
 ::selection {
   color: var(--c-white);
-  background: var(--c-blue);
+  background: var(--c-green);
 }

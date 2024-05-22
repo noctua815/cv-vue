@@ -16,10 +16,15 @@ defineProps<{
   position: relative;
   width: fit-content;
   text-decoration: none;
-  color: var(--c-blue);
-  font-weight: bold;
+  color: var(--c-black);
+  font-size: 1rem;
+  font-family: var(--font-secondary);
+  font-weight: 700;
+  transition: color 0.25s ease;
 
   &:hover {
+    color: var(--c-violet);
+
     path {
       stroke-dashoffset: 0;
       transition-timing-function: cubic-bezier(0.8, 1, 0.7, 1);

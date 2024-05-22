@@ -2,9 +2,8 @@ import { Job, Skill } from '@/types'
 
 export const Jobs: Job[] = [
   {
-    bgColor: '#43441A',
-    // bgColor: '#8e7a47',
-    textColor: '#9C99BB',
+    bgColor: '#AFC6B9',
+    textColor: 'black',
     position: 'Senior Frontend Developer',
     employer: 'Noone',
     country: 'Cyprus, Limassol',
@@ -36,9 +35,8 @@ export const Jobs: Job[] = [
     ]
   },
   {
-    bgColor: '#1A393E',
-    // bgColor: '#7a306c',
-    textColor: '#BEA193',
+    bgColor: '#9FAABC',
+    textColor: 'black',
     position: 'Middle Frontend Developer',
     employer: 'Fintech | NDA',
     period: '2018 - 2021',
@@ -56,9 +54,9 @@ export const Jobs: Job[] = [
     ]
   },
   {
-    bgColor: '#40364E',
+    bgColor: '#8E8DBE',
     // bgColor: '#8e8dbe',
-    textColor: '#B3BDA9',
+    textColor: 'black',
     position: 'Middle Frontend Developer',
     employer: 'Studio of Alexander Lebedev',
     country: 'Russia, Saint-Petersburg',
@@ -88,6 +86,24 @@ export const Education = [
     country: 'Russia',
     period: '2010 - 2015',
     intro: 'Developing web applications for interactions with the most popular blockchain networks.'
+  }
+]
+export const Contacts = [
+  {
+    text: 'Github',
+    href: 'https://github.com/noonewallet'
+  },
+  {
+    text: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/viktoriia-denisova-743a9a260/'
+  },
+  {
+    text: 'Telegram',
+    href: 'https://t.me/vikasova'
+  },
+  {
+    text: 'Gmail',
+    href: 'mailto:vikadenisova.cy@gmail.com'
   }
 ]
 export const Footer = {

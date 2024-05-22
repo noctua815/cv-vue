@@ -1,6 +1,4 @@
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template lang="pug">
   section.footer-section
@@ -12,7 +10,7 @@
   position: relative;
   z-index: 10;
   height: 100vh;
-  background-color: #0A122A;
+  background-color: #B1D0D3;
   color: white;
 }
 </style>
