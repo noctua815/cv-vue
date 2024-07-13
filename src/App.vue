@@ -11,7 +11,12 @@ import {preloadFonts} from "@/helpers/preload-fonts";
 gsap.registerPlugin(ScrollTrigger)
 
 const loading = ref(true)
+const animationFinished = ref(false)
 
+const heroAnimationFinished = () => {
+  console.log('APP heroAnimationFinished')
+  animationFinished.value = true
+}
 preloadFonts().then(() => {
   loading.value = false
   console.log('loading', loading)
@@ -19,8 +24,8 @@ preloadFonts().then(() => {
 </script>
 
 <template lang="pug">
-  main
-    HeroSection(:loading="loading")
+  main(:class="{'loading': !animationFinished}")
+    HeroSection(:loading="loading" @heroAnimationFinished="heroAnimationFinished")
     IntroSection(:loading="loading")
     ExperienceBlock(:loading="loading")
 </template>
@@ -29,5 +34,10 @@ preloadFonts().then(() => {
 main {
   position: relative;
   min-height: 100vh;
+
+  &.loading {
+    height: 100vh;
+    overflow: hidden;
+  }
 }
 </style>

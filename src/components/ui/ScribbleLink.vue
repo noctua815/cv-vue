@@ -16,14 +16,14 @@ defineProps<{
   position: relative;
   width: fit-content;
   text-decoration: none;
-  color: var(--c-black);
+  color: var(--c-link);
   font-size: 1rem;
   font-family: var(--font-secondary);
   font-weight: 700;
   transition: color 0.25s ease;
 
   &:hover {
-    color: var(--c-violet);
+    color: var(--c-link-hover);
 
     path {
       stroke-dashoffset: 0;

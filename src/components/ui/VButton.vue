@@ -16,7 +16,7 @@ defineProps<{
   display: inline-block;
   border-radius: 0.5rem;
   cursor: pointer;
-  color: var(--c-white);
+  color: var(--c-button-text);
 
   &:hover {
     .button__bg {
@@ -49,7 +49,7 @@ defineProps<{
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--c-white);
+    background: var(--c-button-bg);
     border-radius: 0.85rem;
     overflow: hidden;
     transition: transform 0.4s cubic-bezier(0.1, 0, 0.3, 1);
@@ -58,7 +58,7 @@ defineProps<{
     &:after {
       content: '';
       position: absolute;
-      background: var(--c-violet);
+      background: var(--c-button-bg-hover);
     }
 
     &:before {

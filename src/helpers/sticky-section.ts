@@ -11,7 +11,7 @@ export const addStickySection = (section: HTMLElement, pin: boolean) => {
         endTrigger: '#block-experience',
         end: 'bottom bottom',
         pinSpacing: false,
-        markers: true,
+        // markers: true,
         pin,
         onEnter: () => {
             const prevStyle = getStyle(section, 'border-radius')

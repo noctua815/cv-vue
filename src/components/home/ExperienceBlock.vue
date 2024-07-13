@@ -1,17 +1,33 @@
 <script setup lang="ts">
-import {nextTick} from 'vue'
+import {watch} from 'vue'
 import {gsap} from 'gsap'
 import {ScrollTrigger} from 'gsap/ScrollTrigger'
 import {Jobs} from '@/content/home'
 import {addStickySection} from '@/helpers/sticky-section'
+import {getStyle} from "@/helpers/utils";
 
+const props = defineProps<{
+  loading: boolean
+}>()
 let section
+let sectionTitle
+
+watch(() => props.loading, (newVal) => {
+  // loading done, init animation
+  // initBlockAnimation()
+  // initInnerBlocksAnimation()
+  section = document.getElementById('block-experience')
+  sectionTitle = section.querySelector('.block-title ')
+  initStickyTitle()
+  initJobBlocksAnimation()
+})
+
 
 const initBlockAnimation = () => {
   section = document.getElementById('block-experience')
 
   // 1. add sticky for main section
-  addStickySection(section, true)
+  addStickySection(section, false)
 
   // 2. add fade for prev section
   const DOM = {
@@ -84,85 +100,166 @@ const initInnerBlocksAnimation = () => {
     })
   }
 }
+
+const initJobBlocksAnimation = () => {
+  const blocks = section.querySelectorAll('.block')
+  const topIndent = sectionTitle.getBoundingClientRect().height
+  console.log('topIndent', topIndent)
+  for (const [i, block] of blocks.entries()) {
+    block.style.zIndex = i
+    const title = block.querySelector('.job__title')
+    console.log('title', block, i, title)
+
+    const tl = gsap.timeline()
+    tl.to(title, {
+      scale: 0.7,
+      borderBottom: '1px solid black'
+    })
+    ScrollTrigger.create({
+      trigger: block,
+      start: `top ${topIndent}`,
+      end: `bottom bottom`,
+      endTrigger: '#block-experience',
+      pin: title,
+      pinSpacing: false,
+      animation: tl,
+    })
+
+    // gsap.to(title, {
+    //   scale: 0.5,
+    //   scrub: 1,
+    //   pin: true,
+    //   scrollTrigger: {
+    //     trigger: block,
+    //     pin: title,
+    //     start: `top ${topIndent}px`,
+    //     end: 'bottom bottom+=500px',
+    //     markers: true,
+    //   }
+    // })
+    // ScrollTrigger.create({
+    //   trigger: block,
+    //   pin: true,
+    //   start: `top ${topIndent}px`,
+    //   end: 'bottom bottom+=500px',
+    //   pinSpacing: false,
+    //   markers: true,
+    //   onEnter: () => {
+    //     console.log('enter!!!')
+    //   }
+    // })
+  }
+}
 const initStickyTitle = () => {
   ScrollTrigger.create({
-    trigger: document.querySelector('.block-title '),
+    trigger: sectionTitle,
     endTrigger: '#block-experience',
     pin: true,
     start: 'top top',
     end: 'bottom 100%-=100px',
     // markers: true,
-    pinSpacing: false
+    pinSpacing: false,
+    onEnter: () => {
+      const prevStyle = getStyle(section, 'border-radius')
+      section.dataset.borderRadius = prevStyle
+      gsap.to(section, {
+        borderRadius: 0
+      })
+    },
+    onLeaveBack: () => {
+      const prevStyle = section.dataset.borderRadius
+      if (prevStyle) {
+        gsap.to(section, {
+          borderRadius: prevStyle
+        })
+      }
+    }
   })
 }
-
-nextTick(() => {
-  initBlockAnimation()
-  // initInnerBlocksAnimation()
-  // initStickyTitle()
-})
 </script>
 
 <template lang="pug">
   section.block-experience.round-block#block-experience
-    .block-title
-      h2 Experience
-    .block-list
-      .block(v-for="(job, i) of Jobs"
-        :key="i"
-        :id="`block-${i + 1}`"
-        :class="`block-${i + 1}`"
-        :data-bg-color="job.bgColor"
-      )
-        .block__content(:style="{backgroundColor: job.bgColor, color: job.textColor}")
-          .job
-            //.job__index {{ '#0' + (i + 1) }}
-            .job__year {{ job.period }}
-            .job__title {{ job.position }}
-            .job__skills
-              .skill(v-for="(skill, i) of job.skills" :key="i") {{ skill.text }}
-            .job__info.text-content
-              p {{ job.intro }}
-              ul
-                li(v-for="(item, i) of job.experience" v-html="item")
+    .block-experience__wr
+      .block-title
+        h2 Experience
+      .block-list
+        .block(v-for="(job, i) of Jobs"
+          :key="i"
+          :id="`block-${i + 1}`"
+          :class="`block-${i + 1}`"
+          :data-bg-color="job.bgColor"
+        )
+          //.block__content(:style="{backgroundColor: job.bgColor, color: job.textColor}")
+          .block__content
+            .job
+              //.job__index {{ '#0' + (i + 1) }}
+              .job__title
+                .job__title-year {{ job.period }}
+                .job__title-pos {{ job.position }}
+              .job__skills
+                .skill(v-for="(skill, i) of job.skills" :key="i") {{ skill.text }}
+              .job__info.text-content
+                p {{ job.intro }}
+                ul
+                  li(v-for="(item, i) of job.experience" v-html="item")
 </template>
 
 <style scoped lang="scss">
 .block-experience {
   position: relative;
   z-index: 3;
+  padding: 0 1rem 2rem;
   background-color: var(--c-green);
   color: var(--c-black);
+  overflow: hidden;
+
+
+  //&__wr {
+  //}
 }
 
 .block-title {
+  position: relative;
+  z-index: 10;
   display: flex;
   align-items: center;
-  height: 7em;
-  padding: 1rem 2rem;
+  //height: 7em;
+  padding: 2rem 0;
+  margin: 0 2rem 2rem;
+  background-color: var(--c-green);
+  border-bottom: 1px solid black;
 }
 
 .job {
   display: grid;
   grid-template-areas:
-    'year title'
+    'title title'
     'skills info';
   grid-template-columns: 35% auto;
   align-items: baseline;
   gap: 3rem;
-
-  &__year {
-    position: relative;
-    grid-area: year;
-    font-size: 3rem;
-  }
+  border: 1px solid black;
+  padding: 2rem;
 
   &__title {
-    font-family: var(--font-secondary);
+    display: flex;
     grid-area: title;
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    font-weight: bold;
+    gap: 3rem;
+
+    &-year {
+      position: relative;
+      flex-shrink: 0;
+      font-size: 3rem;
+      width: 35%;
+    }
+
+    &-pos {
+      font-family: var(--font-secondary);
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
   }
 
   &__info {
@@ -192,10 +289,9 @@ nextTick(() => {
   height: 100vh;
 
   &__content {
-    scale: 1;
     width: 100%;
     height: 100%;
-    padding: 3rem;
+    padding: 2rem;
     color: var(--c-black);
   }
 }

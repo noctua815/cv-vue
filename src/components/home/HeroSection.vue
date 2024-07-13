@@ -1,10 +1,20 @@
 <script setup lang="ts">
 import ScribbleLink from '@/components/ui/ScribbleLink.vue'
 import { Contacts } from '@/content/home'
-import { nextTick } from 'vue'
+import { watch } from 'vue'
 import Splitting from 'splitting'
 import { gsap } from 'gsap'
 import { charsAnimation } from '@/helpers/utils'
+
+const emit = defineEmits(['heroAnimationFinished'])
+const props = defineProps<{
+  loading: boolean
+}>()
+
+watch(() => props.loading, (newVal) => {
+  // loading done, init animation
+  heroAnimation()
+})
 
 const heroAnimation = () => {
   const tl = gsap.timeline()
@@ -39,7 +49,7 @@ const heroAnimation = () => {
     width: '48vw',
     height: '15vh',
     background: 'linear-gradient(90deg, black 0%, #DCCAE2 43%, #DCCAE2 60%, black 100%)',
-    onComplete: (self) => {
+    onComplete: () => {
       DOM.image.classList.add('make-abs')
     }
   })
@@ -47,6 +57,7 @@ const heroAnimation = () => {
     charsAnimation(DOM.title)
     setTimeout(() => {
       charsAnimation(DOM.name)
+      emit('heroAnimationFinished')
     }, 1000)
 
     // setTimeout(() => {
@@ -54,10 +65,6 @@ const heroAnimation = () => {
     // }, 2000)
   })
 }
-
-nextTick(() => {
-  heroAnimation()
-})
 </script>
 
 <template lang="pug">
