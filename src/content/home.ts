@@ -9,13 +9,16 @@ export const Jobs: Job[] = [
     country: 'Cyprus, Limassol',
     period: '2021 - now',
     intro:
-      'Developing web applications for interactions with the most popular blockchain networks.',
+      'Development of web solutions for interaction with 19 blockchain networks: a web version of a cryptocurrency wallet with 1500+ crypto assets on the client side.',
     experience: [
-      'Develop Google Chrome Extensions with web3 functionality on <a class="highlight-link" href="/" target="_blank">Vue.js.</a>',
-      'Create open-source projects for work with blockchain networks.',
-      'Created an SSR web application on NuxtJS (automatic generation of more than 1000+ pages) with AMP support.',
-      'Work on creating an admin panel for interacting with the internal API.',
-      'Perform bug fixes and code reviews.'
+      'Developing <a class="highlight" href="/" target="_blank">Google Chrome Extensions</a> with web3 functionality using Vue.js.',
+      'Creating a <a class="highlight" href="/" target="_blank">web widget</a> on Vue.js for working with cryptocurrencies and authorization via the Google Drive API.',
+      'Creating <a class="highlight" href="/" target="_blank">open-source projects</a> for working with blockchain networks.',
+      'Designed SSR websites on Nuxt.js, including automatic generation of more than 1000+ pages and their AMP copies.',
+      'Development of white-label solutions for cryptocurrency operations.',
+      'Working on creating an admin panel for interacting with the internal API.',
+      'Performing bug fixes and conducting code reviews.',
+      'Supervising junior developers and providing training.',
     ],
     skills: [
       { color: 'blue', text: 'JavaScript' },
@@ -31,6 +34,7 @@ export const Jobs: Job[] = [
       { color: 'blue', text: 'Babel.js' },
       { color: 'blue', text: 'Git' },
       { color: 'blue', text: 'Jira' },
+      { color: 'blue', text: 'Sentry' },
       { color: 'blue', text: 'web3' }
     ]
   },
@@ -62,12 +66,12 @@ export const Jobs: Job[] = [
     country: 'Russia, Saint-Petersburg',
     period: '2016 - 2018',
     intro:
-      'Developed web products (from the beginning till the end) for large industrial companies, restaurant businesses, and local brands.',
+      'Developed web products from inception to completion for large industrial companies, restaurant businesses, and local brands.',
     experience: [
-      'Performed front-end <span class="highlight">development</span> for all projects.',
-      'Developed SPA and SSR on Vue.js/NuxtJS.',
-      'Optimized applications for PageSpeed Insights, and rewrote a code to new standards.',
-      'Mentored junior engineers, code review.'
+      'Conducted front-end development for all projects.',
+      'Built Single Page Applications (SPA) and Server-Side Rendered (SSR) applications using Vue.js/NuxtJS.',
+      'Optimized applications for PageSpeed Insights and refactored code to meet new standards.',
+      'Mentored junior engineers and conducted code reviews.'
     ],
     skills: [
       { color: 'blue', text: 'JavaScript' },

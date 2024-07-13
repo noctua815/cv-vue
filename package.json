@@ -15,6 +15,7 @@
   "dependencies": {
     "gsap": "^3.12.5",
     "pinia": "^2.1.7",
+    "split-type": "^0.3.4",
     "splitting": "^1.0.6",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5"

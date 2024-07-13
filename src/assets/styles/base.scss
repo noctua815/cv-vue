@@ -10,7 +10,7 @@
   //--c-darkb-brown: #43441a;
   --c-light-violet: #DCCAE2;
   //--c-ash-violet: #9c99bb;
-  --c-violet: #754884;
+  --c-violet: #892fd0;
   //--c-ash-gray: #b3bda9;
   //--c-light-pink: #d1c6d2;
   --c-red: #a61c3c;
@@ -38,25 +38,12 @@
 
 /* semantic color variables for this project */
 :root {
-  --c-background: var(--c-linen);
+  //--c-background: var(--c-linen);
   --c-text: var(--c-black);
-  --c-link: var(--c-blue);
-  //--c-link: var(--c-velvet);
+  //--c-link: var(--c-blue);
+  --c-link: var(--c-velvet);
 }
 
-//@media (prefers-color-scheme: dark) {
-//  :root {
-//    --color-background: var(--c-black);
-//    --color-background-soft: var(--c-black-soft);
-//    --color-background-mute: var(--c-black-mute);
-//
-//    --color-border: var(--c-divider-dark-2);
-//    --color-border-hover: var(--c-divider-dark-1);
-//
-//    --color-heading: var(--c-text-dark-1);
-//    --color-text: var(--c-text-dark-2);
-//  }
-//}
 html {
   font-size: clamp(14px, 1.2vw, 24px);
 }
@@ -64,7 +51,7 @@ html {
 body {
   min-height: 100vh;
   color: var(--c-text);
-  background-color: var(--c-background);
+  background-color: var(--c-light-violet);
   font-family: var(--font-primary);
   font-weight: var(--font-weight-normal);
   font-size: 1rem;
@@ -75,10 +62,16 @@ body {
 
 ::-moz-selection {
   color: var(--c-white);
-  background: var(--c-green);
+  background: var(--c-violet);
 }
 
 ::selection {
   color: var(--c-white);
-  background: var(--c-green);
+  background: var(--c-violet);
+}
+
+.round-block {
+  padding: 1rem 2rem;
+  border-top-left-radius: 4rem;
+  border-top-right-radius: 4rem;
 }

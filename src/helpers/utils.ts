@@ -27,7 +27,7 @@ export const charsAnimation = (title) => {
     // 'w',
     // 'x',
     // 'y',
-    // 'z',
+    '?',
     '!',
     '@',
     '#',
@@ -52,13 +52,13 @@ export const charsAnimation = (title) => {
     const innerHTML = char.innerHTML
 
     gsap.to(char, {
-      duration: 0.015,
+      duration: 0.02,
       innerHTML: lettersAndSymbols[Math.floor(Math.random() * lettersAndSymbols.length)],
       repeat: 1,
       repeatRefresh: true,
       opacity: 1,
       repeatDelay: 0.02,
-      delay: (position + 1) * 0.09,
+      delay: (position + 1) * 0.1,
       onComplete: (self) => {
         gsap.set(char, {
           innerHTML,
@@ -67,4 +67,12 @@ export const charsAnimation = (title) => {
       }
     })
   })
+}
+
+export const getStyle = (el: HTMLElement, parameter: string) => {
+  if (!el || !parameter) return
+
+  const compStyles = window.getComputedStyle(el)
+
+  return compStyles[parameter] || ''
 }
