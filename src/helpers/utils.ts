@@ -1,6 +1,6 @@
 import {gsap} from 'gsap'
 
-export const charsAnimation = (title) => {
+const charsAnimation = (title) => {
     const lettersAndSymbols = [
         'a',
         'b',
@@ -12,21 +12,21 @@ export const charsAnimation = (title) => {
         'h',
         'i',
         'j',
-        // 'k',
-        // 'l',
-        // 'm',
-        // 'n',
-        // 'o',
-        // 'p',
-        // 'q',
-        // 'r',
-        // 's',
-        // 't',
-        // 'u',
-        // 'v',
-        // 'w',
-        // 'x',
-        // 'y',
+        'k',
+        'l',
+        'm',
+        'n',
+        'o',
+        'p',
+        'q',
+        'r',
+        's',
+        't',
+        'u',
+        'v',
+        'w',
+        'x',
+        'y',
         '?',
         '!',
         '@',
@@ -69,10 +69,29 @@ export const charsAnimation = (title) => {
     })
 }
 
-export const getStyle = (el: HTMLElement, parameter: string) => {
+const getStyle = (el: HTMLElement, parameter: string) => {
     if (!el || !parameter) return
 
     const compStyles = window.getComputedStyle(el)
 
     return compStyles[parameter] || ''
+}
+
+const wrapElement = (elements: HTMLElement[], wrapType: string, wrapClass: string) => {
+    if (!elements || !elements.length) return []
+
+    elements.forEach(el => {
+        const wrapEl = document.createElement(wrapType)
+        wrapEl.classList.add(wrapClass)
+
+        const parent = el.parentNode
+        parent.insertBefore(wrapEl, el)
+
+        wrapEl.appendChild(el)
+    })
+}
+export  {
+    charsAnimation,
+    getStyle,
+    wrapElement
 }

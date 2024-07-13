@@ -1,11 +1,21 @@
 <script setup lang="ts">
 import VButton from '@/components/ui/VButton.vue'
-import { nextTick } from 'vue'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import {watch} from 'vue'
+import {gsap} from 'gsap'
+import {ScrollTrigger} from 'gsap/ScrollTrigger'
 import SplitType from 'split-type'
-import { getStyle } from '@/helpers/utils'
 import {addStickySection} from '@/helpers/sticky-section'
+import {wrapElement} from '@/helpers/utils'
+
+const props = defineProps<{
+  loading: boolean
+}>()
+
+watch(() => props.loading, (newVal) => {
+  // loading done, init animation
+  prevBlockAnimation()
+  introBlockAnimation()
+})
 
 let introSection
 
@@ -13,7 +23,7 @@ const prevBlockAnimation = () => {
   introSection = document.getElementById('intro-section')
 
   // 1. add sticky for main section
-  addStickySection(introSection)
+  addStickySection(introSection, true)
 
   // 2. add fade for prev section
   const DOM = {
@@ -24,11 +34,11 @@ const prevBlockAnimation = () => {
 
   const tl = gsap.timeline()
   tl.fromTo(
-    DOM.prevSectionWr,
-    { opacity: 1 },
-    {
-      opacity: 0
-    }
+      DOM.prevSectionWr,
+      {opacity: 1},
+      {
+        opacity: 0
+      }
   )
   // tl.to(introSection, {
   //   borderRadius: 0
@@ -82,22 +92,30 @@ const prevBlockAnimation = () => {
 }
 
 const introBlockAnimation = () => {
+  // 1. split text into lines
   const wordsIntro = new SplitType(introSection.querySelector('.intro-section__first .intro'), {
     types: 'lines'
   })
   const wordsIntroSecond = new SplitType(
-    introSection.querySelector('.intro-section__second .intro'),
-    { types: 'lines' }
+      introSection.querySelector('.intro-section__second .intro'),
+      {types: 'lines'}
   )
-  // console.log(wordsIntroSecond)
-
+  if (wordsIntro.lines) {
+    wrapElement(wordsIntro.lines, 'span', 'line-wrap')
+  }
+  if (wordsIntroSecond.lines) {
+    wrapElement(wordsIntroSecond.lines, 'span', 'line-wrap')
+  }
+  //
+  // 2. add timeline
   const tl = gsap.timeline()
+
+  // 3. main text animation
   tl.set([wordsIntro.lines, wordsIntroSecond.lines], {
-    opacity: 0,
-    x: '10%',
-    y: '10%',
-    rotate: '2deg'
+    y: '100%',
+    rotate: '4deg'
   })
+
   tl.to(wordsIntro.lines, {
     opacity: 1,
     y: 0,
@@ -108,23 +126,22 @@ const introBlockAnimation = () => {
     }
   })
 
-  // tl.to(wordsIntroSecond.lines,
-  //     {
-  //       opacity: 1,
-  //       y: 0,
-  //       x: 0,
-  //       stagger: {
-  //         each: 0.1
-  //       }
-  //     },
-  //     '<'
-  // )
+  // 3. secondary text animation
+  tl.to(wordsIntroSecond.lines,
+      {
+        opacity: 1,
+        y: 0,
+        x: 0,
+        rotate: 0,
+        stagger: {
+          each: 0.15
+        }
+      },
+      '<0.7'
+  )
   // tl.to(DOM.wrapper, {opacity: 1}, 0.5)
 }
-nextTick(() => {
-  prevBlockAnimation()
-  introBlockAnimation()
-})
+
 </script>
 
 <template lang="pug">
@@ -134,7 +151,7 @@ nextTick(() => {
         h2 Who Am I
       .intro-section__content
         .intro-section__first
-          .intro.intro--big Hello, my name is Vika. I’m a Frontend Developer currently based in Cyprus. I have a proven track record of developing web products for businesses across various fields
+          .intro.intro--big Hello, my name is Vika. I&rsquo;m a Frontend Developer currently based in Cyprus. I have a proven track record of developing web products for businesses across various fields
         .intro-section__second
           .intro.intro--small I am passionate about creating user-friendly and meaningful products that evoke emotions, and I love solving challenging problems. I am committed to continuously improving my programming skills to gain knowledge and experience.
         .intro-section__cv
@@ -150,17 +167,20 @@ nextTick(() => {
   background-color: var(--c-tiffany-blue);
 
   &__wr {
+    display: flex;
+    flex-direction: column;
     height: 100%;
     padding: 1rem 2rem 2rem;
   }
 
   &__content {
+    flex-grow: 1;
     display: grid;
     grid-template-areas:
       'intro-1 .'
       'cv intro-2';
     grid-template-rows: 2fr 1fr;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1.8fr 1fr;
     gap: 3rem;
   }
 
@@ -176,14 +196,14 @@ nextTick(() => {
 
   &__cv {
     display: flex;
-    align-items: center;
+    align-items: end;
     gap: 1rem;
     grid-area: cv;
   }
 
   &__second {
     grid-area: intro-2;
-    //text-align: right;
+    display: flex;
     align-items: end;
   }
 }
@@ -193,13 +213,18 @@ nextTick(() => {
 
   &--big {
     font-size: 2rem;
-    line-height: 1.3;
-    //font-weight: bold;
+
+    :deep(.line) {
+      line-height: 1.3;
+    }
   }
 
   &--small {
     font-size: 1rem;
-    line-height: 1.33;
+
+    :deep(.line) {
+      line-height: 1.33;
+    }
   }
 }
 </style>

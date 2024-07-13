@@ -75,3 +75,15 @@ body {
   border-top-left-radius: 4rem;
   border-top-right-radius: 4rem;
 }
+
+.line-wrap, .word-wrap {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  line-height: 1;
+  border-bottom: 1px solid rgba(black, 0.2);
+}
+
+.line {
+  transform-origin: top left;
+}

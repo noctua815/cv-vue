@@ -11,7 +11,7 @@ const initBlockAnimation = () => {
   section = document.getElementById('block-experience')
 
   // 1. add sticky for main section
-  addStickySection(section)
+  addStickySection(section, true)
 
   // 2. add fade for prev section
   const DOM = {
@@ -19,7 +19,6 @@ const initBlockAnimation = () => {
     prevSectionWr: ''
   }
   DOM.prevSectionWr = DOM.prevSection.querySelector('.intro-section__wr')
-  console.log('DOM', DOM)
   const tl = gsap.timeline()
 
   tl.fromTo(
@@ -32,63 +31,59 @@ const initBlockAnimation = () => {
 
   ScrollTrigger.create({
     trigger: section,
-    // endTrigger: '#block-experience',
-    // pin: true,
     start: 'top 50%',
     end: 'top 10%',
     scrub: 1,
     animation: tl,
-    markers: true,
+    // markers: true,
     pinSpacing: false
   })
-
-  //
-  // const blocks = document.querySelectorAll('.block')
-  // // const wrapper = document.getElementById('block-experience')
-  // // const scaleFactor = 0.9
-  // const length = blocks.length
-  // const scaleFactor = 0.8
-  // const scaleIndent = 0.05
-  //
-  // for (const [i, block] of blocks.entries()) {
-  //   block.style.zIndex = i
-  //
-  //   // const bgColor = block.dataset.bgColor
-  //   const scale = scaleFactor + scaleIndent * (length - i)
-  //   const tl = gsap.timeline()
-  //   tl.set(block.querySelector('.block__content'), {scale: 0.8, borderRadius: '5rem'})
-  //   tl.to(block.querySelector('.block__content'), {scale: scale, borderRadius: '2rem'})
-  //
-  //   ScrollTrigger.create({
-  //     trigger: block,
-  //     start: 'top 50%',
-  //     end: '+=50%',
-  //     // markers: true,
-  //     animation: tl,
-  //     scrub: 1,
-  //     // onScrubComplete: (self) => {
-  //     //   // console.log('onScrubComplete', self)
-  //     //   if (self.progress === 1) {
-  //     //     console.log('fix title', i)
-  //     //   } else {
-  //     //     console.log('hide title', i)
-  //     //   }
-  //     // }
-  //   })
-  //
-  //   const startIndent = i * 25 + 100
-  //
-  //   ScrollTrigger.create({
-  //     trigger: block,
-  //     start: `top ${startIndent}`,
-  //     end: `bottom 100%-=100px`,
-  //     endTrigger: '#block-experience',
-  //     pin: true,
-  //     pinSpacing: false
-  //   })
-  // }
 }
 
+const initInnerBlocksAnimation = () => {
+  const blocks = section.querySelectorAll('.block')
+  const length = blocks.length
+  const scaleFactor = 0.8
+  const scaleIndent = 0.05
+
+  for (const [i, block] of blocks.entries()) {
+    block.style.zIndex = i
+
+    // const bgColor = block.dataset.bgColor
+    const scale = scaleFactor + scaleIndent * (length - i)
+    const tl = gsap.timeline()
+    tl.set(block.querySelector('.block__content'), {scale: 0.8, borderRadius: '5rem'})
+    tl.to(block.querySelector('.block__content'), {scale: scale, borderRadius: '2rem'})
+
+    ScrollTrigger.create({
+      trigger: block,
+      start: 'top 50%',
+      end: '+=50%',
+      markers: true,
+      animation: tl,
+      scrub: 1,
+      // onScrubComplete: (self) => {
+      //   // console.log('onScrubComplete', self)
+      //   if (self.progress === 1) {
+      //     console.log('fix title', i)
+      //   } else {
+      //     console.log('hide title', i)
+      //   }
+      // }
+    })
+
+    const startIndent = i * 25 + 100
+
+    ScrollTrigger.create({
+      trigger: block,
+      start: `top ${startIndent}`,
+      end: `bottom 100%-=100px`,
+      endTrigger: '#block-experience',
+      pin: true,
+      pinSpacing: false
+    })
+  }
+}
 const initStickyTitle = () => {
   ScrollTrigger.create({
     trigger: document.querySelector('.block-title '),
@@ -103,6 +98,7 @@ const initStickyTitle = () => {
 
 nextTick(() => {
   initBlockAnimation()
+  // initInnerBlocksAnimation()
   // initStickyTitle()
 })
 </script>
@@ -191,6 +187,7 @@ nextTick(() => {
 }
 
 .block {
+  position: relative;
   width: 100%;
   height: 100vh;
 

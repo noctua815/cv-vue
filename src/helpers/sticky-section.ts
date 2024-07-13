@@ -2,7 +2,7 @@ import {gsap} from 'gsap'
 import {ScrollTrigger} from 'gsap/ScrollTrigger'
 import {getStyle} from "@/helpers/utils";
 
-export const addStickySection = (section: HTMLElement) => {
+export const addStickySection = (section: HTMLElement, pin: boolean) => {
     if (!section) return
 
     ScrollTrigger.create({
@@ -11,8 +11,8 @@ export const addStickySection = (section: HTMLElement) => {
         endTrigger: '#block-experience',
         end: 'bottom bottom',
         pinSpacing: false,
-        // markers: true,
-        pin: true,
+        markers: true,
+        pin,
         onEnter: () => {
             const prevStyle = getStyle(section, 'border-radius')
             section.dataset.borderRadius = prevStyle
