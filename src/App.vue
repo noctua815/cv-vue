@@ -2,10 +2,10 @@
 import HeroSection from '@/components/home/HeroSection.vue'
 import ExperienceBlock from '@/components/home/ExperienceBlock.vue'
 import IntroSection from '@/components/home/IntroSection.vue'
-import {gsap} from 'gsap'
+import { gsap } from 'gsap'
 import 'splitting/dist/splitting.css'
 import 'splitting/dist/splitting-cells.css'
-import {ScrollTrigger} from 'gsap/ScrollTrigger'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 </script>

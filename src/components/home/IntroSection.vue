@@ -1,27 +1,35 @@
 <script setup lang="ts">
 import VButton from '@/components/ui/VButton.vue'
-import {nextTick} from 'vue'
-import {gsap} from 'gsap'
-import {ScrollTrigger} from 'gsap/ScrollTrigger'
-// import Splitting from 'splitting'
+import { nextTick } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SplitType from 'split-type'
-import {getStyle} from "@/helpers/utils";
+import { getStyle } from '@/helpers/utils'
+import {addStickySection} from '@/helpers/sticky-section'
 
 let introSection
 
 const prevBlockAnimation = () => {
-  const tl = gsap.timeline()
   introSection = document.getElementById('intro-section')
-  // introSectionWr = introSection.querySelectorAll('.intro-section__wr')
+
+  // 1. add sticky for main section
+  addStickySection(introSection)
+
+  // 2. add fade for prev section
   const DOM = {
     prevSection: document.getElementById('hero-section'),
     prevSectionWr: ''
   }
   DOM.prevSectionWr = DOM.prevSection.querySelector('.hero__wr')
-  console.log('DOM', DOM)
-  tl.fromTo(DOM.prevSectionWr, {opacity: 1}, {
-    opacity: 0
-  })
+
+  const tl = gsap.timeline()
+  tl.fromTo(
+    DOM.prevSectionWr,
+    { opacity: 1 },
+    {
+      opacity: 0
+    }
+  )
   // tl.to(introSection, {
   //   borderRadius: 0
   // })
@@ -39,59 +47,66 @@ const prevBlockAnimation = () => {
     end: 'top 10%',
     scrub: 1,
     animation: tl,
-    markers: true,
+    // markers: true,
     pinSpacing: false
   })
 
-  ScrollTrigger.create({
-    trigger: introSection,
-    endTrigger: '#block-experience', // TODO
-    pin: true,
-    start: 'top top',
-    end: 'bottom bottom',
-    // scrub: 1,
-    // animation: tl,
-    // markers: true,
-    pinSpacing: false,
-    onEnter: () => {
-      const prevStyle = getStyle(introSection, 'border-radius')
-      introSection.dataset.borderRadius = prevStyle
-      console.log('onEnter', prevStyle)
-      gsap.to(introSection, {
-        borderRadius: 0
-      })
-    },
-    onLeaveBack: () => {
-      const prevStyle = introSection.dataset.borderRadius
-      if (prevStyle) {
-        gsap.to(introSection, {
-          borderRadius: prevStyle
-        })
-      }
-      console.log('onLeaveBack')
-    },
-  })
+  // ScrollTrigger.create({
+  //   trigger: introSection,
+  //   endTrigger: '#block-experience', // TODO
+  //   pin: true,
+  //   start: 'top top',
+  //   end: 'bottom bottom',
+  //   // scrub: 1,
+  //   // animation: tl,
+  //   // markers: true,
+  //   pinSpacing: false,
+  //   onEnter: () => {
+  //     const prevStyle = getStyle(introSection, 'border-radius')
+  //     introSection.dataset.borderRadius = prevStyle
+  //     console.log('onEnter', prevStyle)
+  //     gsap.to(introSection, {
+  //       borderRadius: 0
+  //     })
+  //   },
+  //   onLeaveBack: () => {
+  //     const prevStyle = introSection.dataset.borderRadius
+  //     if (prevStyle) {
+  //       gsap.to(introSection, {
+  //         borderRadius: prevStyle
+  //       })
+  //     }
+  //     console.log('onLeaveBack')
+  //   }
+  // })
 }
 
 const introBlockAnimation = () => {
-  const wordsIntro = new SplitType(introSection.querySelector('.intro-section__first .intro'), {types: 'lines'})
-  const wordsIntroSecond = new SplitType(introSection.querySelector('.intro-section__second .intro'), {types: 'lines'})
-  console.log(wordsIntro)
+  const wordsIntro = new SplitType(introSection.querySelector('.intro-section__first .intro'), {
+    types: 'lines'
+  })
+  const wordsIntroSecond = new SplitType(
+    introSection.querySelector('.intro-section__second .intro'),
+    { types: 'lines' }
+  )
   // console.log(wordsIntroSecond)
 
   const tl = gsap.timeline()
-  tl.set([wordsIntro.lines, wordsIntroSecond.lines], {opacity: 0, x: '10%', y: '10%', rotate: '2deg'})
-  tl.to(wordsIntro.lines,
-      {
-        opacity: 1,
-        y: 0,
-        x: 0,
-        rotate: 0,
-        stagger: {
-          each: 0.1
-        }
-      }
-  )
+  tl.set([wordsIntro.lines, wordsIntroSecond.lines], {
+    opacity: 0,
+    x: '10%',
+    y: '10%',
+    rotate: '2deg'
+  })
+  tl.to(wordsIntro.lines, {
+    opacity: 1,
+    y: 0,
+    x: 0,
+    rotate: 0,
+    stagger: {
+      each: 0.1
+    }
+  })
 
   // tl.to(wordsIntroSecond.lines,
   //     {
@@ -140,10 +155,10 @@ nextTick(() => {
   }
 
   &__content {
-
     display: grid;
-    grid-template-areas: 'intro-1 .'
-  'cv intro-2';
+    grid-template-areas:
+      'intro-1 .'
+      'cv intro-2';
     grid-template-rows: 2fr 1fr;
     grid-template-columns: 2fr 1fr;
     gap: 3rem;

@@ -4,7 +4,8 @@
     "env.d.ts",
     "src/**/*",
     "src/**/*.vue",
-    "node_modules/@vue/runtime-core/dist/runtime-core.d.ts"
+    "node_modules/@vue/runtime-core/dist/runtime-core.d.ts",
+    "node_modules/gsap/types/scroll-trigger.d.ts"
   ],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {

@@ -18,7 +18,7 @@ export const Jobs: Job[] = [
       'Development of white-label solutions for cryptocurrency operations.',
       'Working on creating an admin panel for interacting with the internal API.',
       'Performing bug fixes and conducting code reviews.',
-      'Supervising junior developers and providing training.',
+      'Supervising junior developers and providing training.'
     ],
     skills: [
       { color: 'blue', text: 'JavaScript' },

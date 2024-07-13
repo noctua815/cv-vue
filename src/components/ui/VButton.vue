@@ -14,14 +14,13 @@ defineProps<{
 .button {
   position: relative;
   display: inline-block;
-  //background-color: var(--c-light-violet);
   border-radius: 0.5rem;
   cursor: pointer;
   color: var(--c-white);
 
   &:hover {
     .button__bg {
-      transform: scale3d(1.2, 1.2, 1);
+      transform: scale3d(1.15, 1.15, 1);
 
       &:before {
         transition: transform 0.5s cubic-bezier(0.1, 0, 0.3, 1);
@@ -50,7 +49,7 @@ defineProps<{
     left: 0;
     width: 100%;
     height: 100%;
-    background:var(--c-white);
+    background: var(--c-white);
     border-radius: 0.85rem;
     overflow: hidden;
     transition: transform 0.4s cubic-bezier(0.1, 0, 0.3, 1);
@@ -82,6 +81,4 @@ defineProps<{
     }
   }
 }
-
-
 </style>

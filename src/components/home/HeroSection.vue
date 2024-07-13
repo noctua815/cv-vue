@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import ScribbleLink from '@/components/ui/ScribbleLink.vue'
-import {Contacts} from '@/content/home'
-import {nextTick} from 'vue'
+import { Contacts } from '@/content/home'
+import { nextTick } from 'vue'
 import Splitting from 'splitting'
-import {gsap} from 'gsap'
-import {charsAnimation} from '@/helpers/utils'
+import { gsap } from 'gsap'
+import { charsAnimation } from '@/helpers/utils'
 
 const heroAnimation = () => {
   const tl = gsap.timeline()
@@ -17,20 +17,20 @@ const heroAnimation = () => {
     imageWr: hero.querySelector('.hero__image'),
     image: hero.querySelector('.hero__image .fixed-image')
   }
-  const charsTitle = new Splitting({target: DOM.title, type: 'chars'})[0]
-  const charsName = new Splitting({target: DOM.name, type: 'chars'})[0]
-  tl.set([DOM.links, ...charsTitle.chars, ...charsName.chars], {opacity: 0})
+  const charsTitle = new Splitting({ target: DOM.title, type: 'chars' })[0]
+  const charsName = new Splitting({ target: DOM.name, type: 'chars' })[0]
+  tl.set([DOM.links, ...charsTitle.chars, ...charsName.chars], { opacity: 0 })
   // tl.set(DOM.image, {width: 0})
-  tl.to(DOM.wrapper, {opacity: 1}, 0.5)
+  tl.to(DOM.wrapper, { opacity: 1 }, 0.5)
   tl.to(
-      [DOM.links],
-      {
-        opacity: 1,
-        stagger: {
-          each: 0.25
-        }
-      },
-      '<'
+    [DOM.links],
+    {
+      opacity: 1,
+      stagger: {
+        each: 0.25
+      }
+    },
+    '<'
   )
   const imageRect = DOM.imageWr.getBoundingClientRect()
   tl.to(DOM.image, {
@@ -49,13 +49,11 @@ const heroAnimation = () => {
       charsAnimation(DOM.name)
     }, 1000)
 
-
     // setTimeout(() => {
     //   tl.to(DOM.image, {width: '100%', duration: 2})
     // }, 2000)
   })
 }
-
 
 nextTick(() => {
   heroAnimation()
@@ -146,10 +144,10 @@ nextTick(() => {
 
   &.make-abs {
     position: absolute;
-    top: 0!important;
-    left: 0!important;
-    width: 100%!important;
-    height: 100%!important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
   }
 }
 
@@ -160,7 +158,6 @@ nextTick(() => {
     display: block;
 
     &:first-line {
-
     }
   }
 
