@@ -1,48 +1,54 @@
 <script setup lang="ts">
-import SkillList from '@/components/ui/SkillList.vue'
+import SkillList  from '@/components/ui/SkillList.vue'
 
-import {reactive, watch} from 'vue'
+import {watch} from 'vue'
 import {gsap} from 'gsap'
 import {ScrollTrigger} from 'gsap/ScrollTrigger'
 import {Jobs} from '@/content/home'
+import {addStickySection} from '@/helpers/sticky-section'
 import {getStyle} from "@/helpers/utils";
 
 const props = defineProps<{
   loading: boolean
 }>()
-const DOM = reactive({
-  section: null,
-  sectionWr: null,
-  sectionTitle: null,
-})
+let section
+let sectionTitle
 
 watch(() => props.loading, (newVal) => {
   // loading done, init animation
   // initBlockAnimation()
   // initInnerBlocksAnimation()
-  DOM.section = document.getElementById('block-experience')
-  DOM.sectionWr = DOM.section.querySelector('.block-experience__wr')
-  DOM.sectionTitle = DOM.section.querySelector('.block-title')
-  DOM.prevSectionWr = document.querySelector('.intro-section__wr')
+  section = document.getElementById('block-experience')
+  sectionTitle = section.querySelector('.block-title ')
   initStickyTitle()
-  iniPrevBlockAnimation()
-  initInnerBlocksAnimation()
   initJobBlocksAnimation()
 })
 
 
-const iniPrevBlockAnimation = () => {
+const initBlockAnimation = () => {
+  section = document.getElementById('block-experience')
+
+  // 1. add sticky for main section
+  addStickySection(section, false)
+
   // 2. add fade for prev section
+  const DOM = {
+    prevSection: document.getElementById('intro-section'),
+    prevSectionWr: ''
+  }
+  DOM.prevSectionWr = DOM.prevSection.querySelector('.intro-section__wr')
   const tl = gsap.timeline()
 
   tl.fromTo(
       DOM.prevSectionWr,
       {opacity: 1},
-      {opacity: 0}
+      {
+        opacity: 0
+      }
   )
 
   ScrollTrigger.create({
-    trigger: DOM.section,
+    trigger: section,
     start: 'top 50%',
     end: 'top 10%',
     scrub: 1,
@@ -53,30 +59,53 @@ const iniPrevBlockAnimation = () => {
 }
 
 const initInnerBlocksAnimation = () => {
-  const tl = gsap.timeline()
+  const blocks = section.querySelectorAll('.block')
+  const length = blocks.length
+  const scaleFactor = 0.8
+  const scaleIndent = 0.05
 
-  tl.set(DOM.sectionWr, {
-    opacity: 0
-  })
+  for (const [i, block] of blocks.entries()) {
+    block.style.zIndex = i
 
-  tl.to(DOM.sectionWr, {
-    opacity: 1
-  })
+    // const bgColor = block.dataset.bgColor
+    const scale = scaleFactor + scaleIndent * (length - i)
+    const tl = gsap.timeline()
+    tl.set(block.querySelector('.block__content'), {scale: 0.8, borderRadius: '5rem'})
+    tl.to(block.querySelector('.block__content'), {scale: scale, borderRadius: '2rem'})
 
-  ScrollTrigger.create({
-    trigger: DOM.section,
-    start: 'top 50%',
-    end: 'top top',
-    // scrub: 1,
-    animation: tl,
-    // markers: true,
-    pinSpacing: false
-  })
+    ScrollTrigger.create({
+      trigger: block,
+      start: 'top 50%',
+      end: '+=50%',
+      // markers: true,
+      animation: tl,
+      scrub: 1,
+      // onScrubComplete: (self) => {
+      //   // console.log('onScrubComplete', self)
+      //   if (self.progress === 1) {
+      //     console.log('fix title', i)
+      //   } else {
+      //     console.log('hide title', i)
+      //   }
+      // }
+    })
+
+    const startIndent = i * 25 + 100
+
+    ScrollTrigger.create({
+      trigger: block,
+      start: `top ${startIndent}`,
+      end: `bottom 100%-=100px`,
+      endTrigger: '#block-experience',
+      pin: true,
+      pinSpacing: false
+    })
+  }
 }
 
 const initJobBlocksAnimation = () => {
-  const blocks = DOM.section.querySelectorAll('.block')
-  const topIndent = DOM.sectionTitle.getBoundingClientRect().height
+  const blocks = section.querySelectorAll('.block')
+  const topIndent = sectionTitle.getBoundingClientRect().height
   for (const [i, block] of blocks.entries()) {
     block.style.zIndex = i
 
@@ -86,14 +115,17 @@ const initJobBlocksAnimation = () => {
       scale: 0.5,
       opacity: 0
     })
-
+    // tl.to(title, {
+    //   scale: 0.7,
+    //   borderBottom: '1px solid black'
+    // })
     ScrollTrigger.create({
       trigger: block,
       start: `top 0`,
       end: `bottom bottom`,
       endTrigger: '#block-experience',
       // pin: title,
-      markers: true,
+      // markers: true,
       scrub: 1,
       pinSpacing: false,
       animation: tl,
@@ -126,7 +158,7 @@ const initJobBlocksAnimation = () => {
 }
 const initStickyTitle = () => {
   ScrollTrigger.create({
-    trigger: DOM.sectionTitle,
+    trigger: sectionTitle,
     endTrigger: '#block-experience',
     pin: true,
     start: 'top top',
@@ -134,16 +166,16 @@ const initStickyTitle = () => {
     // markers: true,
     pinSpacing: false,
     onEnter: () => {
-      const prevStyle = getStyle(DOM.section, 'border-radius')
-      DOM.section.dataset.borderRadius = prevStyle
-      gsap.to(DOM.section, {
+      const prevStyle = getStyle(section, 'border-radius')
+      section.dataset.borderRadius = prevStyle
+      gsap.to(section, {
         borderRadius: 0
       })
     },
     onLeaveBack: () => {
-      const prevStyle = DOM.section.dataset.borderRadius
+      const prevStyle = section.dataset.borderRadius
       if (prevStyle) {
-        gsap.to(DOM.section, {
+        gsap.to(section, {
           borderRadius: prevStyle
         })
       }
@@ -187,6 +219,11 @@ const initStickyTitle = () => {
   padding: 0 1rem 2rem;
   background-color: var(--c-green);
   color: var(--c-black);
+  overflow: hidden;
+
+
+  //&__wr {
+  //}
 }
 
 .block-title {
@@ -194,6 +231,7 @@ const initStickyTitle = () => {
   z-index: 10;
   display: flex;
   align-items: center;
+  //height: 7em;
   padding: 2rem 0;
   margin: 0 2rem 2rem;
   background-color: var(--c-green);
@@ -251,12 +289,12 @@ const initStickyTitle = () => {
 .block {
   position: relative;
   width: 100%;
-  //height: 100vh;
+  height: 100vh;
 
   &__content {
     width: 100%;
     height: 100%;
-    padding: 0.5rem 2rem;
+    padding: 2rem;
     color: var(--c-black);
   }
 }

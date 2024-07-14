@@ -51,13 +51,10 @@ const prevBlockAnimation = () => {
 
   ScrollTrigger.create({
     trigger: introSection,
-    // endTrigger: '#block-experience',
-    // pin: true,
     start: 'top 50%',
     end: 'top 10%',
     scrub: 1,
     animation: tl,
-    // markers: true,
     pinSpacing: false
   })
 
@@ -92,6 +89,10 @@ const prevBlockAnimation = () => {
 }
 
 const introBlockAnimation = () => {
+  const DOM = {
+    sectionWr: introSection.querySelector('.intro-section__wr'),
+    btns: introSection.querySelectorAll('.button')
+  }
   // 1. split text into lines
   const wordsIntro = new SplitType(introSection.querySelector('.intro-section__first .intro'), {
     types: 'lines'
@@ -106,15 +107,20 @@ const introBlockAnimation = () => {
   if (wordsIntroSecond.lines) {
     wrapElement(wordsIntroSecond.lines, 'span', 'line-wrap')
   }
-  //
+  wrapElement(DOM.btns, 'span', 'clear-wrap')
   // 2. add timeline
   const tl = gsap.timeline()
+  // tl.set(sectionWr, {opacity: 0})
 
-  // 3. main text animation
   tl.set([wordsIntro.lines, wordsIntroSecond.lines], {
     y: '100%',
     rotate: '4deg'
   })
+  tl.set(DOM.sectionWr, {opacity: 0})
+  tl.set(DOM.btns, {y: '100%'})
+
+  tl.to(DOM.sectionWr, {opacity: 1})
+  // 3. main text animation
 
   tl.to(wordsIntro.lines, {
     opacity: 1,
@@ -124,7 +130,7 @@ const introBlockAnimation = () => {
     stagger: {
       each: 0.1
     }
-  })
+  }, '<')
 
   // 3. secondary text animation
   tl.to(wordsIntroSecond.lines,
@@ -137,8 +143,26 @@ const introBlockAnimation = () => {
           each: 0.15
         }
       },
-      '<0.7'
+      '>+2'
   )
+
+  tl.to(DOM.btns, {
+    y: 0,
+    stagger: {
+      each: 0.15
+    }
+  }, '>+=1')
+
+  ScrollTrigger.create({
+    trigger: introSection,
+    start: 'top 50%',
+    end: 'top top',
+    scrub: 1,
+    animation: tl,
+    // markers: true,
+    pinSpacing: false
+  })
+
   // tl.to(DOM.wrapper, {opacity: 1}, 0.5)
 }
 
@@ -168,8 +192,8 @@ const introBlockAnimation = () => {
 
   &__wr {
     display: flex;
-    flex-direction: column;
     height: 100%;
+    flex-direction: column;
     padding: 1rem 2rem 2rem;
   }
 

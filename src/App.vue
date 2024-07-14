@@ -14,12 +14,10 @@ const loading = ref(true)
 const animationFinished = ref(false)
 
 const heroAnimationFinished = () => {
-  console.log('APP heroAnimationFinished')
   animationFinished.value = true
 }
 preloadFonts().then(() => {
   loading.value = false
-  console.log('loading', loading)
 })
 </script>
 

@@ -13,7 +13,6 @@ const computedStyles = computed(() => {
     color: 'black'
   }
 })
-console.log('computedStyles', computedStyles)
 </script>
 
 <template lang="pug">

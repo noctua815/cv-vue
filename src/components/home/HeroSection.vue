@@ -48,7 +48,8 @@ const heroAnimation = () => {
     top: imageRect.top,
     width: '48vw',
     height: '15vh',
-    background: 'linear-gradient(90deg, black 0%, #DCCAE2 43%, #DCCAE2 60%, black 100%)',
+    backgroundColor: 'transparent',
+    // background: 'linear-gradient(90deg, black 0%, #DCCAE2 43%, #DCCAE2 60%, black 100%)',
     onComplete: () => {
       DOM.image.classList.add('make-abs')
     }
@@ -144,10 +145,16 @@ const heroAnimation = () => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: black;
+  //background: black;
   //background: linear-gradient(90deg, black 0%, #DCCAE2 43%, #DCCAE2 60%, black 100%);
   opacity: 1;
   transform-origin: left center;
+  background-image: url('@/assets/images/dotted-pattern-1.png');
+  //background-color: black;
+  background-color: #DCCAE1;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-position: center;
 
   &.make-abs {
     position: absolute;
