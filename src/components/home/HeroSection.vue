@@ -13,7 +13,9 @@ const props = defineProps<{
 
 watch(
   () => props.loading,
-  (newVal) => {
+  () => {
+    console.log('1. INIT HERO BLOCK ANIMATION')
+
     // loading done, init animation
     heroAnimation()
   }
@@ -113,6 +115,7 @@ const heroAnimation = () => {
 
   &__title {
     align-self: center;
+    margin-left: -0.4rem;
   }
 
   &__name {

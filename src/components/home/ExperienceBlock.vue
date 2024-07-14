@@ -19,6 +19,7 @@ const DOM = reactive({
 watch(
   () => props.loading,
   (newVal) => {
+    console.log('3. INIT EXPERIENCE BLOCK ANIMATION')
     // loading done, init animation
     // initBlockAnimation()
     // initInnerBlocksAnimation()
@@ -34,9 +35,7 @@ watch(
 )
 
 const iniPrevBlockAnimation = () => {
-  // 2. add fade for prev section
   const tl = gsap.timeline()
-
   tl.fromTo(DOM.prevSectionWr, { opacity: 1 }, { opacity: 0 })
 
   ScrollTrigger.create({
@@ -44,9 +43,14 @@ const iniPrevBlockAnimation = () => {
     start: 'top 50%',
     end: 'top 10%',
     scrub: 1,
-    animation: tl,
-    // markers: true,
-    pinSpacing: false
+    // animation: tl,
+    pinSpacing: false,
+    onEnter: () => {
+      console.log('onEnter')
+    },
+    onLeave: () => {
+      console.log('onLeave')
+    }
   })
 }
 
@@ -65,7 +69,7 @@ const initInnerBlocksAnimation = () => {
     trigger: DOM.section,
     start: 'top 50%',
     end: 'top top',
-    // scrub: 1,
+    scrub: 1,
     animation: tl,
     // markers: true,
     pinSpacing: false
@@ -91,7 +95,7 @@ const initJobBlocksAnimation = () => {
       end: `bottom bottom`,
       endTrigger: '#block-experience',
       // pin: title,
-      markers: true,
+      // markers: true,
       scrub: 1,
       pinSpacing: false,
       animation: tl

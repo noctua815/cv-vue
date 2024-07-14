@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import VButton from '@/components/ui/VButton.vue'
-import { watch } from 'vue'
+import {onMounted, reactive, watch} from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SplitType from 'split-type'
@@ -11,30 +11,33 @@ const props = defineProps<{
   loading: boolean
 }>()
 
+const DOM = reactive({
+  section: null,
+  sectionWr: null,
+  prevSectionWr: null
+})
+
 watch(
   () => props.loading,
-  (newVal) => {
+  () => {
+    console.log('2. INIT INTRO BLOCK ANIMATION')
+
     // loading done, init animation
+    DOM.section = document.getElementById('intro-section')
+    DOM.sectionWr = DOM.section.querySelector('.intro-section__wr'),
+    DOM.prevSectionWr = document.querySelector('.hero__wr')
+    DOM.btns = DOM.section.querySelectorAll('.button')
     prevBlockAnimation()
     introBlockAnimation()
   }
 )
 
-let introSection
 
 const prevBlockAnimation = () => {
-  introSection = document.getElementById('intro-section')
-
   // 1. add sticky for main section
-  addStickySection(introSection, true)
+  addStickySection(DOM.section, true)
 
   // 2. add fade for prev section
-  const DOM = {
-    prevSection: document.getElementById('hero-section'),
-    prevSectionWr: ''
-  }
-  DOM.prevSectionWr = DOM.prevSection.querySelector('.hero__wr')
-
   const tl = gsap.timeline()
   tl.fromTo(
     DOM.prevSectionWr,
@@ -43,7 +46,7 @@ const prevBlockAnimation = () => {
       opacity: 0
     }
   )
-  // tl.to(introSection, {
+  // tl.to(DOM.section, {
   //   borderRadius: 0
   // })
   // tl.fromTo(DOM.prevSection, {backgroundColor: '#DCCAE2'}, {backgroundColor: '#1f1f1f'})
@@ -53,7 +56,7 @@ const prevBlockAnimation = () => {
   // tl.to(DOM.prevSection, {backgroundColor: '#87D2D4'})
 
   ScrollTrigger.create({
-    trigger: introSection,
+    trigger: DOM.section,
     start: 'top 50%',
     end: 'top 10%',
     scrub: 1,
@@ -62,7 +65,7 @@ const prevBlockAnimation = () => {
   })
 
   // ScrollTrigger.create({
-  //   trigger: introSection,
+  //   trigger: DOM.section,
   //   endTrigger: '#block-experience', // TODO
   //   pin: true,
   //   start: 'top top',
@@ -72,17 +75,17 @@ const prevBlockAnimation = () => {
   //   // markers: true,
   //   pinSpacing: false,
   //   onEnter: () => {
-  //     const prevStyle = getStyle(introSection, 'border-radius')
-  //     introSection.dataset.borderRadius = prevStyle
+  //     const prevStyle = getStyle(DOM.section, 'border-radius')
+  //     DOM.section.dataset.borderRadius = prevStyle
   //     console.log('onEnter', prevStyle)
-  //     gsap.to(introSection, {
+  //     gsap.to(DOM.section, {
   //       borderRadius: 0
   //     })
   //   },
   //   onLeaveBack: () => {
-  //     const prevStyle = introSection.dataset.borderRadius
+  //     const prevStyle = DOM.section.dataset.borderRadius
   //     if (prevStyle) {
-  //       gsap.to(introSection, {
+  //       gsap.to(DOM.section, {
   //         borderRadius: prevStyle
   //       })
   //     }
@@ -92,16 +95,13 @@ const prevBlockAnimation = () => {
 }
 
 const introBlockAnimation = () => {
-  const DOM = {
-    sectionWr: introSection.querySelector('.intro-section__wr'),
-    btns: introSection.querySelectorAll('.button')
-  }
+  console.log('introBlockAnimation')
   // 1. split text into lines
-  const wordsIntro = new SplitType(introSection.querySelector('.intro-section__first .intro'), {
+  const wordsIntro = new SplitType(DOM.section.querySelector('.intro-section__first .intro'), {
     types: 'lines'
   })
   const wordsIntroSecond = new SplitType(
-    introSection.querySelector('.intro-section__second .intro'),
+    DOM.section.querySelector('.intro-section__second .intro'),
     { types: 'lines' }
   )
   if (wordsIntro.lines) {
@@ -111,20 +111,19 @@ const introBlockAnimation = () => {
     wrapElement(wordsIntroSecond.lines, 'span', 'line-wrap')
   }
   wrapElement(DOM.btns, 'span', 'clear-wrap')
-  // 2. add timeline
-  const tl = gsap.timeline()
-  // tl.set(sectionWr, {opacity: 0})
 
-  tl.set([wordsIntro.lines, wordsIntroSecond.lines], {
+  // set basic value
+  gsap.set(DOM.sectionWr, {opacity: 0})
+  console.log('DOM.sectionWr', DOM.sectionWr)
+  gsap.set([wordsIntro.lines, wordsIntroSecond.lines], {
     y: '100%',
     rotate: '4deg'
   })
-  tl.set(DOM.sectionWr, { opacity: 0 })
-  tl.set(DOM.btns, { y: '100%' })
+  gsap.set(DOM.btns, { y: '100%' })
 
+  // 3. add timeline
+  const tl = gsap.timeline()
   tl.to(DOM.sectionWr, { opacity: 1 })
-  // 3. main text animation
-
   tl.to(
     wordsIntro.lines,
     {
@@ -136,10 +135,9 @@ const introBlockAnimation = () => {
         each: 0.1
       }
     },
-    '<'
+    '>'
   )
 
-  // 3. secondary text animation
   tl.to(
     wordsIntroSecond.lines,
     {
@@ -151,7 +149,7 @@ const introBlockAnimation = () => {
         each: 0.15
       }
     },
-    '>+2'
+    '>'
   )
 
   tl.to(
@@ -162,20 +160,18 @@ const introBlockAnimation = () => {
         each: 0.15
       }
     },
-    '>+=1'
+    '>'
   )
 
   ScrollTrigger.create({
-    trigger: introSection,
-    start: 'top 50%',
+    trigger: DOM.section,
+    start: 'top 60%',
     end: 'top top',
     scrub: 1,
     animation: tl,
-    // markers: true,
+    markers: true,
     pinSpacing: false
   })
-
-  // tl.to(DOM.wrapper, {opacity: 1}, 0.5)
 }
 </script>
 
@@ -200,6 +196,7 @@ const introBlockAnimation = () => {
   z-index: 3;
   min-height: 100vh;
   background-color: var(--c-tiffany-blue);
+  margin-bottom: 50vh;
 
   &__wr {
     display: flex;

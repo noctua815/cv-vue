@@ -2,7 +2,7 @@
 import HeroSection from '@/components/home/HeroSection.vue'
 import ExperienceBlock from '@/components/home/ExperienceBlock.vue'
 import IntroSection from '@/components/home/IntroSection.vue'
-import { ref } from 'vue'
+import {onMounted, ref} from 'vue'
 import { gsap } from 'gsap'
 import 'splitting/dist/splitting.css'
 import 'splitting/dist/splitting-cells.css'
@@ -19,6 +19,8 @@ const heroAnimationFinished = () => {
   animationFinished.value = true
 }
 preloadFonts().then(() => {
+  console.log('--- preloadFonts ----')
+
   loading.value = false
   initSmoothScrolling()
 })
