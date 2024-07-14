@@ -11,10 +11,13 @@ const props = defineProps<{
   loading: boolean
 }>()
 
-watch(() => props.loading, (newVal) => {
-  // loading done, init animation
-  heroAnimation()
-})
+watch(
+  () => props.loading,
+  (newVal) => {
+    // loading done, init animation
+    heroAnimation()
+  }
+)
 
 const heroAnimation = () => {
   const tl = gsap.timeline()
@@ -151,7 +154,7 @@ const heroAnimation = () => {
   transform-origin: left center;
   background-image: url('@/assets/images/dotted-pattern-1.png');
   //background-color: black;
-  background-color: #DCCAE1;
+  background-color: #dccae1;
   background-repeat: repeat;
   background-attachment: fixed;
   background-position: center;

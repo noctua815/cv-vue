@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import SkillList from '@/components/ui/SkillList.vue'
 
-import {reactive, watch} from 'vue'
-import {gsap} from 'gsap'
-import {ScrollTrigger} from 'gsap/ScrollTrigger'
-import {Jobs} from '@/content/home'
-import {getStyle} from "@/helpers/utils";
+import { reactive, watch } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Jobs } from '@/content/home'
+import { getStyle } from '@/helpers/utils'
 
 const props = defineProps<{
   loading: boolean
@@ -13,33 +13,31 @@ const props = defineProps<{
 const DOM = reactive({
   section: null,
   sectionWr: null,
-  sectionTitle: null,
+  sectionTitle: null
 })
 
-watch(() => props.loading, (newVal) => {
-  // loading done, init animation
-  // initBlockAnimation()
-  // initInnerBlocksAnimation()
-  DOM.section = document.getElementById('block-experience')
-  DOM.sectionWr = DOM.section.querySelector('.block-experience__wr')
-  DOM.sectionTitle = DOM.section.querySelector('.block-title')
-  DOM.prevSectionWr = document.querySelector('.intro-section__wr')
-  initStickyTitle()
-  iniPrevBlockAnimation()
-  initInnerBlocksAnimation()
-  initJobBlocksAnimation()
-})
-
+watch(
+  () => props.loading,
+  (newVal) => {
+    // loading done, init animation
+    // initBlockAnimation()
+    // initInnerBlocksAnimation()
+    DOM.section = document.getElementById('block-experience')
+    DOM.sectionWr = DOM.section.querySelector('.block-experience__wr')
+    DOM.sectionTitle = DOM.section.querySelector('.block-title')
+    DOM.prevSectionWr = document.querySelector('.intro-section__wr')
+    initStickyTitle()
+    iniPrevBlockAnimation()
+    initInnerBlocksAnimation()
+    initJobBlocksAnimation()
+  }
+)
 
 const iniPrevBlockAnimation = () => {
   // 2. add fade for prev section
   const tl = gsap.timeline()
 
-  tl.fromTo(
-      DOM.prevSectionWr,
-      {opacity: 1},
-      {opacity: 0}
-  )
+  tl.fromTo(DOM.prevSectionWr, { opacity: 1 }, { opacity: 0 })
 
   ScrollTrigger.create({
     trigger: DOM.section,
@@ -96,7 +94,7 @@ const initJobBlocksAnimation = () => {
       markers: true,
       scrub: 1,
       pinSpacing: false,
-      animation: tl,
+      animation: tl
     })
 
     // gsap.to(title, {

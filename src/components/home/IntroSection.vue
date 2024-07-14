@@ -1,21 +1,24 @@
 <script setup lang="ts">
 import VButton from '@/components/ui/VButton.vue'
-import {watch} from 'vue'
-import {gsap} from 'gsap'
-import {ScrollTrigger} from 'gsap/ScrollTrigger'
+import { watch } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SplitType from 'split-type'
-import {addStickySection} from '@/helpers/sticky-section'
-import {wrapElement} from '@/helpers/utils'
+import { addStickySection } from '@/helpers/sticky-section'
+import { wrapElement } from '@/helpers/utils'
 
 const props = defineProps<{
   loading: boolean
 }>()
 
-watch(() => props.loading, (newVal) => {
-  // loading done, init animation
-  prevBlockAnimation()
-  introBlockAnimation()
-})
+watch(
+  () => props.loading,
+  (newVal) => {
+    // loading done, init animation
+    prevBlockAnimation()
+    introBlockAnimation()
+  }
+)
 
 let introSection
 
@@ -34,11 +37,11 @@ const prevBlockAnimation = () => {
 
   const tl = gsap.timeline()
   tl.fromTo(
-      DOM.prevSectionWr,
-      {opacity: 1},
-      {
-        opacity: 0
-      }
+    DOM.prevSectionWr,
+    { opacity: 1 },
+    {
+      opacity: 0
+    }
   )
   // tl.to(introSection, {
   //   borderRadius: 0
@@ -98,8 +101,8 @@ const introBlockAnimation = () => {
     types: 'lines'
   })
   const wordsIntroSecond = new SplitType(
-      introSection.querySelector('.intro-section__second .intro'),
-      {types: 'lines'}
+    introSection.querySelector('.intro-section__second .intro'),
+    { types: 'lines' }
   )
   if (wordsIntro.lines) {
     wrapElement(wordsIntro.lines, 'span', 'line-wrap')
@@ -116,42 +119,51 @@ const introBlockAnimation = () => {
     y: '100%',
     rotate: '4deg'
   })
-  tl.set(DOM.sectionWr, {opacity: 0})
-  tl.set(DOM.btns, {y: '100%'})
+  tl.set(DOM.sectionWr, { opacity: 0 })
+  tl.set(DOM.btns, { y: '100%' })
 
-  tl.to(DOM.sectionWr, {opacity: 1})
+  tl.to(DOM.sectionWr, { opacity: 1 })
   // 3. main text animation
 
-  tl.to(wordsIntro.lines, {
-    opacity: 1,
-    y: 0,
-    x: 0,
-    rotate: 0,
-    stagger: {
-      each: 0.1
-    }
-  }, '<')
-
-  // 3. secondary text animation
-  tl.to(wordsIntroSecond.lines,
-      {
-        opacity: 1,
-        y: 0,
-        x: 0,
-        rotate: 0,
-        stagger: {
-          each: 0.15
-        }
-      },
-      '>+2'
+  tl.to(
+    wordsIntro.lines,
+    {
+      opacity: 1,
+      y: 0,
+      x: 0,
+      rotate: 0,
+      stagger: {
+        each: 0.1
+      }
+    },
+    '<'
   )
 
-  tl.to(DOM.btns, {
-    y: 0,
-    stagger: {
-      each: 0.15
-    }
-  }, '>+=1')
+  // 3. secondary text animation
+  tl.to(
+    wordsIntroSecond.lines,
+    {
+      opacity: 1,
+      y: 0,
+      x: 0,
+      rotate: 0,
+      stagger: {
+        each: 0.15
+      }
+    },
+    '>+2'
+  )
+
+  tl.to(
+    DOM.btns,
+    {
+      y: 0,
+      stagger: {
+        each: 0.15
+      }
+    },
+    '>+=1'
+  )
 
   ScrollTrigger.create({
     trigger: introSection,
@@ -165,7 +177,6 @@ const introBlockAnimation = () => {
 
   // tl.to(DOM.wrapper, {opacity: 1}, 0.5)
 }
-
 </script>
 
 <template lang="pug">

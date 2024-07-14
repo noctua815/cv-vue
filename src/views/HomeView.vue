@@ -3,7 +3,7 @@ import FilesSection from '@/components/home/FileSection.vue'
 import ScribbleLink from '@/components/ui/ScribbleLink.vue'
 import DropdownItem from '@/components/ui/DropdownItem.vue'
 import SimpleList from '@/components/ui/SimpleList.vue'
-import SkillList  from '@/components/ui/SkillList.vue'
+import SkillList from '@/components/ui/SkillList.vue'
 import { Jobs, Education, Footer } from '@/content/home'
 </script>
 

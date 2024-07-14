@@ -11,7 +11,7 @@
   --c-light-violet: #dccae2;
   //--c-ash-violet: #9c99bb;
   --c-violet: #892fd0;
-  --c-orange: #C84C09;
+  --c-orange: #c84c09;
   --c-dark-green: #436436;
   //--c-violet: #C84C09; // 1
   //--c-violet: #020887;
@@ -88,7 +88,8 @@ body {
   border-top-right-radius: 4rem;
 }
 
-.line-wrap, .word-wrap {
+.line-wrap,
+.word-wrap {
   position: relative;
   overflow: hidden;
   display: inline-block;

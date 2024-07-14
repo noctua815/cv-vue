@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import SkillList  from '@/components/ui/SkillList.vue'
+import SkillList from '@/components/ui/SkillList.vue'
 
-import {watch} from 'vue'
-import {gsap} from 'gsap'
-import {ScrollTrigger} from 'gsap/ScrollTrigger'
-import {Jobs} from '@/content/home'
-import {addStickySection} from '@/helpers/sticky-section'
-import {getStyle} from "@/helpers/utils";
+import { watch } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Jobs } from '@/content/home'
+import { addStickySection } from '@/helpers/sticky-section'
+import { getStyle } from '@/helpers/utils'
 
 const props = defineProps<{
   loading: boolean
@@ -14,16 +14,18 @@ const props = defineProps<{
 let section
 let sectionTitle
 
-watch(() => props.loading, (newVal) => {
-  // loading done, init animation
-  // initBlockAnimation()
-  // initInnerBlocksAnimation()
-  section = document.getElementById('block-experience')
-  sectionTitle = section.querySelector('.block-title ')
-  initStickyTitle()
-  initJobBlocksAnimation()
-})
-
+watch(
+  () => props.loading,
+  (newVal) => {
+    // loading done, init animation
+    // initBlockAnimation()
+    // initInnerBlocksAnimation()
+    section = document.getElementById('block-experience')
+    sectionTitle = section.querySelector('.block-title ')
+    initStickyTitle()
+    initJobBlocksAnimation()
+  }
+)
 
 const initBlockAnimation = () => {
   section = document.getElementById('block-experience')
@@ -40,11 +42,11 @@ const initBlockAnimation = () => {
   const tl = gsap.timeline()
 
   tl.fromTo(
-      DOM.prevSectionWr,
-      {opacity: 1},
-      {
-        opacity: 0
-      }
+    DOM.prevSectionWr,
+    { opacity: 1 },
+    {
+      opacity: 0
+    }
   )
 
   ScrollTrigger.create({
@@ -70,8 +72,8 @@ const initInnerBlocksAnimation = () => {
     // const bgColor = block.dataset.bgColor
     const scale = scaleFactor + scaleIndent * (length - i)
     const tl = gsap.timeline()
-    tl.set(block.querySelector('.block__content'), {scale: 0.8, borderRadius: '5rem'})
-    tl.to(block.querySelector('.block__content'), {scale: scale, borderRadius: '2rem'})
+    tl.set(block.querySelector('.block__content'), { scale: 0.8, borderRadius: '5rem' })
+    tl.to(block.querySelector('.block__content'), { scale: scale, borderRadius: '2rem' })
 
     ScrollTrigger.create({
       trigger: block,
@@ -79,7 +81,7 @@ const initInnerBlocksAnimation = () => {
       end: '+=50%',
       // markers: true,
       animation: tl,
-      scrub: 1,
+      scrub: 1
       // onScrubComplete: (self) => {
       //   // console.log('onScrubComplete', self)
       //   if (self.progress === 1) {
@@ -128,7 +130,7 @@ const initJobBlocksAnimation = () => {
       // markers: true,
       scrub: 1,
       pinSpacing: false,
-      animation: tl,
+      animation: tl
     })
 
     // gsap.to(title, {
@@ -220,7 +222,6 @@ const initStickyTitle = () => {
   background-color: var(--c-green);
   color: var(--c-black);
   overflow: hidden;
-
 
   //&__wr {
   //}

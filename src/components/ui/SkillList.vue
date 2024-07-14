@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type {Skill} from '@/types.ts'
+import type { Skill } from '@/types.ts'
 import SkillItem from '@/components/ui/SkillItem.vue'
-import {onMounted, reactive} from "vue"
+import { onMounted, reactive } from 'vue'
 import chroma from 'chroma-js'
 
 const props = defineProps<{
@@ -10,10 +10,7 @@ const props = defineProps<{
 
 let colors = reactive([])
 const scaleColors = (start: string, end: string) => {
-  const arr = chroma
-      .scale([start, end])
-      .mode('lch')
-      .colors(props.skills.length)
+  const arr = chroma.scale([start, end]).mode('lch').colors(props.skills.length)
   colors.push(...arr)
 }
 
