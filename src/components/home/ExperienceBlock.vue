@@ -9,6 +9,7 @@ import { getStyle } from '@/helpers/utils'
 
 const props = defineProps<{
   loading: boolean
+  resize: boolean
 }>()
 const DOM = reactive({
   section: null,
@@ -33,6 +34,16 @@ watch(
     initJobBlocksAnimation()
   }
 )
+
+// resize page listener
+watch(() => props.resize, (val) => {
+  if (val) {
+    onResize()
+  }
+})
+const onResize = () => {
+  console.log('---- onResize - EXPE')
+}
 
 const iniPrevBlockAnimation = () => {
   const tl = gsap.timeline()

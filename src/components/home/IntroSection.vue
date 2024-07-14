@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import VButton from '@/components/ui/VButton.vue'
-import {onMounted, reactive, watch} from 'vue'
+import { onMounted, reactive, watch } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SplitType from 'split-type'
@@ -9,6 +9,7 @@ import { wrapElement } from '@/helpers/utils'
 
 const props = defineProps<{
   loading: boolean
+  resize: boolean
 }>()
 
 const DOM = reactive({
@@ -24,7 +25,7 @@ watch(
 
     // loading done, init animation
     DOM.section = document.getElementById('intro-section')
-    DOM.sectionWr = DOM.section.querySelector('.intro-section__wr'),
+    DOM.sectionWr = DOM.section.querySelector('.intro-section__wr')
     DOM.prevSectionWr = document.querySelector('.hero__wr')
     DOM.btns = DOM.section.querySelectorAll('.button')
     prevBlockAnimation()
@@ -32,6 +33,15 @@ watch(
   }
 )
 
+// resize page listener
+watch(() => props.resize, (val) => {
+  if (val) {
+    onResize()
+  }
+})
+const onResize = () => {
+  console.log('---- onResize - INTRO')
+}
 
 const prevBlockAnimation = () => {
   // 1. add sticky for main section
@@ -113,7 +123,7 @@ const introBlockAnimation = () => {
   wrapElement(DOM.btns, 'span', 'clear-wrap')
 
   // set basic value
-  gsap.set(DOM.sectionWr, {opacity: 0})
+  gsap.set(DOM.sectionWr, { opacity: 0 })
   console.log('DOM.sectionWr', DOM.sectionWr)
   gsap.set([wordsIntro.lines, wordsIntroSecond.lines], {
     y: '100%',

@@ -9,6 +9,7 @@ import { charsAnimation } from '@/helpers/utils'
 const emit = defineEmits(['heroAnimationFinished'])
 const props = defineProps<{
   loading: boolean
+  resize: boolean
 }>()
 
 watch(
@@ -20,6 +21,16 @@ watch(
     heroAnimation()
   }
 )
+
+// resize page listener
+watch(() => props.resize, (val) => {
+  if (val) {
+    onResize()
+  }
+})
+const onResize = () => {
+  console.log('---- onResize - HERO')
+}
 
 const heroAnimation = () => {
   const tl = gsap.timeline()
