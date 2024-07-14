@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "chroma-js": "^2.4.2",
     "gsap": "^3.12.5",
     "pinia": "^2.1.7",
     "split-type": "^0.3.4",

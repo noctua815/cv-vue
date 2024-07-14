@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import SkillList  from '@/components/ui/SkillList.vue'
+
 import {watch} from 'vue'
 import {gsap} from 'gsap'
 import {ScrollTrigger} from 'gsap/ScrollTrigger'
@@ -198,7 +200,8 @@ const initStickyTitle = () => {
                 .job__title-year {{ job.period }}
                 .job__title-pos {{ job.position }}
               .job__skills
-                .skill(v-for="(skill, i) of job.skills" :key="i") {{ skill.text }}
+                SkillList(:skills="job.skills")
+                //.skill(v-for="(skill, i) of job.skills" :key="i") {{ skill.text }}
               .job__info.text-content
                 p {{ job.intro }}
                 ul
@@ -269,10 +272,6 @@ const initStickyTitle = () => {
   &__skills {
     position: relative;
     grid-area: skills;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    font-family: var(--font-secondary);
   }
 }
 

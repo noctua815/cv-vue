@@ -1,13 +1,24 @@
 <script setup lang="ts">
 import type { Skill } from '@/types.ts'
+import {computed} from "vue"
 
-defineProps<{
+const props = defineProps<{
   skill: Skill
+  color?: string
 }>()
+
+const computedStyles = computed(() => {
+  return {
+    backgroundColor: props.color,
+    color: 'black'
+  }
+})
+console.log('computedStyles', computedStyles)
 </script>
 
 <template lang="pug">
-  .skill(:class="[`is-${skill.color || 'black'}`]")
+  //.skill(:class="[`is-${skill.color || 'black'}`]")
+  .skill(:style="computedStyles")
     .skill__text {{ skill.text }}
     .skill__bg
 </template>

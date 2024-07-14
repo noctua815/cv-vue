@@ -2,8 +2,8 @@
 import FilesSection from '@/components/home/FileSection.vue'
 import ScribbleLink from '@/components/ui/ScribbleLink.vue'
 import DropdownItem from '@/components/ui/DropdownItem.vue'
-import SkillItem from '@/components/ui/SkillItem.vue'
 import SimpleList from '@/components/ui/SimpleList.vue'
+import SkillList  from '@/components/ui/SkillList.vue'
 import { Jobs, Education, Footer } from '@/content/home'
 </script>
 
@@ -28,8 +28,7 @@ import { Jobs, Education, Footer } from '@/content/home'
       FilesSection(:num="1" title="Experience")
         DropdownItem(v-for="(item, i) of Jobs" :item="item" :key="i")
           template(v-slot:more)
-            .skills
-              SkillItem(v-if="item.skills" v-for="(skill, i) of item.skills" :key="i" :skill="skill")
+            SkillList(:skills="item.skills")
       FilesSection(:num="2" title="Education")
         DropdownItem(v-for="(item, i) of Education" :item="item" :key="i")
     .resume__body
