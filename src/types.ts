@@ -1,5 +1,4 @@
 export interface Skill {
-  color: string
   text: string
 }
 
@@ -11,6 +10,4 @@ export interface Job {
   experience?: string[]
   skills?: Skill[]
   country?: string
-  bgColor: string
-  textColor: string
 }

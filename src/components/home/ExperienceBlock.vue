@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SkillList from '@/components/ui/SkillList.vue'
+import JobItem from '@/components/ui/JobItem.vue'
 
 import { reactive, watch } from 'vue'
 import { gsap } from 'gsap'
@@ -11,6 +11,7 @@ const props = defineProps<{
   loading: boolean
   resize: boolean
 }>()
+const jobs = reactive(Jobs)
 const DOM = reactive({
   section: null,
   sectionWr: null,
@@ -177,20 +178,8 @@ const initStickyTitle = () => {
           :class="`block-${i + 1}`"
           :data-bg-color="job.bgColor"
         )
-          //.block__content(:style="{backgroundColor: job.bgColor, color: job.textColor}")
           .block__content
-            .job
-              //.job__index {{ '#0' + (i + 1) }}
-              .job__title
-                .job__title-year {{ job.period }}
-                .job__title-pos {{ job.position }}
-              .job__skills
-                SkillList(:skills="job.skills")
-                //.skill(v-for="(skill, i) of job.skills" :key="i") {{ skill.text }}
-              .job__info.text-content
-                p {{ job.intro }}
-                ul
-                  li(v-for="(item, i) of job.experience" v-html="item")
+            JobItem(:job="job")
 </template>
 
 <style scoped lang="scss">
@@ -213,58 +202,9 @@ const initStickyTitle = () => {
   border-bottom: 1px solid black;
 }
 
-.job {
-  display: grid;
-  grid-template-areas:
-    'title title'
-    'skills info';
-  grid-template-columns: 35% auto;
-  align-items: baseline;
-  gap: 3rem;
-  border: 1px solid black;
-  padding: 2rem;
-
-  &__title {
-    display: flex;
-    grid-area: title;
-    gap: 3rem;
-
-    &-year {
-      position: relative;
-      flex-shrink: 0;
-      font-size: 3rem;
-      width: 35%;
-    }
-
-    &-pos {
-      font-family: var(--font-secondary);
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      font-weight: bold;
-    }
-  }
-
-  &__info {
-    grid-area: info;
-  }
-
-  &__skills {
-    position: relative;
-    grid-area: skills;
-  }
-}
-
-.skill {
-  padding: 0.5rem;
-  border-radius: 0.7rem;
-  color: var(--c-black);
-  border: 1px solid var(--c-black);
-}
-
 .block {
   position: relative;
   width: 100%;
-  //height: 100vh;
 
   &__content {
     width: 100%;
