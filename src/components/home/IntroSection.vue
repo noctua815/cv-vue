@@ -120,7 +120,7 @@ const introBlockAnimation = () => {
   if (wordsIntroSecond.lines) {
     wrapElement(wordsIntroSecond.lines, 'span', 'line-wrap')
   }
-  wrapElement(DOM.btns, 'span', 'clear-wrap')
+  // wrapElement(DOM.btns, 'span', 'clear-wrap')
 
   // set basic value
   gsap.set(DOM.sectionWr, { opacity: 0 })
@@ -179,7 +179,7 @@ const introBlockAnimation = () => {
     end: 'top top',
     scrub: 1,
     animation: tl,
-    markers: true,
+    // markers: true,
     pinSpacing: false
   })
 }

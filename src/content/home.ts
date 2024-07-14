@@ -9,10 +9,10 @@ export const Jobs: Job[] = [
         intro:
             'Development of web solutions for interaction with 19 blockchain networks: a web version of a cryptocurrency wallet with 1500+ crypto assets on the client side.',
         experience: [
-            'Developing <a class="highlight" href="/" target="_blank">Google Chrome Extensions</a> with web3 functionality using Vue.js.',
-            'Creating a <a class="highlight" href="/" target="_blank">web widget</a> on Vue.js for working with cryptocurrencies and authorization via the Google Drive API.',
+            'Developing <a class="highlight" href="https://chromewebstore.google.com/detail/noone-wallet/bgfhmafjampalkbjicjcjiikhlaggdnm" target="_blank">Google Chrome Extensions</a> with web3 functionality using Vue.js.',
+            'Creating a <a class="highlight" href="https://noone.io/widget" target="_blank">web widget</a> on Vue.js for working with cryptocurrencies and authorization via the Google Drive API.',
             'Development of admin panels for more convenient interaction with internal APIs using React and Redux.',
-            'Creating <a class="highlight" href="/" target="_blank">open-source projects</a> for working with blockchain networks.',
+            'Creating <a class="highlight" href="https://github.com/noonewallet" target="_blank">open-source projects</a> for working with blockchain networks.',
             'Designed SSR websites on Nuxt.js, including automatic generation of more than 1000+ pages and their AMP copies.',
             'Development of white-label solutions for cryptocurrency operations.',
             'Working on creating an admin panel for interacting with the internal API.',
@@ -102,7 +102,11 @@ export const Education = [
 ]
 export const Contacts = [
     {
-        text: 'Github',
+        text: 'Github (personal)',
+        href: 'https://github.com/noctua815'
+    },
+    {
+        text: 'Github (work)',
         href: 'https://github.com/noonewallet'
     },
     {
