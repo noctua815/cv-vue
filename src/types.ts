@@ -11,3 +11,8 @@ export interface Job {
   skills?: Skill[]
   country?: string
 }
+
+export interface Contact {
+  text: string
+  href: string
+}

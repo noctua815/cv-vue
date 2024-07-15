@@ -29,7 +29,7 @@ const computedNum = computed(() => {
   grid-template-columns: 16rem 1fr;
   gap: 1px;
 
-  @include for-phone-only {
+  @include for-phone {
     grid-template-areas:
       'num'
       'title'
@@ -46,7 +46,7 @@ const computedNum = computed(() => {
     align-self: baseline;
     margin-right: 1px;
 
-    @include for-phone-only {
+    @include for-phone {
       h4 {
         font-size: 0.8rem;
         line-height: 1;
@@ -63,7 +63,7 @@ const computedNum = computed(() => {
     margin-bottom: 1.35rem;
     @extend .h2;
 
-    @include for-phone-only {
+    @include for-phone {
       margin: 0;
     }
   }

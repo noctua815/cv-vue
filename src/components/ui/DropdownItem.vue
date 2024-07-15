@@ -61,7 +61,7 @@ const toggleItem = () => {
     cursor: pointer;
     overflow: hidden;
 
-    @include for-phone-only {
+    @include for-phone {
       display: block;
       padding: 1rem 0;
     }
@@ -118,7 +118,7 @@ const toggleItem = () => {
         margin-left: 0.5rem;
       }
 
-      @include for-phone-only {
+      @include for-phone {
         margin-bottom: 0.5rem;
       }
     }
@@ -126,7 +126,7 @@ const toggleItem = () => {
     &-right {
       position: relative;
       z-index: 1;
-      @include for-phone-only {
+      @include for-phone {
         transform: scale(0.8);
         transform-origin: left bottom;
       }
@@ -152,7 +152,7 @@ const toggleItem = () => {
       padding: 1.15rem 0 3rem;
       width: 70%;
 
-      @include for-phone-only {
+      @include for-phone {
         width: 100%;
       }
     }
