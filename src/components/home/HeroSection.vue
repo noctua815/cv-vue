@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ScribbleLink from '@/components/ui/ScribbleLink.vue'
+import VHeader from '@/components/home/VHeader.vue'
 import { Contacts } from '@/content/home'
 import { watch } from 'vue'
 import Splitting from 'splitting'
@@ -15,8 +15,6 @@ const props = defineProps<{
 watch(
   () => props.loading,
   () => {
-    console.log('1. INIT HERO BLOCK ANIMATION')
-
     // loading done, init animation
     heroAnimation()
   }
@@ -29,7 +27,6 @@ watch(() => props.resize, (val) => {
   }
 })
 const onResize = () => {
-  console.log('---- onResize - HERO')
 }
 
 const heroAnimation = () => {
@@ -88,8 +85,7 @@ const heroAnimation = () => {
   section.hero#hero-section
     .hero__wr.hide
       .hero__links
-        .hero__link(v-for="(item, i) of Contacts" :key="i")
-          ScribbleLink(v-bind="item")
+        VHeader(:contacts="Contacts")
       .hero__title.animate-title
         span FRONTEND
         span DEVELOPER
@@ -121,12 +117,21 @@ const heroAnimation = () => {
       'image'
       'name';
     grid-template-rows: 1fr 3fr 1fr 2fr;
-    grid-row-gap: 1rem;
+    grid-gap: 1.5rem 1rem;
+
+    @include for-phone {
+      padding: 1rem;
+      grid-template-rows: 1fr 2fr 1fr 2fr;
+    }
   }
 
   &__title {
     align-self: center;
     margin-left: -0.4rem;
+
+    @include for-phone {
+      margin-left: 0;
+    }
   }
 
   &__name {
@@ -135,9 +140,7 @@ const heroAnimation = () => {
   }
 
   &__links {
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem;
+
   }
 
   &__image {
@@ -145,15 +148,11 @@ const heroAnimation = () => {
     height: 15vh;
     position: relative;
     overflow: hidden;
-  }
 
-  //.image {
-  //  width: 48vw;
-  //  height: 15vh;
-  //  background: #DCCAE2;
-  //  background: linear-gradient(90deg, black 0%, #DCCAE2 43%, #DCCAE2 60%, black 100%);
-  //  opacity: 0.6;
-  //}
+    @include for-phone {
+      width: 80vw;
+    }
+  }
 }
 
 .fixed-image {
@@ -162,13 +161,10 @@ const heroAnimation = () => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  //background: black;
-  //background: linear-gradient(90deg, black 0%, #DCCAE2 43%, #DCCAE2 60%, black 100%);
   opacity: 1;
   transform-origin: left center;
   background-image: url('@/assets/images/dotted-pattern-1.png');
-  //background-color: black;
-  background-color: #dccae1;
+  background-color: var(--c-light-violet);
   background-repeat: repeat;
   background-attachment: fixed;
   background-position: center;
@@ -185,19 +181,12 @@ const heroAnimation = () => {
 .animate-title {
   @extend .h1;
 
+  @include for-phone {
+
+  }
   span {
     display: block;
-
-    &:first-line {
-    }
   }
-
-  //:deep(span:nth-child(1) .word) {
-  //  .char {
-  //    background-color: var(--c-violet);
-  //    color: var(--c-white);
-  //  }
-  //}
 }
 
 .hide {

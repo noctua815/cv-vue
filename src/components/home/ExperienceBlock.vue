@@ -21,7 +21,6 @@ const DOM = reactive({
 watch(
   () => props.loading,
   (newVal) => {
-    console.log('3. INIT EXPERIENCE BLOCK ANIMATION')
     // loading done, init animation
     // initBlockAnimation()
     // initInnerBlocksAnimation()
@@ -58,10 +57,8 @@ const iniPrevBlockAnimation = () => {
     // animation: tl,
     pinSpacing: false,
     onEnter: () => {
-      console.log('onEnter')
     },
     onLeave: () => {
-      console.log('onLeave')
     }
   })
 }
@@ -133,7 +130,6 @@ const initJobBlocksAnimation = () => {
     //   pinSpacing: false,
     //   markers: true,
     //   onEnter: () => {
-    //     console.log('enter!!!')
     //   }
     // })
   }

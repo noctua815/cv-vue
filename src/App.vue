@@ -35,7 +35,7 @@ preloadFonts().then(() => {
 <template lang="pug">
   main(:class="{'loading': !animationFinished}")
     HeroSection(:loading="loading" :resize="resize"
-      @heroAnimationFinished="heroAnimationFinished")
+     @heroAnimationFinished="heroAnimationFinished")
     IntroSection(:loading="loading" :resize="resize")
     ExperienceBlock(:loading="loading" :resize="resize")
 </template>

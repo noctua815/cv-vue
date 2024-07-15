@@ -21,8 +21,6 @@ const DOM = reactive({
 watch(
   () => props.loading,
   () => {
-    console.log('2. INIT INTRO BLOCK ANIMATION')
-
     // loading done, init animation
     DOM.section = document.getElementById('intro-section')
     DOM.sectionWr = DOM.section.querySelector('.intro-section__wr')
@@ -40,7 +38,6 @@ watch(() => props.resize, (val) => {
   }
 })
 const onResize = () => {
-  console.log('---- onResize - INTRO')
 }
 
 const prevBlockAnimation = () => {
@@ -105,7 +102,6 @@ const prevBlockAnimation = () => {
 }
 
 const introBlockAnimation = () => {
-  console.log('introBlockAnimation')
   // 1. split text into lines
   const wordsIntro = new SplitType(DOM.section.querySelector('.intro-section__first .intro'), {
     types: 'lines'
@@ -124,7 +120,6 @@ const introBlockAnimation = () => {
 
   // set basic value
   gsap.set(DOM.sectionWr, { opacity: 0 })
-  console.log('DOM.sectionWr', DOM.sectionWr)
   gsap.set([wordsIntro.lines, wordsIntroSecond.lines], {
     y: '100%',
     rotate: '4deg'
