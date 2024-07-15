@@ -28,6 +28,10 @@ const computedStyles = computed(() => {
   padding: 0.4rem 1rem 0.5rem;
   border-radius: var(--border-radius-normal);
 
+  @include for-phone {
+    padding: 0.2rem 0.5rem 0.3rem;
+  }
+
   &.is-black {
     background-color: var(--c-black);
     color: var(--c-white);

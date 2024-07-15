@@ -43,7 +43,6 @@ const heroAnimation = () => {
   const charsTitle = new Splitting({ target: DOM.title, type: 'chars' })[0]
   const charsName = new Splitting({ target: DOM.name, type: 'chars' })[0]
   tl.set([DOM.links, ...charsTitle.chars, ...charsName.chars], { opacity: 0 })
-  // tl.set(DOM.image, {width: 0})
   tl.to(DOM.wrapper, { opacity: 1 }, 0.5)
   tl.to(
     [DOM.links],
@@ -121,7 +120,7 @@ const heroAnimation = () => {
 
     @include for-phone {
       padding: 1rem;
-      grid-template-rows: 1fr 2fr 1fr 2fr;
+      grid-template-rows: 0.5fr 2fr 1fr 2fr;
     }
   }
 

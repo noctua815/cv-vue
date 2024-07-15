@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import VButton from '@/components/ui/VButton.vue'
-import { onMounted, reactive, watch } from 'vue'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import {reactive, watch} from 'vue'
+import {gsap} from 'gsap'
+import {ScrollTrigger} from 'gsap/ScrollTrigger'
 import SplitType from 'split-type'
-import { addStickySection } from '@/helpers/sticky-section'
-import { wrapElement } from '@/helpers/utils'
+import {addStickySection} from '@/helpers/sticky-section'
+import {wrapElement} from '@/helpers/utils'
 
 const props = defineProps<{
   loading: boolean
@@ -18,17 +18,36 @@ const DOM = reactive({
   prevSectionWr: null
 })
 
-watch(
-  () => props.loading,
-  () => {
-    // loading done, init animation
-    DOM.section = document.getElementById('intro-section')
-    DOM.sectionWr = DOM.section.querySelector('.intro-section__wr')
-    DOM.prevSectionWr = document.querySelector('.hero__wr')
-    DOM.btns = DOM.section.querySelectorAll('.button')
-    prevBlockAnimation()
-    introBlockAnimation()
+
+class CoffeeMachine {
+
+  #waterAmount = 0;
+
+  get waterAmount() {
+    return this.#waterAmount;
   }
+
+  set waterAmount(value) {
+    if (value < 0) throw new Error("Отрицательный уровень воды");
+    this.#waterAmount = value;
+  }
+
+  updateWaterAmount() {
+    this.#waterAmount += 100
+  }
+}
+
+watch(
+    () => props.loading,
+    () => {
+      // loading done, init animation
+      DOM.section = document.getElementById('intro-section')
+      DOM.sectionWr = DOM.section.querySelector('.intro-section__wr')
+      DOM.prevSectionWr = document.querySelector('.hero__wr')
+      DOM.btns = DOM.section.querySelectorAll('.button')
+      prevBlockAnimation()
+      introBlockAnimation()
+    }
 )
 
 // resize page listener
@@ -47,11 +66,11 @@ const prevBlockAnimation = () => {
   // 2. add fade for prev section
   const tl = gsap.timeline()
   tl.fromTo(
-    DOM.prevSectionWr,
-    { opacity: 1 },
-    {
-      opacity: 0
-    }
+      DOM.prevSectionWr,
+      {opacity: 1},
+      {
+        opacity: 0
+      }
   )
   // tl.to(DOM.section, {
   //   borderRadius: 0
@@ -107,8 +126,8 @@ const introBlockAnimation = () => {
     types: 'lines'
   })
   const wordsIntroSecond = new SplitType(
-    DOM.section.querySelector('.intro-section__second .intro'),
-    { types: 'lines' }
+      DOM.section.querySelector('.intro-section__second .intro'),
+      {types: 'lines'}
   )
   if (wordsIntro.lines) {
     wrapElement(wordsIntro.lines, 'span', 'line-wrap')
@@ -119,53 +138,53 @@ const introBlockAnimation = () => {
   // wrapElement(DOM.btns, 'span', 'clear-wrap')
 
   // set basic value
-  gsap.set(DOM.sectionWr, { opacity: 0 })
+  gsap.set(DOM.sectionWr, {opacity: 0})
   gsap.set([wordsIntro.lines, wordsIntroSecond.lines], {
     y: '100%',
     rotate: '4deg'
   })
-  gsap.set(DOM.btns, { y: '100%' })
+  gsap.set(DOM.btns, {y: '100%'})
 
   // 3. add timeline
   const tl = gsap.timeline()
-  tl.to(DOM.sectionWr, { opacity: 1 })
+  tl.to(DOM.sectionWr, {opacity: 1})
   tl.to(
-    wordsIntro.lines,
-    {
-      opacity: 1,
-      y: 0,
-      x: 0,
-      rotate: 0,
-      stagger: {
-        each: 0.1
-      }
-    },
-    '>'
+      wordsIntro.lines,
+      {
+        opacity: 1,
+        y: 0,
+        x: 0,
+        rotate: 0,
+        stagger: {
+          each: 0.1
+        }
+      },
+      '>'
   )
 
   tl.to(
-    wordsIntroSecond.lines,
-    {
-      opacity: 1,
-      y: 0,
-      x: 0,
-      rotate: 0,
-      stagger: {
-        each: 0.15
-      }
-    },
-    '>'
+      wordsIntroSecond.lines,
+      {
+        opacity: 1,
+        y: 0,
+        x: 0,
+        rotate: 0,
+        stagger: {
+          each: 0.15
+        }
+      },
+      '>'
   )
 
   tl.to(
-    DOM.btns,
-    {
-      y: 0,
-      stagger: {
-        each: 0.15
-      }
-    },
-    '>'
+      DOM.btns,
+      {
+        y: 0,
+        stagger: {
+          each: 0.15
+        }
+      },
+      '>'
   )
 
   ScrollTrigger.create({
@@ -187,7 +206,7 @@ const introBlockAnimation = () => {
         h2 Who Am I
       .intro-section__content
         .intro-section__first
-          .intro.intro--big Hello, my name is Vika. I&rsquo;m a Frontend Developer currently based in Cyprus. I have a proven track record of developing web products for businesses across various fields
+          .intro.intro--big Hello, my name is Vika. I&rsquo;m a Frontend Developer currently based in Cyprus. I have a proven track record of developing web products for businesses across various fields.
         .intro-section__second
           .intro.intro--small I am passionate about creating user-friendly and meaningful products that evoke emotions, and I love solving challenging problems. I am committed to continuously improving my programming skills to gain knowledge and experience.
         .intro-section__cv
@@ -208,6 +227,10 @@ const introBlockAnimation = () => {
     height: 100%;
     flex-direction: column;
     padding: 1rem 2rem 2rem;
+
+    @include for-phone {
+      padding: 0.5rem 0;
+    }
   }
 
   &__content {
@@ -219,6 +242,15 @@ const introBlockAnimation = () => {
     grid-template-rows: 2fr 1fr;
     grid-template-columns: 1.8fr 1fr;
     gap: 3rem;
+
+    @include for-phone {
+      grid-template-areas:
+      'intro-1'
+      'intro-2'
+      'cv';
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr;
+    }
   }
 
   &__title {
@@ -254,12 +286,22 @@ const introBlockAnimation = () => {
     :deep(.line) {
       line-height: 1.3;
     }
+
+    @include for-phone {
+      font-size: 1.5rem;
+      line-height: 1.5;
+    }
   }
 
   &--small {
     font-size: 1rem;
 
     :deep(.line) {
+      line-height: 1.33;
+    }
+
+    @include for-phone {
+      font-size: 1.2rem;
       line-height: 1.33;
     }
   }

@@ -38,25 +38,53 @@ defineProps<{
   border: 1px solid black;
   padding: 2rem;
 
+  @include for-phone {
+    grid-template-areas:
+    'title'
+    'skills'
+    'info';
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
   &__title {
     display: flex;
     grid-area: title;
     gap: 3rem;
+
+    @include for-phone {
+      flex-direction: row-reverse;
+      gap: 1rem;
+    }
   }
 
   &__left {
     flex-shrink: 0;
     width: 35%;
+
+    @include for-phone {
+      width: 50%;
+      flex-shrink: 0;
+    }
   }
 
   &__right {
-
+    @include for-phone {
+      width: 50%;
+    }
   }
 
   &__year {
     position: relative;
     font-size: 3rem;
     margin-bottom: 1rem;
+
+    @include for-phone {
+      font-size: 1.5rem;
+      font-weight: var(--font-weight-bold);
+      margin-bottom: 0.5rem;
+    }
   }
 
   &__pos {
@@ -64,6 +92,11 @@ defineProps<{
     font-size: 2.5rem;
     margin-bottom: 1rem;
     font-weight: bold;
+
+    @include for-phone {
+     font-size: 1.5rem;
+      margin-bottom: 0;
+    }
   }
 
   &__company {
@@ -86,10 +119,10 @@ defineProps<{
   }
 }
 
-.skill {
-  padding: 0.5rem;
-  border-radius: 0.7rem;
-  color: var(--c-black);
-  border: 1px solid var(--c-black);
-}
+//.skill {
+//  padding: 0.5rem;
+//  border-radius: 0.7rem;
+//  color: var(--c-black);
+//  border: 1px solid var(--c-black);
+//}
 </style>
