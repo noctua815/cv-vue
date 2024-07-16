@@ -77,7 +77,7 @@ const getStyle = (el: HTMLElement, parameter: string) => {
   return compStyles[parameter] || ''
 }
 
-const wrapElement = (elements: HTMLElement[], wrapType: string, wrapClass: string) => {
+const wrapElement = (elements: HTMLElement[] | null, wrapType: string, wrapClass: string) => {
   if (!elements || !elements.length) return []
 
   elements.forEach((el) => {

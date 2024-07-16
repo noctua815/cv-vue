@@ -6,6 +6,7 @@ import {ScrollTrigger} from 'gsap/ScrollTrigger'
 import SplitType from 'split-type'
 import {addStickySection} from '@/helpers/sticky-section'
 import {wrapElement} from '@/helpers/utils'
+import {TextSplitter, WrappedTextSplitter} from '@/helpers/text-splitter'
 
 const props = defineProps<{
   loading: boolean
@@ -17,25 +18,6 @@ const DOM = reactive({
   sectionWr: null,
   prevSectionWr: null
 })
-
-
-class CoffeeMachine {
-
-  #waterAmount = 0;
-
-  get waterAmount() {
-    return this.#waterAmount;
-  }
-
-  set waterAmount(value) {
-    if (value < 0) throw new Error("Отрицательный уровень воды");
-    this.#waterAmount = value;
-  }
-
-  updateWaterAmount() {
-    this.#waterAmount += 100
-  }
-}
 
 watch(
     () => props.loading,
@@ -120,22 +102,34 @@ const prevBlockAnimation = () => {
   // })
 }
 
+// const resizeCallback = () => {
+//   console.log('resizeCallback', resizeCallback)
+// }
 const introBlockAnimation = () => {
   // 1. split text into lines
-  const wordsIntro = new SplitType(DOM.section.querySelector('.intro-section__first .intro'), {
-    types: 'lines'
-  })
-  const wordsIntroSecond = new SplitType(
-      DOM.section.querySelector('.intro-section__second .intro'),
-      {types: 'lines'}
+  const wordsIntro = new WrappedTextSplitter(
+      DOM.section.querySelector('.intro-section__first .intro'),
+      {
+        splitTypes: 'lines',
+        wrap: 'lines',
+        wrapClass: 'line-wrap',
+        resizeCallback() {
+          console.log('wordsIntro resize')
+        }
+      }
   )
-  if (wordsIntro.lines) {
-    wrapElement(wordsIntro.lines, 'span', 'line-wrap')
-  }
-  if (wordsIntroSecond.lines) {
-    wrapElement(wordsIntroSecond.lines, 'span', 'line-wrap')
-  }
-  // wrapElement(DOM.btns, 'span', 'clear-wrap')
+  const wordsIntroSecond = new WrappedTextSplitter(
+      DOM.section.querySelector('.intro-section__second .intro'),
+      {
+        splitTypes: 'lines',
+        wrap: 'lines',
+        wrapClass: 'line-wrap',
+        resizeCallback() {
+          console.log('wordsIntroSecond resize')
+        }
+      }
+  )
+
 
   // set basic value
   gsap.set(DOM.sectionWr, {opacity: 0})
