@@ -2,6 +2,7 @@
 import {onMounted, ref} from 'vue'
 import type {Contact} from '@/types'
 import ScribbleLink from '@/components/ui/ScribbleLink.vue'
+import TerminalLink from '@/components/ui/TerminalLink.vue'
 
 defineProps<{
   contacts: Contact[]
@@ -43,7 +44,9 @@ onMounted(() => {
       .header__link(
         v-for="(item, i) of contacts"
         :key="i")
-        ScribbleLink(v-bind="item" @click="linkClick")
+        TerminalLink(v-bind="item"  @click="linkClick")
+        //ScribbleLink(v-bind="item" @click="linkClick")
+      .header__link
     .header__btn
       .btn(@click="openMenu" :class="{'is-opened': toggleMenu}")
         span

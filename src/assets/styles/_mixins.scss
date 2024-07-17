@@ -31,16 +31,19 @@
 
 @mixin for-phone {
   @media (max-width: 600px) {
+  //@media screen and (min-width: 40em) {
     @content;
   }
 }
 @mixin for-tablet {
+  //@media screen and (min-width: 53em) {
   @media (max-width: 900px) {
     @content;
   }
 }
 @mixin for-desktop {
   @media (max-width: 1200px) {
+  //@media screen and (min-width: 73em) {
     @content;
   }
 }

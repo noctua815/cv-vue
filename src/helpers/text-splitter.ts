@@ -24,15 +24,15 @@ export class TextSplitter {
     private splitOptions: Partial<SplitTypeOptions>;
 
     get lines() {
-        return this.splitText.lines;
+        return this.splitText.lines || [];
     }
 
     get words() {
-        return this.splitText.words;
+        return this.splitText.words || [];
     }
 
     get chars() {
-        return this.splitText.chars;
+        return this.splitText.chars || [];
     }
 
     constructor(textEl: HTMLElement, options: TextSplitterOption) {

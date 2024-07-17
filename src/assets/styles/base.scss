@@ -72,6 +72,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-size: auto 100%;
+  pointer-events: none;
+}
+
 ::-moz-selection {
   color: var(--c-white);
   background: var(--c-violet);

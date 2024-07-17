@@ -105,7 +105,18 @@ const prevBlockAnimation = () => {
 // const resizeCallback = () => {
 //   console.log('resizeCallback', resizeCallback)
 // }
+
 const introBlockAnimation = () => {
+  const linkEl = document.querySelector('.terminal-like-link')
+
+  // const specialLink = new TextSplitter(
+  //     document.querySelector('.special-link'),
+  //     {
+  //       splitTypes: 'chars'
+  //     }
+  // )
+  // console.log('specialLink', specialLink)
+
   // 1. split text into lines
   const wordsIntro = new WrappedTextSplitter(
       DOM.section.querySelector('.intro-section__first .intro'),
