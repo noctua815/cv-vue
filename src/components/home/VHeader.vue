@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {onMounted, ref} from 'vue'
 import type {Contact} from '@/types'
-import ScribbleLink from '@/components/ui/ScribbleLink.vue'
 import TerminalLink from '@/components/ui/TerminalLink.vue'
 
 defineProps<{
@@ -25,7 +24,7 @@ const initCloseByClick = (event) => {
   const isHeaderContainer = target.closest('.header')
   if (!isHeaderContainer) {
     toggleMenu.value = false
-    document.removeEventListener('click', initOutsideClick)
+    // document.removeEventListener('click', initOutsideClick) // TODO fix
   }
 }
 
@@ -45,8 +44,6 @@ onMounted(() => {
         v-for="(item, i) of contacts"
         :key="i")
         TerminalLink(v-bind="item"  @click="linkClick")
-        //ScribbleLink(v-bind="item" @click="linkClick")
-      .header__link
     .header__btn
       .btn(@click="openMenu" :class="{'is-opened': toggleMenu}")
         span
@@ -56,27 +53,24 @@ onMounted(() => {
 <style lang="scss" scoped>
 .header {
   position: relative;
-  //padding: 2rem;
   display: grid;
   grid-template-areas: 'links';
 
   @include for-phone {
-    //padding: 1rem;
     grid-template-areas: 'btn'
       'links';
   }
 
   &__list {
     grid-area: links;
-    display: flex;
+    display: grid;
+    grid-template-areas: 'links';
+    grid-template-columns: repeat(5, min-content);
     justify-content: space-between;
     gap: 2rem;
 
     &.is-opened {
       @include for-phone {
-        //opacity: 1;
-        //visibility: visible;
-
         .header__link {
           transform: translateY(0);
           opacity: 1;
@@ -125,6 +119,7 @@ onMounted(() => {
   &__btn {
     grid-area: btn;
     justify-self: end;
+    display: none;
   }
 }
 

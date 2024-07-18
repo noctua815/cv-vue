@@ -34,11 +34,13 @@ onMounted(() => {
 <style lang="scss" scoped>
 .terminal-link {
   position: relative;
+  display: inline-block;
   font-kerning: none;
   white-space: nowrap;
   color: var(--c-black);
+  font-family: var(--font-secondary);
   font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
+  //text-transform: uppercase;
   cursor: pointer;
 
   :deep(.char) {

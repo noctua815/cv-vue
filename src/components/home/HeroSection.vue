@@ -34,11 +34,11 @@ const heroAnimation = () => {
   const hero = document.getElementById('hero-section')
   const DOM = {
     wrapper: hero.querySelector('.hero__wr'),
-    links: hero.querySelectorAll('.hero__links .scribble-link'),
     title: hero.querySelector('.hero__title'),
     name: hero.querySelector('.hero__name'),
     imageWr: hero.querySelector('.hero__image'),
-    image: hero.querySelector('.hero__image .fixed-image')
+    image: hero.querySelector('.hero__image .fixed-image'),
+    links: document.querySelectorAll('.header__link'),
   }
   const charsTitle = new Splitting({ target: DOM.title, type: 'chars' })[0]
   const charsName = new Splitting({ target: DOM.name, type: 'chars' })[0]
