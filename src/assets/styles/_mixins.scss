@@ -29,21 +29,21 @@
   left: 0;
 }
 
-@mixin for-phone {
-  @media (max-width: 600px) {
-  //@media screen and (min-width: 40em) {
+@mixin for-tablet {
+  @media screen and (min-width: 40em) {
+    // ~ 640px
     @content;
   }
 }
-@mixin for-tablet {
-  //@media screen and (min-width: 53em) {
-  @media (max-width: 900px) {
+@mixin for-laptop {
+  @media screen and (min-width: 53em) {
+    // ~ 848px
     @content;
   }
 }
 @mixin for-desktop {
-  @media (max-width: 1200px) {
-  //@media screen and (min-width: 73em) {
+  @media screen and (min-width: 73em) {
+    // ~ 1168
     @content;
   }
 }

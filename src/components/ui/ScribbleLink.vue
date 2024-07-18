@@ -23,10 +23,6 @@ const emit = defineEmits(['click'])
   font-weight: var(--font-weight-bold);
   transition: color 0.25s ease;
 
-  //@include for-phone {
-  //  padding: 0.5rem 0;
-  //}
-
   &:hover {
     color: var(--c-link-hover);
 

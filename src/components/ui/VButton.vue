@@ -38,7 +38,6 @@ defineProps<{
   &__text {
     font-family: var(--font-secondary);
     font-size: 1rem;
-    //font-weight: 700;
     mix-blend-mode: difference;
     padding: 1rem;
   }

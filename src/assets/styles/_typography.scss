@@ -1,59 +1,56 @@
-//@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 /* typography */
 
 h1,
 .h1 {
   font-family: var(--font-secondary);
-  font-size: 5.61rem;
+  font-size: 3rem;
   line-height: 1;
 
   @include for-tablet {
     font-size: 4rem;
   }
 
-  @include for-phone {
-    font-size: 3rem;
+  @include for-laptop {
+    font-size: 5.61rem;
   }
 }
 
 h2,
 .h2 {
   font-family: var(--font-secondary);
-  font-size: 4.2rem;
+  font-size: 2rem;
   line-height: 1;
 
-  @include for-phone {
-    font-size: 2rem;
+  @include for-tablet {
+    font-size: 4.2rem;
   }
 }
 
 h3,
 .h3 {
   font-family: var(--font-secondary);
-  font-size: 3.157rem;
+  font-size: 2rem;
   line-height: 1.25;
-  //font-weight: var(--font-weight-bold);
 
-  @include for-phone {
-    font-size: 2rem;
+  @include for-tablet {
+    font-size: 3.157rem;
   }
 }
 
 h4,
 .h4 {
   font-family: var(--font-secondary);
-  font-size: 2.37rem;
+  font-size: 1rem;
   line-height: 1.2;
 
-  @include for-phone {
-    font-size: 1rem;
+  @include for-tablet {
+    font-size: 2.37rem;
   }
 }
 
 h5,
 .h5 {
   font-size: 1.33rem;
-  //font-weight: var(--font-weight-bold);
   line-height: 1.33;
 }
 
@@ -61,7 +58,6 @@ p,
 .regular-text {
   font-size: 1rem;
   line-height: 1.5;
-  //margin-bottom: 1rem;
 }
 
 .extra-small-text {
@@ -142,10 +138,8 @@ a {
     color: var(--c-white);
 
     &:before {
-      //border-radius: 0;
       background-color: var(--c-violet);
       transform: rotate(0) scale(1.05);
-      //opacity: 0.5;
     }
   }
 }
@@ -179,4 +173,3 @@ a {
     }
   }
 }
-

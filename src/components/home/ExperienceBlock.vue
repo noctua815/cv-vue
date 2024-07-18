@@ -36,11 +36,14 @@ watch(
 )
 
 // resize page listener
-watch(() => props.resize, (val) => {
-  if (val) {
-    onResize()
+watch(
+  () => props.resize,
+  (val) => {
+    if (val) {
+      onResize()
+    }
   }
-})
+)
 const onResize = () => {
   console.log('---- onResize - EXPE')
 }
@@ -56,10 +59,8 @@ const iniPrevBlockAnimation = () => {
     scrub: 1,
     // animation: tl,
     pinSpacing: false,
-    onEnter: () => {
-    },
-    onLeave: () => {
-    }
+    onEnter: () => {},
+    onLeave: () => {}
   })
 }
 
@@ -192,16 +193,17 @@ const initStickyTitle = () => {
   z-index: 10;
   display: flex;
   align-items: center;
-  padding: 2rem 0.5rem;
-  margin: 0 1.5rem 2rem;
+
+  padding: 1.5rem 0;
+  margin: 0 0 1rem;
   background-color: var(--c-green);
   border-bottom: 1px solid black;
   border-top-left-radius: 3rem;
   border-top-right-radius: 3rem;
 
-  @include for-phone {
-    padding: 1.5rem 0;
-    margin: 0 0 1rem;
+  @include for-tablet {
+    padding: 2rem 0.5rem;
+    margin: 0 1.5rem 2rem;
   }
 }
 
@@ -212,11 +214,11 @@ const initStickyTitle = () => {
   &__content {
     width: 100%;
     height: 100%;
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 0;
     color: var(--c-black);
 
-    @include for-phone {
-      padding: 0.5rem 0;
+    @include for-tablet {
+      padding: 0.5rem 2rem;
     }
   }
 }

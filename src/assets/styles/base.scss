@@ -15,14 +15,12 @@
   --c-dark-green: #436436;
   --c-dark-blue: #020887;
   --c-red: #a61c3c;
-  //--c-blue: #4659b7;
   --c-tiffany-blue: #87d2d4;
 
   --c-green: #cfffb3;
   --c-blue: #072ac8;
   --c-yellow: #f8d537;
   --c-new: #a44200;
-  //--c-red: #9b2915;
   --c-velvet: #7a306c;
   --c-pink: #8e8dbe;
   --c-coyote: #8e7a47;
@@ -37,7 +35,6 @@
 
   --font-primary: 'Nunito', sans-serif;
   --font-secondary: 'Space Mono', monospace;
-  //--font-secondary: 'Space Mono', sans-serif;
 
   --font-weight-normal: 400;
   --font-weight-bold: 700;
@@ -47,9 +44,7 @@
 
 /* semantic color variables for this project */
 :root {
-  //--c-background: var(--c-linen);
   --c-text: var(--c-black);
-  //--c-link: var(--c-blue);
   --c-link: var(--c-velvet);
 }
 
@@ -91,15 +86,14 @@ body::after {
 }
 
 .round-block {
-  padding: 1rem 2rem;
-  border-top-left-radius: 4rem;
-  border-top-right-radius: 4rem;
+  padding: 1rem;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
 
-  @include for-phone {
-    padding: 1rem;
-
-    border-top-left-radius: 2rem;
-    border-top-right-radius: 2rem;
+  @include for-tablet {
+    padding: 1rem 2rem;
+    border-top-left-radius: 4rem;
+    border-top-right-radius: 4rem;
   }
 }
 

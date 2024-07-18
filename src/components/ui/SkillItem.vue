@@ -16,7 +16,6 @@ const computedStyles = computed(() => {
 </script>
 
 <template lang="pug">
-  //.skill(:class="[`is-${skill.color || 'black'}`]")
   .skill(:style="computedStyles")
     .skill__text {{ skill.text }}
     .skill__bg
@@ -25,11 +24,12 @@ const computedStyles = computed(() => {
 <style scoped lang="scss">
 .skill {
   display: inline-flex;
-  padding: 0.4rem 1rem 0.5rem;
+  padding: 0.2rem 0.5rem 0.3rem;
+
   border-radius: var(--border-radius-normal);
 
-  @include for-phone {
-    padding: 0.2rem 0.5rem 0.3rem;
+  @include for-tablet {
+    padding: 0.4rem 1rem 0.5rem;
   }
 
   &.is-black {
@@ -45,10 +45,6 @@ const computedStyles = computed(() => {
   &.is-yellow {
     background-color: var(--c-yellow);
     color: var(--c-black);
-  }
-
-  & + .skill {
-    //margin-left: 0.5rem;
   }
 
   &__text {

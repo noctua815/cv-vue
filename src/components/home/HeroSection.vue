@@ -21,13 +21,15 @@ watch(
 )
 
 // resize page listener
-watch(() => props.resize, (val) => {
-  if (val) {
-    onResize()
+watch(
+  () => props.resize,
+  (val) => {
+    if (val) {
+      onResize()
+    }
   }
-})
-const onResize = () => {
-}
+)
+const onResize = () => {}
 
 const heroAnimation = () => {
   const tl = gsap.timeline()
@@ -38,7 +40,7 @@ const heroAnimation = () => {
     name: hero.querySelector('.hero__name'),
     imageWr: hero.querySelector('.hero__image'),
     image: hero.querySelector('.hero__image .fixed-image'),
-    links: document.querySelectorAll('.header__link'),
+    links: document.querySelectorAll('.header__link')
   }
   const charsTitle = new Splitting({ target: DOM.title, type: 'chars' })[0]
   const charsName = new Splitting({ target: DOM.name, type: 'chars' })[0]
@@ -58,8 +60,8 @@ const heroAnimation = () => {
   tl.to(DOM.image, {
     left: imageRect.left,
     top: imageRect.top,
-    width: '48vw',
-    height: '15vh',
+    width: imageRect.width,
+    height: imageRect.height,
     backgroundColor: 'transparent',
     // background: 'linear-gradient(90deg, black 0%, #DCCAE2 43%, #DCCAE2 60%, black 100%)',
     onComplete: () => {
@@ -108,28 +110,27 @@ const heroAnimation = () => {
   &__wr {
     height: 100vh;
     width: 100%;
-    padding: 2rem;
     display: grid;
     grid-template-areas:
       'links'
       'title'
       'image'
       'name';
-    grid-template-rows: 1fr 3fr 1fr 2fr;
+    grid-template-rows: 0.5fr 2fr 1fr 2fr;
     grid-gap: 1.5rem 1rem;
+    padding: 1rem;
 
-    @include for-phone {
-      padding: 1rem;
-      grid-template-rows: 0.5fr 2fr 1fr 2fr;
+    @include for-tablet {
+      grid-template-rows: 1fr 3fr 1fr 2fr;
+      padding: 2rem;
     }
   }
 
   &__title {
     align-self: center;
-    margin-left: -0.4rem;
 
-    @include for-phone {
-      margin-left: 0;
+    @include for-tablet {
+      margin-left: -0.4rem;
     }
   }
 
@@ -139,17 +140,16 @@ const heroAnimation = () => {
   }
 
   &__links {
-
   }
 
   &__image {
-    width: 48vw;
+    width: 80vw;
     height: 15vh;
     position: relative;
     overflow: hidden;
 
-    @include for-phone {
-      width: 80vw;
+    @include for-tablet {
+      width: 48vw;
     }
   }
 }
@@ -180,9 +180,6 @@ const heroAnimation = () => {
 .animate-title {
   @extend .h1;
 
-  @include for-phone {
-
-  }
   span {
     display: block;
   }

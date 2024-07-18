@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import VButton from '@/components/ui/VButton.vue'
-import {reactive, watch} from 'vue'
-import {gsap} from 'gsap'
-import {ScrollTrigger} from 'gsap/ScrollTrigger'
-import SplitType from 'split-type'
-import {addStickySection} from '@/helpers/sticky-section'
-import {wrapElement} from '@/helpers/utils'
-import {TextSplitter, WrappedTextSplitter} from '@/helpers/text-splitter'
+import { addStickySection } from '@/helpers/sticky-section'
+import { WrappedTextSplitter } from '@/helpers/text-splitter'
+
+import { reactive, watch } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const props = defineProps<{
   loading: boolean
@@ -20,26 +19,29 @@ const DOM = reactive({
 })
 
 watch(
-    () => props.loading,
-    () => {
-      // loading done, init animation
-      DOM.section = document.getElementById('intro-section')
-      DOM.sectionWr = DOM.section.querySelector('.intro-section__wr')
-      DOM.prevSectionWr = document.querySelector('.hero__wr')
-      DOM.btns = DOM.section.querySelectorAll('.button')
-      prevBlockAnimation()
-      introBlockAnimation()
-    }
+  () => props.loading,
+  () => {
+    // loading done, init animation
+    DOM.section = document.getElementById('intro-section')
+    DOM.sectionWr = DOM.section.querySelector('.intro-section__wr')
+    DOM.prevSectionWr = document.querySelector('.hero__wr')
+    DOM.btns = DOM.section.querySelectorAll('.button')
+    prevBlockAnimation()
+    introBlockAnimation()
+  }
 )
 
 // resize page listener
-watch(() => props.resize, (val) => {
-  if (val) {
-    onResize()
+watch(
+  () => props.resize,
+  (val) => {
+    if (val) {
+      onResize()
+    }
   }
-})
-const onResize = () => {
-}
+)
+
+const onResize = () => {}
 
 const prevBlockAnimation = () => {
   // 1. add sticky for main section
@@ -48,11 +50,11 @@ const prevBlockAnimation = () => {
   // 2. add fade for prev section
   const tl = gsap.timeline()
   tl.fromTo(
-      DOM.prevSectionWr,
-      {opacity: 1},
-      {
-        opacity: 0
-      }
+    DOM.prevSectionWr,
+    { opacity: 1 },
+    {
+      opacity: 0
+    }
   )
   // tl.to(DOM.section, {
   //   borderRadius: 0
@@ -107,89 +109,78 @@ const prevBlockAnimation = () => {
 // }
 
 const introBlockAnimation = () => {
-  const linkEl = document.querySelector('.terminal-like-link')
-
-  // const specialLink = new TextSplitter(
-  //     document.querySelector('.special-link'),
-  //     {
-  //       splitTypes: 'chars'
-  //     }
-  // )
-  // console.log('specialLink', specialLink)
-
   // 1. split text into lines
   const wordsIntro = new WrappedTextSplitter(
-      DOM.section.querySelector('.intro-section__first .intro'),
-      {
-        splitTypes: 'lines',
-        wrap: 'lines',
-        wrapClass: 'line-wrap',
-        resizeCallback() {
-          console.log('wordsIntro resize')
-        }
+    DOM.section.querySelector('.intro-section__first .intro'),
+    {
+      splitTypes: 'lines',
+      wrap: 'lines',
+      wrapClass: 'line-wrap',
+      resizeCallback() {
+        console.log('wordsIntro resize')
       }
+    }
   )
   const wordsIntroSecond = new WrappedTextSplitter(
-      DOM.section.querySelector('.intro-section__second .intro'),
-      {
-        splitTypes: 'lines',
-        wrap: 'lines',
-        wrapClass: 'line-wrap',
-        resizeCallback() {
-          console.log('wordsIntroSecond resize')
-        }
+    DOM.section.querySelector('.intro-section__second .intro'),
+    {
+      splitTypes: 'lines',
+      wrap: 'lines',
+      wrapClass: 'line-wrap',
+      resizeCallback() {
+        console.log('wordsIntroSecond resize')
       }
+    }
   )
 
-
-  // set basic value
-  gsap.set(DOM.sectionWr, {opacity: 0})
+  // set initial value
+  gsap.set(DOM.sectionWr, { opacity: 0 })
   gsap.set([wordsIntro.lines, wordsIntroSecond.lines], {
     y: '100%',
     rotate: '4deg'
   })
-  gsap.set(DOM.btns, {y: '100%'})
+  gsap.set(DOM.btns, { y: '100%' })
 
   // 3. add timeline
   const tl = gsap.timeline()
-  tl.to(DOM.sectionWr, {opacity: 1})
+  tl.to(DOM.sectionWr, { opacity: 1 })
   tl.to(
-      wordsIntro.lines,
-      {
-        opacity: 1,
-        y: 0,
-        x: 0,
-        rotate: 0,
-        stagger: {
-          each: 0.1
-        }
-      },
-      '>'
+    wordsIntro.lines,
+    {
+      opacity: 1,
+      y: 0,
+      x: 0,
+      rotate: 0,
+      stagger: {
+        each: 0.1
+      }
+    },
+    '>+0.5'
   )
 
   tl.to(
-      wordsIntroSecond.lines,
-      {
-        opacity: 1,
-        y: 0,
-        x: 0,
-        rotate: 0,
-        stagger: {
-          each: 0.15
-        }
-      },
-      '>'
+    wordsIntroSecond.lines,
+    {
+      opacity: 1,
+      y: 0,
+      x: 0,
+      rotate: 0,
+      stagger: {
+        each: 0.15
+      }
+    },
+    '>+1.5'
   )
 
   tl.to(
-      DOM.btns,
-      {
-        y: 0,
-        stagger: {
-          each: 0.15
-        }
-      },
-      '>'
+    DOM.btns,
+    {
+      y: 0,
+      stagger: {
+        each: 0.15
+      }
+    },
+    '>'
   )
 
   ScrollTrigger.create({
@@ -198,7 +189,7 @@ const introBlockAnimation = () => {
     end: 'top top',
     scrub: 1,
     animation: tl,
-    // markers: true,
+    markers: true,
     pinSpacing: false
   })
 }
@@ -225,16 +216,16 @@ const introBlockAnimation = () => {
   z-index: 3;
   min-height: 100vh;
   background-color: var(--c-tiffany-blue);
-  margin-bottom: 50vh;
+  margin-bottom: 30vh;
 
   &__wr {
     display: flex;
     height: 100%;
     flex-direction: column;
-    padding: 1rem 2rem 2rem;
+    padding: 0.5rem 0;
 
-    @include for-phone {
-      padding: 0.5rem 0;
+    @include for-tablet {
+      padding: 1rem 2rem 2rem;
     }
   }
 
@@ -242,19 +233,19 @@ const introBlockAnimation = () => {
     flex-grow: 1;
     display: grid;
     grid-template-areas:
-      'intro-1 .'
-      'cv intro-2';
-    grid-template-rows: 2fr 1fr;
-    grid-template-columns: 1.8fr 1fr;
-    gap: 3rem;
-
-    @include for-phone {
-      grid-template-areas:
       'intro-1'
       'intro-2'
       'cv';
-      grid-template-rows: 1fr;
-      grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+
+    @include for-tablet {
+      grid-template-areas:
+        'intro-1 .'
+        'cv intro-2';
+      grid-template-rows: 2fr 1fr;
+      grid-template-columns: 1.8fr 1fr;
     }
   }
 
@@ -286,27 +277,27 @@ const introBlockAnimation = () => {
   font-family: var(--font-secondary);
 
   &--big {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    line-height: 1.5;
+
+    @include for-tablet {
+      font-size: 2rem;
+    }
 
     :deep(.line) {
       line-height: 1.3;
     }
-
-    @include for-phone {
-      font-size: 1.5rem;
-      line-height: 1.5;
-    }
   }
 
   &--small {
-    font-size: 1rem;
+    font-size: 1.2rem;
+    line-height: 1.33;
 
-    :deep(.line) {
-      line-height: 1.33;
+    @include for-tablet {
+      font-size: 1rem;
     }
 
-    @include for-phone {
-      font-size: 1.2rem;
+    :deep(.line) {
       line-height: 1.33;
     }
   }

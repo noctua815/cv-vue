@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {onMounted, ref} from 'vue'
-import {TextAnimator} from '@/helpers/terminal-text-animation'
+import { onMounted, ref } from 'vue'
+import { TextAnimator } from '@/helpers/terminal-text-animation'
 
 defineProps<{
   href: string
@@ -17,7 +17,6 @@ const initAnimation = (linkEl) => {
     spectilaLink.animate()
   })
 }
-
 
 onMounted(() => {
   initAnimation(link.value)
@@ -40,7 +39,6 @@ onMounted(() => {
   color: var(--c-black);
   font-family: var(--font-secondary);
   font-weight: var(--font-weight-bold);
-  //text-transform: uppercase;
   cursor: pointer;
 
   :deep(.char) {
@@ -54,7 +52,7 @@ onMounted(() => {
       height: 100%;
       top: 0;
       left: 0;
-      background: currentColor;
+      background: var(--c-black);
       opacity: var(--opa);
     }
   }

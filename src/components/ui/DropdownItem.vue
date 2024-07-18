@@ -52,18 +52,18 @@ const toggleItem = () => {
 
   &__head {
     position: relative;
-    display: flex;
+    display: block;
+    padding: 1rem 0;
     justify-content: space-between;
     gap: 1rem;
-    padding: calc(1.5rem - 1px) 0;
     border-bottom: 1px solid var(--c-black);
     user-select: none;
     cursor: pointer;
     overflow: hidden;
 
-    @include for-phone {
-      display: block;
-      padding: 1rem 0;
+    @include for-tablet {
+      display: flex;
+      padding: calc(1.5rem - 1px) 0;
     }
 
     &:before {
@@ -88,13 +88,6 @@ const toggleItem = () => {
       }
     }
 
-    //&:hover {
-    //  &:after {
-    //    transform: scaleY(1);
-    //    transform-origin: left top;
-    //  }
-    //}
-
     &:after {
       content: '';
       position: absolute;
@@ -112,23 +105,26 @@ const toggleItem = () => {
 
     &-left {
       position: relative;
+      margin-bottom: 0.5rem;
       z-index: 1;
+
+      @include for-tablet {
+        margin-bottom: 0;
+      }
 
       b {
         margin-left: 0.5rem;
-      }
-
-      @include for-phone {
-        margin-bottom: 0.5rem;
       }
     }
 
     &-right {
       position: relative;
       z-index: 1;
-      @include for-phone {
-        transform: scale(0.8);
-        transform-origin: left bottom;
+      transform: scale(0.8);
+      transform-origin: left bottom;
+
+      @include for-tablet {
+        transform: scale(1);
       }
     }
   }
@@ -139,9 +135,6 @@ const toggleItem = () => {
     width: 100%;
     transition: grid-template-rows 0.3s ease-in;
 
-    &--opened {
-    }
-
     &-inner {
       position: relative;
       overflow: hidden;
@@ -150,10 +143,10 @@ const toggleItem = () => {
 
     &-content {
       padding: 1.15rem 0 3rem;
-      width: 70%;
+      width: 100%;
 
-      @include for-phone {
-        width: 100%;
+      @include for-tablet {
+        width: 70%;
       }
     }
 
@@ -163,11 +156,6 @@ const toggleItem = () => {
   }
 
   &__country {
-    //position: absolute;
-    //top: 1rem;
-    //right: 0;
-    //font-weight: var(--font-weight-bold);
-    //line-height: 1.5;
     margin-bottom: 1rem;
   }
 }

@@ -5,7 +5,6 @@ import SkillList from '@/components/ui/SkillList.vue'
 defineProps<{
   job: Job
 }>()
-
 </script>
 
 <template lang="pug">
@@ -29,73 +28,74 @@ defineProps<{
 <style scoped lang="scss">
 .job {
   display: grid;
-  grid-template-areas:
-    'title title'
-    'skills info';
-  grid-template-columns: 35% auto;
   align-items: baseline;
-  gap: 2rem 3rem;
-  border: 1px solid black;
-  padding: 2rem;
-
-  @include for-phone {
-    grid-template-areas:
+  grid-template-areas:
     'title'
     'skills'
     'info';
-    grid-template-columns: 1fr;
-    padding: 1rem;
-    gap: 1rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid black;
+
+  @include for-tablet {
+    grid-template-areas:
+      'title title'
+      'skills info';
+    grid-template-columns: 35% auto;
+    gap: 2rem 3rem;
+    padding: 2rem;
   }
 
   &__title {
     display: flex;
     grid-area: title;
-    gap: 3rem;
+    flex-direction: row-reverse;
+    gap: 1rem;
 
-    @include for-phone {
-      flex-direction: row-reverse;
-      gap: 1rem;
+    @include for-tablet {
+      gap: 3rem;
+      flex-direction: row;
     }
   }
 
   &__left {
+    width: 50%;
     flex-shrink: 0;
-    width: 35%;
 
-    @include for-phone {
-      width: 50%;
-      flex-shrink: 0;
+    @include for-tablet {
+      width: 35%;
     }
   }
 
   &__right {
-    @include for-phone {
-      width: 50%;
+    width: 50%;
+
+    @include for-tablet {
+      width: 100%;
     }
   }
 
   &__year {
     position: relative;
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-bold);
 
-    @include for-phone {
-      font-size: 1.5rem;
-      font-weight: var(--font-weight-bold);
-      margin-bottom: 0.5rem;
+    @include for-tablet {
+      font-size: 3rem;
+      margin-bottom: 1rem;
     }
   }
 
   &__pos {
     font-family: var(--font-secondary);
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
 
-    @include for-phone {
-     font-size: 1.5rem;
-      margin-bottom: 0;
+    @include for-tablet {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
     }
   }
 
@@ -118,11 +118,4 @@ defineProps<{
     grid-area: skills;
   }
 }
-
-//.skill {
-//  padding: 0.5rem;
-//  border-radius: 0.7rem;
-//  color: var(--c-black);
-//  border: 1px solid var(--c-black);
-//}
 </style>

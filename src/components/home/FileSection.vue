@@ -24,17 +24,17 @@ const computedNum = computed(() => {
 .section {
   display: grid;
   grid-template-areas:
-    'num title'
-    '. content';
-  grid-template-columns: 16rem 1fr;
+    'num'
+    'title'
+    'content';
+  grid-template-columns: 1fr;
   gap: 1px;
 
-  @include for-phone {
+  @include for-tablet {
     grid-template-areas:
-      'num'
-      'title'
-      'content';
-    grid-template-columns: 1fr;
+      'num title'
+      '. content';
+    grid-template-columns: 16rem 1fr;
   }
 
   & + & {
@@ -46,25 +46,22 @@ const computedNum = computed(() => {
     align-self: baseline;
     margin-right: 1px;
 
-    @include for-phone {
-      h4 {
-        font-size: 0.8rem;
-        line-height: 1;
-        margin-bottom: 0.5rem;
-        opacity: 0.5;
-      }
+    h4 {
+      font-size: 0.8rem;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      opacity: 0.5;
     }
   }
 
   &__title {
     grid-area: title;
     align-self: baseline;
-    margin-left: -0.3rem;
-    margin-bottom: 1.35rem;
     @extend .h2;
 
-    @include for-phone {
-      margin: 0;
+    @include for-tablet {
+      margin-left: -0.3rem;
+      margin-bottom: 1.35rem;
     }
   }
 

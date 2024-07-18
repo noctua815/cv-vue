@@ -8,7 +8,7 @@ import 'splitting/dist/splitting.css'
 import 'splitting/dist/splitting-cells.css'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { preloadFonts } from '@/helpers/preload-fonts'
-import {debounce} from "@/helpers/debounce"
+import { debounce } from '@/helpers/debounce'
 import { initSmoothScrolling } from '@/helpers/smooth-scroll'
 gsap.registerPlugin(ScrollTrigger)
 
@@ -35,7 +35,7 @@ preloadFonts().then(() => {
 <template lang="pug">
   main(:class="{'loading': !animationFinished}")
     HeroSection(:loading="loading" :resize="resize"
-     @heroAnimationFinished="heroAnimationFinished")
+      @heroAnimationFinished="heroAnimationFinished")
     IntroSection(:loading="loading" :resize="resize")
     ExperienceBlock(:loading="loading" :resize="resize")
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {onMounted, ref} from 'vue'
-import type {Contact} from '@/types'
+import { onMounted, ref } from 'vue'
+import type { Contact } from '@/types'
 import TerminalLink from '@/components/ui/TerminalLink.vue'
 
 defineProps<{
@@ -20,7 +20,7 @@ const openMenu = () => {
 const initCloseByClick = (event) => {
   if (!event || !event.target) return
   event.stopPropagation()
-  const {target} = event
+  const { target } = event
   const isHeaderContainer = target.closest('.header')
   if (!isHeaderContainer) {
     toggleMenu.value = false
@@ -32,9 +32,7 @@ const linkClick = () => {
   if (toggleMenu.value) toggleMenu.value = false
 }
 
-onMounted(() => {
-
-})
+onMounted(() => {})
 </script>
 
 <template lang="pug">
@@ -54,72 +52,81 @@ onMounted(() => {
 .header {
   position: relative;
   display: grid;
-  grid-template-areas: 'links';
+  grid-template-areas: 'btn';
 
-  @include for-phone {
-    grid-template-areas: 'btn'
-      'links';
+  @include for-tablet {
+    grid-template-areas: 'list';
   }
 
   &__list {
-    grid-area: links;
+    position: absolute;
     display: grid;
     grid-template-areas: 'links';
-    grid-template-columns: repeat(5, min-content);
-    justify-content: space-between;
-    gap: 2rem;
+    grid-template-columns: auto;
+    z-index: 5;
+    width: 100%;
+    top: calc(100% - 1px);
+    left: 0;
+    gap: 0;
 
-    &.is-opened {
-      @include for-phone {
-        .header__link {
-          transform: translateY(0);
-          opacity: 1;
-          visibility: visible;
-        }
-      }
+    @include for-tablet {
+      position: relative;
+      grid-area: list;
+      grid-template-areas: 'links';
+      grid-template-columns: repeat(5, min-content);
+      justify-content: space-between;
+      gap: 2rem;
+      top: 0;
     }
 
-    @include for-phone {
-      position: absolute;
-      z-index: 5;
-      width: 100%;
-      top: calc(100% - 1px);
-      left: 0;
-      flex-direction: column;
-      gap: 0;
-      //opacity: 0;
-      //visibility: hidden;
+    &.is-opened {
+      .header__link {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
     }
   }
 
   &__link {
-    @include for-phone {
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--c-black);
-      transform: translateY(-1rem);
-      opacity: 0;
-      visibility: hidden;
-      background-color: var(--c-light-violet);
-      transition: all 0.3s ease;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--c-black);
+    transform: translateY(-1rem);
+    opacity: 0;
+    visibility: hidden;
+    background-color: var(--c-light-violet);
+    transition: all 0.3s ease;
 
-      &:first-child {
-        border-top: 1px solid var(--c-black);
+    &:first-child {
+      border-top: 1px solid var(--c-black);
+
+      @include for-tablet {
+        border-top: none;
       }
+    }
+
+    @include for-tablet {
+      padding: 0;
+      border: none;
+      transform: none;
+      opacity: 1;
+      visibility: visible;
     }
   }
 
   @for $i from 1 through 5 {
-    @include for-phone {
-      .header__link:nth-child(#{$i}n) {
-        transition-delay: #{$i * 0.1}s;
-      }
+    .header__link:nth-child(#{$i}n) {
+      transition-delay: #{$i * 0.1}s;
     }
   }
 
   &__btn {
     grid-area: btn;
     justify-self: end;
-    display: none;
+
+    @include for-tablet {
+      display: none;
+    }
   }
 }
 
@@ -150,7 +157,7 @@ onMounted(() => {
     height: 1px;
     background-color: var(--c-black);
     transform-origin: center center;
-    transition: all .2s cubic-bezier(.5, .72, .79, .55);
+    transition: all 0.2s cubic-bezier(0.5, 0.72, 0.79, 0.55);
 
     &:nth-child(1) {
       width: 100%;
