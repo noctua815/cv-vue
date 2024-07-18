@@ -8,10 +8,14 @@ const props = defineProps<{
   skills: Skill[]
 }>()
 
-let colors = reactive([])
+let colors = reactive<string[]>([])
+
 const scaleColors = (start: string, end: string) => {
   const arr = chroma.scale([start, end]).mode('lch').colors(props.skills.length)
-  colors.push(...arr)
+  for (let i = 0; i < arr.length; i++) {
+    const color = arr[i] as string
+    colors.push(color)
+  }
 }
 
 onMounted(() => {

@@ -1,6 +1,8 @@
 import { gsap } from 'gsap'
 
-const charsAnimation = (title) => {
+const charsAnimation = (textEl: HTMLElement | null) => {
+  if (!textEl) return
+
   const lettersAndSymbols = [
     'a',
     'b',
@@ -46,9 +48,9 @@ const charsAnimation = (title) => {
     '>',
     ','
   ]
-  const chars = title.querySelectorAll('.char')
+  const chars = textEl.querySelectorAll('.char')
 
-  chars.forEach((char, position) => {
+  chars.forEach((char: Element, position: number) => {
     const innerHTML = char.innerHTML
 
     gsap.to(char, {
@@ -59,7 +61,7 @@ const charsAnimation = (title) => {
       opacity: 1,
       repeatDelay: 0.02,
       delay: (position + 1) * 0.1,
-      onComplete: (self) => {
+      onComplete: () => {
         gsap.set(char, {
           innerHTML,
           delay: 0.01
@@ -69,12 +71,13 @@ const charsAnimation = (title) => {
   })
 }
 
-const getStyle = (el: HTMLElement, parameter: string) => {
-  if (!el || !parameter) return
 
-  const compStyles = window.getComputedStyle(el)
+const getStyle = (el: HTMLElement, parameter: string): string => {
+  if (!el || !parameter) return ''
 
-  return compStyles[parameter] || ''
+  const compStyles: CSSStyleDeclaration = window.getComputedStyle(el)
+
+  return compStyles.getPropertyValue(parameter) || ''
 }
 
 const wrapElement = (elements: HTMLElement[] | null, wrapType: string, wrapClass: string) => {
@@ -85,9 +88,11 @@ const wrapElement = (elements: HTMLElement[] | null, wrapType: string, wrapClass
     wrapEl.classList.add(wrapClass)
 
     const parent = el.parentNode
-    parent.insertBefore(wrapEl, el)
+    if (parent) {
+      parent.insertBefore(wrapEl, el)
+      wrapEl.appendChild(el)
+    }
 
-    wrapEl.appendChild(el)
   })
 }
 export { charsAnimation, getStyle, wrapElement }

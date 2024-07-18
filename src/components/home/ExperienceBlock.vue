@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import JobItem from '@/components/ui/JobItem.vue'
 
-import { reactive, watch } from 'vue'
+import { watch } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Jobs } from '@/content/home'
@@ -11,20 +11,27 @@ const props = defineProps<{
   loading: boolean
   resize: boolean
 }>()
-const jobs = reactive(Jobs)
-const DOM = reactive({
+
+type DOMType = {
+  section: HTMLElement | null;
+  sectionWr: HTMLElement | null;
+  sectionTitle: HTMLElement | null;
+  prevSectionWr: HTMLElement | null;
+};
+
+const DOM: DOMType = {
   section: null,
   sectionWr: null,
-  sectionTitle: null
-})
+  sectionTitle: null,
+  prevSectionWr: null,
+}
 
 watch(
   () => props.loading,
   (newVal) => {
     // loading done, init animation
-    // initBlockAnimation()
-    // initInnerBlocksAnimation()
     DOM.section = document.getElementById('block-experience')
+    if (!DOM.section) return
     DOM.sectionWr = DOM.section.querySelector('.block-experience__wr')
     DOM.sectionTitle = DOM.section.querySelector('.block-title')
     DOM.prevSectionWr = document.querySelector('.intro-section__wr')
@@ -87,10 +94,14 @@ const initInnerBlocksAnimation = () => {
 }
 
 const initJobBlocksAnimation = () => {
+  if (!DOM.section || !DOM.sectionTitle) return
+
   const blocks = DOM.section.querySelectorAll('.block')
   const topIndent = DOM.sectionTitle.getBoundingClientRect().height
-  for (const [i, block] of blocks.entries()) {
-    block.style.zIndex = i
+
+  for (let i = 0; i < blocks.length; i++) {
+    const block = blocks[i] as HTMLElement
+    block.style.zIndex = `${i}`
 
     const title = block.querySelector('.job__title')
     const tl = gsap.timeline()
@@ -145,14 +156,14 @@ const initStickyTitle = () => {
     // markers: true,
     pinSpacing: false,
     onEnter: () => {
-      const prevStyle = getStyle(DOM.section, 'border-radius')
-      DOM.section.dataset.borderRadius = prevStyle
+      if (!DOM.section) return
+      DOM.section.dataset.borderRadius = getStyle(DOM.section, 'border-radius')
       gsap.to(DOM.section, {
         borderRadius: 0
       })
     },
     onLeaveBack: () => {
-      const prevStyle = DOM.section.dataset.borderRadius
+      const prevStyle = DOM.section?.dataset?.borderRadius
       if (prevStyle) {
         gsap.to(DOM.section, {
           borderRadius: prevStyle

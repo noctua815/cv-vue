@@ -2,7 +2,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { getStyle } from '@/helpers/utils'
 
-export const addStickySection = (section: HTMLElement, pin: boolean) => {
+export const addStickySection = (section: HTMLElement | null, pin: boolean) => {
   if (!section) return
 
   ScrollTrigger.create({

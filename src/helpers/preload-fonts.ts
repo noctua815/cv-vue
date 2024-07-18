@@ -1,5 +1,6 @@
 export const preloadFonts = () => {
   return new Promise((resolve) => {
+    // @ts-ignore
     WebFont.load({
       google: {
         families: [

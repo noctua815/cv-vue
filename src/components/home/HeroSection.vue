@@ -2,15 +2,33 @@
 import VHeader from '@/components/home/VHeader.vue'
 import { Contacts } from '@/content/home'
 import { watch } from 'vue'
-import Splitting from 'splitting'
 import { gsap } from 'gsap'
 import { charsAnimation } from '@/helpers/utils'
+import {TextSplitter} from "@/helpers/text-splitter";
 
 const emit = defineEmits(['heroAnimationFinished'])
 const props = defineProps<{
   loading: boolean
   resize: boolean
 }>()
+
+type DOMType = {
+  wrapper: HTMLElement | null;
+  title: HTMLElement | null;
+  name: HTMLElement | null;
+  imageWr: HTMLElement | null;
+  image: HTMLElement | null;
+  links: NodeListOf<HTMLElement> | null;
+};
+
+const DOM: DOMType = {
+  wrapper: null,
+  title: null,
+  name: null,
+  imageWr: null,
+  image: null,
+  links: null,
+}
 
 watch(
   () => props.loading,
@@ -34,16 +52,23 @@ const onResize = () => {}
 const heroAnimation = () => {
   const tl = gsap.timeline()
   const hero = document.getElementById('hero-section')
-  const DOM = {
-    wrapper: hero.querySelector('.hero__wr'),
-    title: hero.querySelector('.hero__title'),
-    name: hero.querySelector('.hero__name'),
-    imageWr: hero.querySelector('.hero__image'),
-    image: hero.querySelector('.hero__image .fixed-image'),
-    links: document.querySelectorAll('.header__link')
-  }
-  const charsTitle = new Splitting({ target: DOM.title, type: 'chars' })[0]
-  const charsName = new Splitting({ target: DOM.name, type: 'chars' })[0]
+  if (!hero) return
+  // const DOM = {
+    DOM.wrapper = hero.querySelector('.hero__wr')
+    DOM.title = hero.querySelector('.hero__title')
+    DOM.name = hero.querySelector('.hero__name')
+    DOM.imageWr = hero.querySelector('.hero__image')
+    DOM.image = hero.querySelector('.hero__image .fixed-image')
+    DOM.links = document.querySelectorAll('.header__link')
+  // }
+  // const charsTitle = new Splitting({ target: DOM.title, type: 'chars' })[0]
+  const charsTitle = new TextSplitter(DOM.title, {
+    splitTypes: 'chars'
+  })
+  // const charsName = new Splitting({ target: DOM.name, type: 'chars' })[0]
+  const charsName = new TextSplitter(DOM.name, {
+    splitTypes: 'chars'
+  })
   tl.set([DOM.links, ...charsTitle.chars, ...charsName.chars], { opacity: 0 })
   tl.to(DOM.wrapper, { opacity: 1 }, 0.5)
   tl.to(
@@ -56,16 +81,16 @@ const heroAnimation = () => {
     },
     '<'
   )
-  const imageRect = DOM.imageWr.getBoundingClientRect()
+  const imageRect = DOM.imageWr?.getBoundingClientRect()
   tl.to(DOM.image, {
-    left: imageRect.left,
-    top: imageRect.top,
-    width: imageRect.width,
-    height: imageRect.height,
+    left: imageRect?.left,
+    top: imageRect?.top,
+    width: imageRect?.width,
+    height: imageRect?.height,
     backgroundColor: 'transparent',
     // background: 'linear-gradient(90deg, black 0%, #DCCAE2 43%, #DCCAE2 60%, black 100%)',
     onComplete: () => {
-      DOM.image.classList.add('make-abs')
+      DOM.image?.classList.add('make-abs')
     }
   })
   tl.eventCallback('onComplete', () => {

@@ -35,7 +35,7 @@ export class TextSplitter {
     return this.splitText.chars || []
   }
 
-  constructor(textEl: HTMLElement, options: TextSplitterOption) {
+  constructor(textEl: HTMLElement | null, options: TextSplitterOption) {
     if (!textEl || !(textEl instanceof HTMLElement)) {
       throw new Error('Invalid text element provided')
     }
@@ -45,6 +45,7 @@ export class TextSplitter {
     const { splitTypes, resizeCallback } = options
 
     this.textEl = textEl
+    // @ts-ignore
     this.splitOptions = splitTypes ? { types: splitTypes } : {}
     this.splitText = new SplitType(this.textEl, this.splitOptions)
     this.onResize = typeof resizeCallback === 'function' ? resizeCallback : null
@@ -57,13 +58,13 @@ export class TextSplitter {
   _initResizeObserver() {
     this.previousContainerWidth = null
     const resizeObserver = new ResizeObserver(
-      debounce((entries) => this._handleResize(entries), 100)
+      debounce((entries: ResizeObserverEntry[]) => this._handleResize(entries), 100)
     )
 
     resizeObserver.observe(this.textEl)
   }
 
-  _handleResize(entries) {
+  _handleResize(entries: ResizeObserverEntry[]) {
     const [{ contentRect }] = entries
     const width = Math.floor(contentRect.width)
 
@@ -83,26 +84,31 @@ export class TextSplitter {
 }
 
 type WrappedTextSplitterOption = TextSplitterOption & {
-  wrap?: string
-  wrapClass?: string
+  wrap: keyof SplitType
+  wrapClass: string
 }
 
 export class WrappedTextSplitter extends TextSplitter {
-  private wrap: string
+  private wrap: keyof SplitType
   private wrapClass: string
 
-  constructor(textEl: HTMLElement, options: WrappedTextSplitterOption) {
+  constructor(textEl: HTMLElement | null, options: WrappedTextSplitterOption) {
+    if (!textEl) {
+      throw new Error('Invalid text element provided.')
+    }
     super(textEl, options)
 
     const { wrap, wrapClass } = options
-    this.wrap = wrap || 'line'
+    this.wrap = wrap
     this.wrapClass = wrapClass || 'line-wrap'
     this._wrapElements()
   }
 
   _wrapElements() {
-    if (!this.wrap) return
-    wrapElement(this.splitText[this.wrap], 'span', this.wrapClass)
+    if (this.wrap in this.splitText) {
+      // @ts-ignore
+      wrapElement(this.splitText[this.wrap], 'span', this.wrapClass)
+    }
   }
 
   _afterResizeCallback() {

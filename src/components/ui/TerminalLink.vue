@@ -8,9 +8,10 @@ defineProps<{
 }>()
 
 const emit = defineEmits(['click'])
-const link = ref(null)
+const link = ref<HTMLElement>()
 
-const initAnimation = (linkEl) => {
+const initAnimation = (linkEl: HTMLElement) => {
+  if (!linkEl) return
   const spectilaLink = new TextAnimator(linkEl)
 
   linkEl.addEventListener('mouseenter', () => {
@@ -19,7 +20,7 @@ const initAnimation = (linkEl) => {
 }
 
 onMounted(() => {
-  initAnimation(link.value)
+  if (link.value) initAnimation(link.value)
 })
 </script>
 

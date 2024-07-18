@@ -12,7 +12,7 @@ export const initSmoothScrolling = () => {
   lenis.on('scroll', () => ScrollTrigger.update())
 
   // Define a function to run at each animation frame
-  const scrollFn = (time) => {
+  const scrollFn = (time: number) => {
     lenis.raf(time) // Run Lenis' requestAnimationFrame method
     requestAnimationFrame(scrollFn) // Recursively call scrollFn on each frame
   }

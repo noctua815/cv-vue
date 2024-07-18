@@ -3,7 +3,7 @@ import VButton from '@/components/ui/VButton.vue'
 import { addStickySection } from '@/helpers/sticky-section'
 import { WrappedTextSplitter } from '@/helpers/text-splitter'
 
-import { reactive, watch } from 'vue'
+import { watch } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -12,22 +12,54 @@ const props = defineProps<{
   resize: boolean
 }>()
 
-const DOM = reactive({
+type DOMType = {
+  section: HTMLElement | null;
+  sectionWr: HTMLElement | null;
+  prevSectionWr: HTMLElement | null;
+  btns: NodeListOf<HTMLElement> | null;
+  firstIntro: HTMLElement | null;
+  secondIntro: HTMLElement | null;
+};
+
+const DOM: DOMType = {
   section: null,
   sectionWr: null,
-  prevSectionWr: null
-})
+  prevSectionWr: null,
+  btns: null,
+  firstIntro: null,
+  secondIntro: null,
+};
+
+const componentsLoaded = ():boolean => {
+  return Object.values(DOM).every(el => el !== null && el instanceof HTMLElement);
+};
 
 watch(
   () => props.loading,
   () => {
     // loading done, init animation
+    // const section = document.getElementById('intro-section')
+    // DOM.section = (<HTMLElement>section)
+    // DOM.sectionWr = (<Element>section.parentNode).querySelector('.intro-section__wr')
+    // DOM.btns = (<Element>section.parentNode).querySelectorAll('.button')
+    // DOM.firstIntro = (<Element>section.parentNode).querySelector('.intro-section__first .intro')
+    // DOM.secondIntro = (<Element>section.parentNode).querySelector('.intro-section__second .intro')
+    // DOM.prevSectionWr = document.querySelector('.hero__wr')
+
     DOM.section = document.getElementById('intro-section')
+
+    if (!DOM.section) return
+
     DOM.sectionWr = DOM.section.querySelector('.intro-section__wr')
-    DOM.prevSectionWr = document.querySelector('.hero__wr')
     DOM.btns = DOM.section.querySelectorAll('.button')
-    prevBlockAnimation()
-    introBlockAnimation()
+    DOM.firstIntro = DOM.section.querySelector('.intro-section__first .intro')
+    DOM.secondIntro = DOM.section.querySelector('.intro-section__second .intro')
+    DOM.prevSectionWr = document.querySelector('.hero__wr')
+
+    if (componentsLoaded()) {
+      // prevBlockAnimation()
+      introBlockAnimation()
+    }
   }
 )
 
@@ -109,29 +141,24 @@ const prevBlockAnimation = () => {
 // }
 
 const introBlockAnimation = () => {
+  // if (!componentsLoaded()) return
   // 1. split text into lines
-  const wordsIntro = new WrappedTextSplitter(
-    DOM.section.querySelector('.intro-section__first .intro'),
-    {
-      splitTypes: 'lines',
-      wrap: 'lines',
-      wrapClass: 'line-wrap',
-      resizeCallback() {
-        console.log('wordsIntro resize')
-      }
+  const wordsIntro = new WrappedTextSplitter(DOM.firstIntro, {
+    splitTypes: 'lines',
+    wrap: 'lines',
+    wrapClass: 'line-wrap',
+    resizeCallback() {
+      console.log('wordsIntro resize')
     }
-  )
-  const wordsIntroSecond = new WrappedTextSplitter(
-    DOM.section.querySelector('.intro-section__second .intro'),
-    {
-      splitTypes: 'lines',
-      wrap: 'lines',
-      wrapClass: 'line-wrap',
-      resizeCallback() {
-        console.log('wordsIntroSecond resize')
-      }
+  })
+  const wordsIntroSecond = new WrappedTextSplitter(DOM.secondIntro, {
+    splitTypes: 'lines',
+    wrap: 'lines',
+    wrapClass: 'line-wrap',
+    resizeCallback() {
+      console.log('wordsIntroSecond resize')
     }
-  )
+  })
 
   // set initial value
   gsap.set(DOM.sectionWr, { opacity: 0 })

@@ -17,11 +17,11 @@ const openMenu = () => {
   }
 }
 
-const initCloseByClick = (event) => {
+const initCloseByClick = (event: Event) => {
   if (!event || !event.target) return
   event.stopPropagation()
   const { target } = event
-  const isHeaderContainer = target.closest('.header')
+  const isHeaderContainer = (target as HTMLElement).closest('.header')
   if (!isHeaderContainer) {
     toggleMenu.value = false
     // document.removeEventListener('click', initOutsideClick) // TODO fix

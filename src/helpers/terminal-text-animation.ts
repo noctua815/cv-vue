@@ -1,5 +1,5 @@
 import { gsap } from 'gsap'
-import { TextSplitter } from '@/helpers/text-splitter.ts'
+import { TextSplitter } from '@/helpers/text-splitter'
 import { getStyle } from '@/helpers/utils'
 
 const lettersAndSymbols = [
@@ -55,17 +55,18 @@ const getRandom = (len: number): number => {
 
 export class TextAnimator {
   private textEl: HTMLElement
-  private splitter: TextSplitter
+  private splitter: TextSplitter | null
   private originalsChars: string[]
   private animationInProgress: boolean
 
-  constructor(textEl) {
+  constructor(textEl: HTMLElement | null) {
     if (!textEl || !(textEl instanceof HTMLElement)) {
       throw new Error('Invalid text element provided.')
     }
-
-    this.animationInProgress = false
     this.textEl = textEl
+    this.splitter = null
+    this.animationInProgress = false
+    this.originalsChars = []
     this.splitText()
   }
 
@@ -77,6 +78,7 @@ export class TextAnimator {
   }
 
   reset() {
+    if (!this.splitter) return
     const chars = this.splitter.chars
 
     chars.forEach((char, i) => {
@@ -86,7 +88,7 @@ export class TextAnimator {
   }
 
   animate() {
-    if (this.animationInProgress) return
+    if (this.animationInProgress || !this.splitter) return
 
     this.animationInProgress = true
     this.reset()
