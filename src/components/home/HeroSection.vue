@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import VHeader from '@/components/home/VHeader.vue'
-import { Contacts } from '@/content/home'
-import { watch } from 'vue'
-import { gsap } from 'gsap'
-import { charsAnimation } from '@/helpers/utils'
+import {Contacts} from '@/content/home'
+import {watch} from 'vue'
+import {gsap} from 'gsap'
 import {TextSplitter} from "@/helpers/text-splitter";
+import { charsAnimation } from '@/helpers/utils'
 
 const emit = defineEmits(['heroAnimationFinished'])
 const props = defineProps<{
@@ -31,68 +31,65 @@ const DOM: DOMType = {
 }
 
 watch(
-  () => props.loading,
-  () => {
-    // loading done, init animation
-    heroAnimation()
-  }
+    () => props.loading,
+    () => {
+      // loading done, init animation
+      heroAnimation()
+    }
 )
 
 // resize page listener
 watch(
-  () => props.resize,
-  (val) => {
-    if (val) {
-      onResize()
+    () => props.resize,
+    (val) => {
+      if (val) {
+        onResize()
+      }
     }
-  }
 )
-const onResize = () => {}
+const onResize = () => {
+}
 
 const heroAnimation = () => {
   const tl = gsap.timeline()
   const hero = document.getElementById('hero-section')
   if (!hero) return
-  // const DOM = {
-    DOM.wrapper = hero.querySelector('.hero__wr')
-    DOM.title = hero.querySelector('.hero__title')
-    DOM.name = hero.querySelector('.hero__name')
-    DOM.imageWr = hero.querySelector('.hero__image')
-    DOM.image = hero.querySelector('.hero__image .fixed-image')
-    DOM.links = document.querySelectorAll('.header__link')
-  // }
-  // const charsTitle = new Splitting({ target: DOM.title, type: 'chars' })[0]
+  DOM.wrapper = hero.querySelector('.hero__wr')
+  DOM.title = hero.querySelector('.hero__title')
+  DOM.name = hero.querySelector('.hero__name')
+  DOM.imageWr = hero.querySelector('.hero__image')
+  DOM.image = hero.querySelector('.hero__image .fixed-image')
+  DOM.links = document.querySelectorAll('.header__link')
   const charsTitle = new TextSplitter(DOM.title, {
     splitTypes: 'chars'
   })
-  // const charsName = new Splitting({ target: DOM.name, type: 'chars' })[0]
   const charsName = new TextSplitter(DOM.name, {
     splitTypes: 'chars'
   })
-  tl.set([DOM.links, ...charsTitle.chars, ...charsName.chars], { opacity: 0 })
-  tl.to(DOM.wrapper, { opacity: 1 }, 0.5)
-  tl.to(
-    [DOM.links],
-    {
-      opacity: 1,
-      stagger: {
-        each: 0.25
-      }
-    },
-    '<'
-  )
+  tl.set([DOM.links, ...charsTitle.chars, ...charsName.chars], {opacity: 0})
+
   const imageRect = DOM.imageWr?.getBoundingClientRect()
+  // tl.to(DOM.wrapper, { opacity: 1 })
   tl.to(DOM.image, {
     left: imageRect?.left,
     top: imageRect?.top,
     width: imageRect?.width,
     height: imageRect?.height,
     backgroundColor: 'transparent',
-    // background: 'linear-gradient(90deg, black 0%, #DCCAE2 43%, #DCCAE2 60%, black 100%)',
     onComplete: () => {
       DOM.image?.classList.add('make-abs')
     }
-  })
+  }, 0.1)
+  tl.to(
+    [DOM.links],
+    {
+      opacity: 1,
+      stagger: {
+        each: 0.15
+      }
+    },
+    '>'
+  )
   tl.eventCallback('onComplete', () => {
     charsAnimation(DOM.title)
     setTimeout(() => {
@@ -109,14 +106,14 @@ const heroAnimation = () => {
 
 <template lang="pug">
   section.hero#hero-section
-    .hero__wr.hide
+    .hero__wr
       .hero__links
         VHeader(:contacts="Contacts")
       .hero__title.animate-title
         span FRONTEND
         span DEVELOPER
       .hero__image
-         .fixed-image
+        .fixed-image
       .hero__name.animate-title
         span VIKTORIIA
         span DENISOVA
@@ -165,6 +162,8 @@ const heroAnimation = () => {
   }
 
   &__links {
+    position: relative;
+    z-index: 1;
   }
 
   &__image {
@@ -181,11 +180,12 @@ const heroAnimation = () => {
 
 .fixed-image {
   position: fixed;
+  z-index: 1;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  opacity: 1;
+  opacity: 10;
   transform-origin: left center;
   background-image: url('@/assets/images/dotted-pattern-1.png');
   background-color: var(--c-light-violet);
@@ -206,7 +206,7 @@ const heroAnimation = () => {
   @extend .h1;
 
   span {
-    display: block;
+    display: block !important;
   }
 }
 

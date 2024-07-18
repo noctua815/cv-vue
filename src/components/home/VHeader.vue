@@ -97,6 +97,10 @@ onMounted(() => {})
     background-color: var(--c-light-violet);
     transition: all 0.3s ease;
 
+    @include for-tablet {
+      transition: none;
+    }
+
     &:first-child {
       border-top: 1px solid var(--c-black);
 

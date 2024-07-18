@@ -2,7 +2,6 @@
 import VButton from '@/components/ui/VButton.vue'
 import { addStickySection } from '@/helpers/sticky-section'
 import { WrappedTextSplitter } from '@/helpers/text-splitter'
-
 import { watch } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -30,22 +29,13 @@ const DOM: DOMType = {
   secondIntro: null,
 };
 
-const componentsLoaded = ():boolean => {
-  return Object.values(DOM).every(el => el !== null && el instanceof HTMLElement);
-};
+// const componentsLoaded = ():boolean => {
+//   return Object.values(DOM).every(el => el !== null && el instanceof HTMLElement);
+// };
 
 watch(
   () => props.loading,
   () => {
-    // loading done, init animation
-    // const section = document.getElementById('intro-section')
-    // DOM.section = (<HTMLElement>section)
-    // DOM.sectionWr = (<Element>section.parentNode).querySelector('.intro-section__wr')
-    // DOM.btns = (<Element>section.parentNode).querySelectorAll('.button')
-    // DOM.firstIntro = (<Element>section.parentNode).querySelector('.intro-section__first .intro')
-    // DOM.secondIntro = (<Element>section.parentNode).querySelector('.intro-section__second .intro')
-    // DOM.prevSectionWr = document.querySelector('.hero__wr')
-
     DOM.section = document.getElementById('intro-section')
 
     if (!DOM.section) return
@@ -55,11 +45,8 @@ watch(
     DOM.firstIntro = DOM.section.querySelector('.intro-section__first .intro')
     DOM.secondIntro = DOM.section.querySelector('.intro-section__second .intro')
     DOM.prevSectionWr = document.querySelector('.hero__wr')
-
-    if (componentsLoaded()) {
-      // prevBlockAnimation()
-      introBlockAnimation()
-    }
+    prevBlockAnimation()
+    introBlockAnimation()
   }
 )
 
@@ -161,12 +148,13 @@ const introBlockAnimation = () => {
   })
 
   // set initial value
-  gsap.set(DOM.sectionWr, { opacity: 0 })
+  if (DOM.sectionWr)    gsap.set(DOM.sectionWr, { opacity: 0 })
+
   gsap.set([wordsIntro.lines, wordsIntroSecond.lines], {
     y: '100%',
     rotate: '4deg'
   })
-  gsap.set(DOM.btns, { y: '100%' })
+  if (DOM.btns) gsap.set(DOM.btns, { y: '100%' })
 
   // 3. add timeline
   const tl = gsap.timeline()
