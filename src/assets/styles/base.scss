@@ -50,7 +50,6 @@
 
 body,
 html {
-  height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -61,8 +60,9 @@ html {
 }
 
 body {
+  height: 100%;
   color: var(--c-text);
-  background-color: var(--c-light-violet);
+  background-color: var(--c-black);
   font-family: var(--font-primary);
   font-weight: var(--font-weight-normal);
   font-size: 1rem;

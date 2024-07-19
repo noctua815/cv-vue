@@ -74,6 +74,7 @@ const heroAnimation = () => {
   tl.set([DOM.links, ...charsTitle.chars, ...charsName.chars], { opacity: 0 })
 
   const imageRect = DOM.imageWr?.getBoundingClientRect()
+
   tl.to(
     DOM.image,
     {
@@ -86,7 +87,7 @@ const heroAnimation = () => {
         DOM.image?.classList.add('make-abs')
       }
     },
-    0.1
+    0.4
   )
   tl.to(
     [DOM.links],
@@ -115,7 +116,7 @@ const initStickyHero = () => {
     pin: true,
     start: 'top top',
     end: 'bottom bottom',
-    markers: true,
+    // markers: true,
     pinSpacing: false
   })
 }
@@ -158,14 +159,18 @@ const initStickyHero = () => {
     grid-gap: 1.5rem 1rem;
     padding: 1rem;
 
-    @include for-tablet {
+    @include for-laptop {
       grid-template-rows: 1fr 3fr 1fr 2fr;
+    }
+
+    @include for-tablet {
+      grid-template-rows: 0.5fr 2fr 2fr 1.5fr;
       padding: 2rem;
     }
   }
 
   &__title {
-    align-self: center;
+    align-self: end;
 
     @include for-tablet {
       margin-left: -0.4rem;

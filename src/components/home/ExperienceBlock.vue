@@ -168,10 +168,6 @@ const initStickyTitle = () => {
   overflow: hidden;
   padding-top: 0;
   padding-bottom: 10vh;
-  //
-  //@include for-tablet {
-  //  padding-top: 0;
-  //}
 
   &__title {
     position: relative;
@@ -189,10 +185,6 @@ const initStickyTitle = () => {
 
   &__wr {
     padding-top: 0;
-
-    //@include for-tablet {
-    //  padding-top: 0;
-    //}
   }
 }
 

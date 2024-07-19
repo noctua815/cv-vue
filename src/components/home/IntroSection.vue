@@ -36,7 +36,7 @@ const CVS = reactive({
 
 const openFile = (type: string): void => {
   if (type in CVS) {
-    window.open(CVS[type], '_blank')
+    window.open(CVS[type as keyof typeof CVS], '_blank')
   }
 }
 
@@ -242,6 +242,9 @@ const introBlockAnimation = () => {
 
   @include for-tablet {
     height: 100vh;
+  }
+
+  @include for-laptop {
     min-height: 45em;
   }
 
@@ -266,8 +269,7 @@ const introBlockAnimation = () => {
       grid-template-areas:
         'intro-1 .'
         'cv intro-2';
-      grid-template-rows: 2fr 1fr;
-      grid-template-columns: 1.8fr 1fr;
+      grid-template-columns: 1.5fr 1fr;
       gap: 1rem;
     }
   }
@@ -304,6 +306,11 @@ const introBlockAnimation = () => {
     line-height: 1.33;
 
     @include for-tablet {
+      font-size: 1.5rem;
+      line-height: 1.5;
+    }
+
+    @include for-desktop {
       font-size: 2rem;
       line-height: 1.5;
     }
