@@ -159,13 +159,13 @@ const initStickyHero = () => {
     grid-gap: 1.5rem 1rem;
     padding: 1rem;
 
-    @include for-laptop {
-      grid-template-rows: 1fr 3fr 1fr 2fr;
-    }
-
     @include for-tablet {
       grid-template-rows: 0.5fr 2fr 2fr 1.5fr;
       padding: 2rem;
+    }
+
+    @include for-laptop {
+      grid-template-rows: 1fr 3fr 1fr 2fr;
     }
   }
 
