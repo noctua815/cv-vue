@@ -1,46 +1,42 @@
-# cv-vue
+# Personal Resume Website
 
-This template should help get you started developing with Vue 3 in Vite.
+This project is a single-page application (SPA) that showcases my resume and portfolio. The site is built using Vue.js, Vite, and TypeScript, with a focus on animations and a smooth user interface.
 
-## Recommended IDE Setup
+## Demo
+A live demo is available at https://noctua815.github.io/cv-vue/.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Table of Contents
 
-## Type Support for `.vue` Imports in TS
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation and Running](#installation-and-running)
+- [Deployment](#deployment)
+- [Contact](#contact)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Features
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+- Single-page application (SPA)
+- Interactive animations using [gsap](https://github.com/greensock/GSAP)
+- Smooth scrolling with the [lenis](https://github.com/darkroomengineering/lenis) library
+- Text animation using [split-type](https://github.com/lukePeavey/SplitType) and gsap
+- Color manipulation and shade generation with [chroma-js](https://github.com/gka/chroma.js)
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## Technologies Used
 
-## Customize configuration
+- 🎁 **Project:** Vite, Vue 3, Typescript, Composition API
+- 🌟 **Animation:** GSAP (timeline, scrollTrigger and basic gsap),
+  split-type for splitting text into lines and characters, Lenis for smooth scrolling
+- 🛠️ **Tools:** npm, eslint, scss, pug, prettier, conventional commits
+- 💎 **Others**: mobile first approach, composition api
+   
+## Installation and Running
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+1. Install Node.js (the project uses Node.js version 18.12.0.).
+2. Install npm.
+3. Clone the repository.
+4. Type and run: `npm i` in the root directory.
+5. Type and run: `npm run dev` in the root directory.
+6. Open `http://localhost:5173` in your browser to see the app.
 
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+## Deployment
+The project is deployed on GitHub Pages using GitHub Actions. To deploy updates, simply push commits to the main branch, and GitHub Actions will automatically update the page.
