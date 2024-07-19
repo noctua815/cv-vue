@@ -64,10 +64,7 @@ const iniPrevBlockAnimation = () => {
     start: 'top 50%',
     end: 'top 10%',
     scrub: 1,
-    // animation: tl,
-    pinSpacing: false,
-    onEnter: () => {},
-    onLeave: () => {}
+    pinSpacing: false
   })
 }
 
@@ -88,7 +85,6 @@ const initInnerBlocksAnimation = () => {
     end: 'top top',
     scrub: 1,
     animation: tl,
-    // markers: true,
     pinSpacing: false
   })
 }
@@ -97,13 +93,11 @@ const initJobBlocksAnimation = () => {
   if (!DOM.section || !DOM.sectionTitle) return
 
   const blocks = DOM.section.querySelectorAll('.block')
-  const topIndent = DOM.sectionTitle.getBoundingClientRect().height
 
   for (let i = 0; i < blocks.length; i++) {
     const block = blocks[i] as HTMLElement
     block.style.zIndex = `${i}`
 
-    const title = block.querySelector('.job__title')
     const tl = gsap.timeline()
     tl.to(block, {
       scale: 0.5,
@@ -115,35 +109,10 @@ const initJobBlocksAnimation = () => {
       start: `top 0`,
       end: `bottom bottom`,
       endTrigger: '#block-experience',
-      // pin: title,
-      // markers: true,
       scrub: 1,
       pinSpacing: false,
       animation: tl
     })
-
-    // gsap.to(title, {
-    //   scale: 0.5,
-    //   scrub: 1,
-    //   pin: true,
-    //   scrollTrigger: {
-    //     trigger: block,
-    //     pin: title,
-    //     start: `top ${topIndent}px`,
-    //     end: 'bottom bottom+=500px',
-    //     markers: true,
-    //   }
-    // })
-    // ScrollTrigger.create({
-    //   trigger: block,
-    //   pin: true,
-    //   start: `top ${topIndent}px`,
-    //   end: 'bottom bottom+=500px',
-    //   pinSpacing: false,
-    //   markers: true,
-    //   onEnter: () => {
-    //   }
-    // })
   }
 }
 const initStickyTitle = () => {

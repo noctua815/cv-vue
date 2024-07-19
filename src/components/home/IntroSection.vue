@@ -2,7 +2,7 @@
 import VButton from '@/components/ui/VButton.vue'
 import { addStickySection } from '@/helpers/sticky-section'
 import { WrappedTextSplitter } from '@/helpers/text-splitter'
-import { watch } from 'vue'
+import {reactive, watch} from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -29,9 +29,16 @@ const DOM: DOMType = {
   secondIntro: null
 }
 
-// const componentsLoaded = ():boolean => {
-//   return Object.values(DOM).every(el => el !== null && el instanceof HTMLElement);
-// };
+const CVS = reactive({
+  eng: 'public/files/Denisova_Frontend_CV_ENG.pdf',
+  rus: 'public/files/Denisova_Frontend_CV_RUS.pdf',
+})
+
+const openFile = (type: string): void => {
+  if (type in CVS) {
+    window.open(CVS[type], '_blank')
+  }
+}
 
 watch(
   () => props.loading,
@@ -221,8 +228,8 @@ const introBlockAnimation = () => {
         .intro-section__second
           .intro.intro--small I am passionate about creating user-friendly and meaningful products that evoke emotions, and I love solving challenging problems. I am committed to continuously improving my programming skills to gain knowledge and experience.
         .intro-section__cv
-          VButton(text="English CV")
-          VButton(text="Russian CV")
+          VButton(text="English CV" @click="openFile('eng')")
+          VButton(text="Russian CV" @click="openFile('rus')")
 </template>
 
 <style scoped lang="scss">
