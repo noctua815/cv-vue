@@ -12,13 +12,13 @@ const props = defineProps<{
 }>()
 
 type DOMType = {
-  section: HTMLElement | null;
-  sectionWr: HTMLElement | null;
-  prevSectionWr: HTMLElement | null;
-  btns: NodeListOf<HTMLElement> | null;
-  firstIntro: HTMLElement | null;
-  secondIntro: HTMLElement | null;
-};
+  section: HTMLElement | null
+  sectionWr: HTMLElement | null
+  prevSectionWr: HTMLElement | null
+  btns: NodeListOf<HTMLElement> | null
+  firstIntro: HTMLElement | null
+  secondIntro: HTMLElement | null
+}
 
 const DOM: DOMType = {
   section: null,
@@ -26,8 +26,8 @@ const DOM: DOMType = {
   prevSectionWr: null,
   btns: null,
   firstIntro: null,
-  secondIntro: null,
-};
+  secondIntro: null
+}
 
 // const componentsLoaded = ():boolean => {
 //   return Object.values(DOM).every(el => el !== null && el instanceof HTMLElement);
@@ -148,7 +148,7 @@ const introBlockAnimation = () => {
   })
 
   // set initial value
-  if (DOM.sectionWr)    gsap.set(DOM.sectionWr, { opacity: 0 })
+  if (DOM.sectionWr) gsap.set(DOM.sectionWr, { opacity: 0 })
 
   gsap.set([wordsIntro.lines, wordsIntroSecond.lines], {
     y: '100%',
@@ -204,7 +204,7 @@ const introBlockAnimation = () => {
     end: 'top top',
     scrub: 1,
     animation: tl,
-    markers: true,
+    // markers: true,
     pinSpacing: false
   })
 }
@@ -212,8 +212,8 @@ const introBlockAnimation = () => {
 
 <template lang="pug">
   section.intro-section.round-block#intro-section
-    .intro-section__wr
-      .intro-section__title
+    .intro-section__wr.wr
+      .intro-section__title.block-title
         h2 Who Am I
       .intro-section__content
         .intro-section__first
@@ -228,20 +228,20 @@ const introBlockAnimation = () => {
 <style scoped lang="scss">
 .intro-section {
   position: relative;
-  z-index: 3;
+  z-index: 2;
   min-height: 100vh;
   background-color: var(--c-tiffany-blue);
   margin-bottom: 30vh;
+
+  @include for-tablet {
+    height: 100vh;
+    min-height: 45em;
+  }
 
   &__wr {
     display: flex;
     height: 100%;
     flex-direction: column;
-    padding: 0.5rem 0;
-
-    @include for-tablet {
-      padding: 1rem 2rem 2rem;
-    }
   }
 
   &__content {
@@ -253,7 +253,7 @@ const introBlockAnimation = () => {
       'cv';
     grid-template-rows: 1fr;
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2rem;
 
     @include for-tablet {
       grid-template-areas:
@@ -261,6 +261,7 @@ const introBlockAnimation = () => {
         'cv intro-2';
       grid-template-rows: 2fr 1fr;
       grid-template-columns: 1.8fr 1fr;
+      gap: 1rem;
     }
   }
 
@@ -292,15 +293,16 @@ const introBlockAnimation = () => {
   font-family: var(--font-secondary);
 
   &--big {
-    font-size: 1.5rem;
-    line-height: 1.5;
+    font-size: 1.2rem;
+    line-height: 1.33;
 
     @include for-tablet {
       font-size: 2rem;
+      line-height: 1.5;
     }
 
     :deep(.line) {
-      line-height: 1.3;
+      line-height: 1.33;
     }
   }
 

@@ -34,7 +34,7 @@ defineProps<{
     'skills'
     'info';
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 1.5rem;
   padding: 1rem;
   border: 1px solid black;
 
@@ -62,9 +62,11 @@ defineProps<{
   &__left {
     width: 50%;
     flex-shrink: 0;
+    text-align: right;
 
     @include for-tablet {
       width: 35%;
+      text-align: left;
     }
   }
 

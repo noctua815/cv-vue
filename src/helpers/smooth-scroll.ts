@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 export const initSmoothScrolling = () => {
   // Instantiate the Lenis object with specified properties
   const lenis = new Lenis({
-    lerp: 0.15, // Lower values create a smoother scroll effect
+    lerp: 0.05, // Lower values create a smoother scroll effect
     smoothWheel: true // Enables smooth scrolling for mouse wheel events
   })
 

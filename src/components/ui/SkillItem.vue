@@ -24,12 +24,11 @@ const computedStyles = computed(() => {
 <style scoped lang="scss">
 .skill {
   display: inline-flex;
-  padding: 0.2rem 0.5rem 0.3rem;
-
+  padding: 0.3rem 0.5rem;
   border-radius: var(--border-radius-normal);
 
   @include for-tablet {
-    padding: 0.4rem 1rem 0.5rem;
+    padding: 0.5rem 1rem;
   }
 
   &.is-black {

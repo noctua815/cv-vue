@@ -5,7 +5,7 @@ export const Jobs: Job[] = [
     position: 'Senior Frontend Developer',
     employer: 'Noone',
     country: 'Cyprus, Limassol',
-    period: '2021 - now',
+    period: '2021 - 2024',
     intro:
       'Development of web solutions for interaction with 19 blockchain networks: a web version of a cryptocurrency wallet with 1500+ crypto assets on the client side.',
     experience: [

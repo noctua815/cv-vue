@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import VHeader from '@/components/home/VHeader.vue'
-import {Contacts} from '@/content/home'
-import {watch} from 'vue'
-import {gsap} from 'gsap'
-import {TextSplitter} from "@/helpers/text-splitter";
-import { charsAnimation } from '@/helpers/utils'
+import { Contacts } from '@/content/home'
+import { watch } from 'vue'
+import { gsap } from 'gsap'
+import { TextSplitter } from '@/helpers/text-splitter'
+import { charsAnimation, getStyle } from '@/helpers/utils'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const emit = defineEmits(['heroAnimationFinished'])
 const props = defineProps<{
@@ -13,73 +14,80 @@ const props = defineProps<{
 }>()
 
 type DOMType = {
-  wrapper: HTMLElement | null;
-  title: HTMLElement | null;
-  name: HTMLElement | null;
-  imageWr: HTMLElement | null;
-  image: HTMLElement | null;
-  links: NodeListOf<HTMLElement> | null;
-};
+  section: HTMLElement | null
+  wrapper: HTMLElement | null
+  title: HTMLElement | null
+  name: HTMLElement | null
+  imageWr: HTMLElement | null
+  image: HTMLElement | null
+  links: NodeListOf<HTMLElement> | null
+}
 
 const DOM: DOMType = {
+  section: null,
   wrapper: null,
   title: null,
   name: null,
   imageWr: null,
   image: null,
-  links: null,
+  links: null
 }
 
 watch(
-    () => props.loading,
-    () => {
-      // loading done, init animation
-      heroAnimation()
-    }
+  () => props.loading,
+  () => {
+    // loading done, init animation
+    const hero = document.getElementById('hero-section')
+    if (!hero) return
+    DOM.section = hero
+    DOM.wrapper = hero.querySelector('.hero__wr')
+    DOM.title = hero.querySelector('.hero__title')
+    DOM.name = hero.querySelector('.hero__name')
+    DOM.imageWr = hero.querySelector('.hero__image')
+    DOM.image = hero.querySelector('.hero__image .fixed-image')
+    DOM.links = document.querySelectorAll('.header__link')
+
+    initStickyHero()
+    heroAnimation()
+  }
 )
 
 // resize page listener
 watch(
-    () => props.resize,
-    (val) => {
-      if (val) {
-        onResize()
-      }
+  () => props.resize,
+  (val) => {
+    if (val) {
+      onResize()
     }
+  }
 )
-const onResize = () => {
-}
+const onResize = () => {}
 
 const heroAnimation = () => {
   const tl = gsap.timeline()
-  const hero = document.getElementById('hero-section')
-  if (!hero) return
-  DOM.wrapper = hero.querySelector('.hero__wr')
-  DOM.title = hero.querySelector('.hero__title')
-  DOM.name = hero.querySelector('.hero__name')
-  DOM.imageWr = hero.querySelector('.hero__image')
-  DOM.image = hero.querySelector('.hero__image .fixed-image')
-  DOM.links = document.querySelectorAll('.header__link')
   const charsTitle = new TextSplitter(DOM.title, {
     splitTypes: 'chars'
   })
   const charsName = new TextSplitter(DOM.name, {
     splitTypes: 'chars'
   })
-  tl.set([DOM.links, ...charsTitle.chars, ...charsName.chars], {opacity: 0})
+  tl.set([DOM.links, ...charsTitle.chars, ...charsName.chars], { opacity: 0 })
 
   const imageRect = DOM.imageWr?.getBoundingClientRect()
-  // tl.to(DOM.wrapper, { opacity: 1 })
-  tl.to(DOM.image, {
-    left: imageRect?.left,
-    top: imageRect?.top,
-    width: imageRect?.width,
-    height: imageRect?.height,
-    backgroundColor: 'transparent',
-    onComplete: () => {
-      DOM.image?.classList.add('make-abs')
-    }
-  }, 0.1)
+  tl.to(
+    DOM.image,
+    {
+      left: imageRect?.left,
+      top: imageRect?.top,
+      width: imageRect?.width,
+      height: imageRect?.height,
+      backgroundColor: 'transparent',
+      onComplete: () => {
+        DOM.image?.classList.add('make-abs')
+      }
+    },
+    0.1
+  )
   tl.to(
     [DOM.links],
     {
@@ -96,10 +104,19 @@ const heroAnimation = () => {
       charsAnimation(DOM.name)
       emit('heroAnimationFinished')
     }, 1000)
+  })
+}
 
-    // setTimeout(() => {
-    //   tl.to(DOM.image, {width: '100%', duration: 2})
-    // }, 2000)
+const initStickyHero = () => {
+  if (!DOM.section) return
+  ScrollTrigger.create({
+    trigger: DOM.section,
+    endTrigger: '#block-experience',
+    pin: true,
+    start: 'top top',
+    end: 'bottom bottom',
+    markers: true,
+    pinSpacing: false
   })
 }
 </script>
@@ -121,8 +138,7 @@ const heroAnimation = () => {
 
 <style scoped lang="scss">
 .hero {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 1;
   display: flex;
   min-height: 100vh;

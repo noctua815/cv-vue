@@ -71,7 +71,6 @@ const charsAnimation = (textEl: HTMLElement | null) => {
   })
 }
 
-
 const getStyle = (el: HTMLElement, parameter: string): string => {
   if (!el || !parameter) return ''
 
@@ -92,7 +91,6 @@ const wrapElement = (elements: HTMLElement[] | null, wrapType: string, wrapClass
       parent.insertBefore(wrapEl, el)
       wrapEl.appendChild(el)
     }
-
   })
 }
 export { charsAnimation, getStyle, wrapElement }
