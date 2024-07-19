@@ -4,6 +4,7 @@ This project is a single-page application (SPA) that showcases my resume and por
 
 ## Demo
 A live demo is available at https://noctua815.github.io/cv-vue/.
+![project-preview](./public/project-preview.gif)
 
 ## Table of Contents
 
